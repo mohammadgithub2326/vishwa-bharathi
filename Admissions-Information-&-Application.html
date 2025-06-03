@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admissions - Vishwa Bharathi School</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#4F46E5',secondary:'#10B981'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Poppins', sans-serif;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+input[type="number"] {
+-moz-appearance: textfield;
+}
+.step-line {
+height: 2px;
+background-color: #E5E7EB;
+flex: 1;
+position: relative;
+margin: 0 8px;
+}
+.step-line.active {
+background-color: #4F46E5;
+}
+.form-progress {
+transition: width 0.3s ease;
+}
+</style>
+</head>
+<body class="bg-gray-50">
+<!-- Navigation Bar -->
+<nav class="bg-white shadow-md fixed w-full top-0 z-50">
+<div class="max-w-full px-4 py-3 flex justify-between items-center">
+<div class="flex items-center">
+<a href="./index.html" data-readdy="true" class="w-8 h-8 flex items-center justify-center text-gray-600 cursor-pointer">
+<i class="ri-arrow-left-line ri-lg"></i>
+</a>
+<div class="w-10 h-10 bg-primary !rounded-full flex items-center justify-center mx-2">
+<span class="text-white text-lg font-['Pacifico']">VB</span>
+</div>
+<span class="text-lg font-semibold text-gray-800">Admissions</span>
+</div>
+<div class="flex items-center space-x-3">
+<!-- <button class="w-8 h-8 flex items-center justify-center text-gray-600 cursor-pointer">
+<i class="ri-search-line ri-lg"></i>
+</button>
+<button class="w-8 h-8 flex items-center justify-center text-gray-600 cursor-pointer">
+<i class="ri-user-line ri-lg"></i>
+</button> -->
+</div>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="pt-16 pb-20">
+<!-- Hero Section -->
+<section class="relative">
+<div class="w-full h-48 bg-gray-200 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=diverse%2520group%2520of%2520happy%2520students%2520in%2520school%2520uniform%2520walking%2520into%2520a%2520modern%2520school%2520building%252C%2520bright%2520sunny%2520day%252C%2520educational%2520environment%252C%2520welcoming%2520atmosphere%252C%2520high%2520quality%2520professional%2520photography&width=375&height=192&seq=101&orientation=landscape" alt="Admissions" class="w-full h-full object-cover">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-4">
+<h1 class="text-white text-2xl font-bold">Join Our Community</h1>
+<p class="text-white text-sm mt-1">Begin your journey at Vishwa Bharathi School</p>
+</div>
+</div>
+</section>
+<!-- Application Status -->
+<section class="px-4 py-4 bg-white shadow-sm">
+<div class="flex items-center justify-between">
+<div>
+<h2 class="text-gray-800 font-medium">Application Status</h2>
+<p class="text-gray-500 text-xs mt-1">Academic Year 2025-26</p>
+</div>
+<div class="w-12 h-12 !rounded-full bg-primary/10 flex items-center justify-center">
+<span class="text-primary font-semibold">0%</span>
+</div>
+</div>
+<div class="mt-3 h-2 w-full bg-gray-100 !rounded-full overflow-hidden">
+<div class="h-full bg-primary !rounded-full form-progress" style="width: 0%"></div>
+</div>
+<div class="mt-2 flex justify-between">
+<span class="text-xs text-gray-500">Not Started</span>
+<a href="#admissionform">
+    <span class="text-xs text-primary font-medium">Start Now</span>
+</a>
+</div>
+</section>
+<!-- Admission Process Timeline -->
+<section class="px-4 py-6">
+<h2 class="text-xl font-semibold text-gray-800 mb-4">Admission Process</h2>
+<div class="relative">
+<div class="flex items-center mb-6">
+<div class="w-10 h-10 !rounded-full bg-primary flex items-center justify-center z-10">
+<span class="text-white font-medium">1</span>
+</div>
+<div class="step-line active"></div>
+<div class="w-10 h-10 !rounded-full bg-gray-200 flex items-center justify-center z-10">
+<span class="text-gray-600 font-medium">2</span>
+</div>
+<div class="step-line"></div>
+<div class="w-10 h-10 !rounded-full bg-gray-200 flex items-center justify-center z-10">
+<span class="text-gray-600 font-medium">3</span>
+</div>
+<div class="step-line"></div>
+<div class="w-10 h-10 !rounded-full bg-gray-200 flex items-center justify-center z-10">
+<span class="text-gray-600 font-medium">4</span>
+</div>
+</div>
+<div class="bg-white p-4 !rounded shadow-sm mb-4">
+<div class="flex">
+<div class="w-10 h-10 !rounded-full bg-primary/10 flex items-center justify-center mr-3 flex-shrink-0">
+<i class="ri-file-list-3-line ri-lg text-primary"></i>
+</div>
+<div>
+<h3 class="text-gray-800 font-medium">Application Submission</h3>
+<p class="text-gray-600 text-xs mt-1">Complete the online application form and submit required documents</p>
+<span class="inline-block mt-2 px-2 py-1 bg-blue-50 text-blue-600 text-xs !rounded">Current Step</span>
+</div>
+</div>
+</div>
+<div class="bg-white p-4 !rounded shadow-sm mb-4">
+<div class="flex">
+<div class="w-10 h-10 !rounded-full bg-gray-100 flex items-center justify-center mr-3 flex-shrink-0">
+<i class="ri-file-search-line ri-lg text-gray-500"></i>
+</div>
+<div>
+<h3 class="text-gray-800 font-medium">Document Verification</h3>
+<p class="text-gray-600 text-xs mt-1">Our team will verify all submitted documents (3-5 working days)</p>
+<span class="inline-block mt-2 px-2 py-1 bg-gray-50 text-gray-500 text-xs !rounded">Pending</span>
+</div>
+</div>
+</div>
+<div class="bg-white p-4 !rounded shadow-sm mb-4">
+<div class="flex">
+<div class="w-10 h-10 !rounded-full bg-gray-100 flex items-center justify-center mr-3 flex-shrink-0">
+<i class="ri-edit-2-line ri-lg text-gray-500"></i>
+</div>
+<div>
+<h3 class="text-gray-800 font-medium">Entrance Assessment</h3>
+<p class="text-gray-600 text-xs mt-1">Student assessment test and interview (Grade 2 and above)</p>
+<span class="inline-block mt-2 px-2 py-1 bg-gray-50 text-gray-500 text-xs !rounded">Pending</span>
+</div>
+</div>
+</div>
+<div class="bg-white p-4 !rounded shadow-sm">
+<div class="flex">
+<div class="w-10 h-10 !rounded-full bg-gray-100 flex items-center justify-center mr-3 flex-shrink-0">
+<i class="ri-check-double-line ri-lg text-gray-500"></i>
+</div>
+<div>
+<h3 class="text-gray-800 font-medium">Final Selection</h3>
+<p class="text-gray-600 text-xs mt-1">Admission confirmation and fee payment</p>
+<span class="inline-block mt-2 px-2 py-1 bg-gray-50 text-gray-500 text-xs !rounded">Pending</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Eligibility & Documents -->
+<section class="px-4 py-6 bg-white">
+<h2 class="text-xl font-semibold text-gray-800 mb-4">Eligibility & Documents</h2>
+<div class="mb-4">
+<button class="w-full flex justify-between items-center bg-gray-50 p-4 !rounded cursor-pointer" id="eligibility-toggle">
+<div class="flex items-center">
+<div class="w-10 h-10 !rounded-full bg-primary/10 flex items-center justify-center mr-3">
+<i class="ri-user-star-line ri-lg text-primary"></i>
+</div>
+<span class="font-medium text-gray-800">Eligibility Criteria</span>
+</div>
+<i class="ri-arrow-down-s-line ri-lg text-gray-500" id="eligibility-icon"></i>
+</button>
+<div class="bg-gray-50 px-4 pb-4 hidden" id="eligibility-content">
+<div class="ml-13 border-l-2 border-dashed border-gray-300 pl-4 py-2">
+<h4 class="text-sm font-medium text-gray-800 mb-2">Age Requirements (as of June 1, 2025)</h4>
+<ul class="text-xs text-gray-600 space-y-2">
+<li>• Pre-Nursery: 2.5 - 3.5 years</li>
+<li>• Nursery: 3.5 - 4.5 years</li>
+<li>• LKG: 4.5 - 5.5 years</li>
+<li>• UKG: 5.5 - 6.5 years</li>
+<li>• Grade 1: 6.5+ years</li>
+</ul>
+<h4 class="text-sm font-medium text-gray-800 mt-4 mb-2">Academic Prerequisites</h4>
+<ul class="text-xs text-gray-600 space-y-2">
+<li>• For Pre-Nursery to UKG: No academic prerequisites</li>
+<li>• For Grades 1-8: Successful completion of previous grade</li>
+<li>• For Grades 9-12: Minimum 60% in previous grade</li>
+</ul>
+<h4 class="text-sm font-medium text-gray-800 mt-4 mb-2">Entrance Assessment</h4>
+<ul class="text-xs text-gray-600 space-y-2">
+<li>• Pre-Nursery to Grade 1: Informal interaction</li>
+<li>• Grades 2-8: Basic assessment in English, Math, and General Knowledge</li>
+<li>• Grades 9-12: Subject-specific assessments</li>
+</ul>
+</div>
+</div>
+</div>
+<div>
+<button class="w-full flex justify-between items-center bg-gray-50 p-4 !rounded cursor-pointer" id="documents-toggle">
+<div class="flex items-center">
+<div class="w-10 h-10 !rounded-full bg-primary/10 flex items-center justify-center mr-3">
+<i class="ri-file-list-3-line ri-lg text-primary"></i>
+</div>
+<span class="font-medium text-gray-800">Required Documents</span>
+</div>
+<i class="ri-arrow-down-s-line ri-lg text-gray-500" id="documents-icon"></i>
+</button>
+<div class="bg-gray-50 px-4 pb-4 hidden" id="documents-content">
+<div class="ml-13 border-l-2 border-dashed border-gray-300 pl-4 py-2">
+<h4 class="text-sm font-medium text-gray-800 mb-2">Student Documents</h4>
+<ul class="text-xs text-gray-600 space-y-2">
+<li>• Birth Certificate (original + 2 photocopies)</li>
+<li>• Passport-sized photographs (4 copies)</li>
+<li>• Immunization record</li>
+<li>• Previous school report cards (for Grade 1 and above)</li>
+<li>• Transfer Certificate (for Grade 1 and above)</li>
+</ul>
+<h4 class="text-sm font-medium text-gray-800 mt-4 mb-2">Parent/Guardian Documents</h4>
+<ul class="text-xs text-gray-600 space-y-2">
+<li>• ID proof (Aadhar/PAN/Passport)</li>
+<li>• Address proof (not older than 3 months)</li>
+<li>• Passport-sized photographs (2 copies each)</li>
+</ul>
+<h4 class="text-sm font-medium text-gray-800 mt-4 mb-2">Additional Documents (if applicable)</h4>
+<ul class="text-xs text-gray-600 space-y-2">
+<li>• Caste certificate (for reservation category)</li>
+<li>• Disability certificate (if applicable)</li>
+<li>• Guardian authorization (if parents are not the guardians)</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- Fee Structure -->
+<section class="px-4 py-6">
+<h2 class="text-xl font-semibold text-gray-800 mb-4">Fee Structure</h2>
+<div class="bg-white !rounded shadow-sm overflow-hidden">
+<div class="flex border-b">
+<button class="flex-1 py-3 font-medium text-primary border-b-2 border-primary" id="tab-tuition">Tuition Fees</button>
+<button class="flex-1 py-3 font-medium text-gray-500" id="tab-additional">Additional Fees</button>
+<button class="flex-1 py-3 font-medium text-gray-500" id="tab-payment">Payment</button>
+</div>
+<div id="content-tuition" class="p-4">
+<div class="overflow-x-auto">
+<table class="w-full text-sm">
+<thead>
+<tr class="border-b">
+<th class="text-left py-2 px-2 text-gray-600 font-medium">Grade</th>
+<th class="text-right py-2 px-2 text-gray-600 font-medium">Annual Fee</th>
+<th class="text-right py-2 px-2 text-gray-600 font-medium">Term Fee</th>
+</tr>
+</thead>
+<tbody>
+<tr class="border-b">
+<td class="py-2 px-2 text-gray-800">Pre-Nursery - KG</td>
+<td class="py-2 px-2 text-gray-800 text-right">₹85,000</td>
+<td class="py-2 px-2 text-gray-800 text-right">₹28,500</td>
+</tr>
+<tr class="border-b">
+<td class="py-2 px-2 text-gray-800">Grades 1-5</td>
+<td class="py-2 px-2 text-gray-800 text-right">₹95,000</td>
+<td class="py-2 px-2 text-gray-800 text-right">₹31,700</td>
+</tr>
+<tr class="border-b">
+<td class="py-2 px-2 text-gray-800">Grades 6-8</td>
+<td class="py-2 px-2 text-gray-800 text-right">₹105,000</td>
+<td class="py-2 px-2 text-gray-800 text-right">₹35,000</td>
+</tr>
+<tr class="border-b">
+<td class="py-2 px-2 text-gray-800">Grades 9-10</td>
+<td class="py-2 px-2 text-gray-800 text-right">₹115,000</td>
+<td class="py-2 px-2 text-gray-800 text-right">₹38,500</td>
+</tr>
+<tr>
+<td class="py-2 px-2 text-gray-800">Grades 11-12</td>
+<td class="py-2 px-2 text-gray-800 text-right">₹125,000</td>
+<td class="py-2 px-2 text-gray-800 text-right">₹41,700</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="text-xs text-gray-500 mt-3">* Tuition fees include regular academics, basic sports, and library facilities</p>
+</div>
+<div id="content-additional" class="p-4 hidden">
+<div class="space-y-4">
+<div>
+<h4 class="font-medium text-gray-800 mb-1">One-time Fees (New Admissions)</h4>
+<ul class="text-sm text-gray-600 space-y-1">
+<li>• Registration Fee: ₹2,000 (non-refundable)</li>
+<li>• Admission Fee: ₹25,000 (one-time)</li>
+<li>• Security Deposit: ₹10,000 (refundable)</li>
+</ul>
+</div>
+<div>
+<h4 class="font-medium text-gray-800 mb-1">Annual Charges</h4>
+<ul class="text-sm text-gray-600 space-y-1">
+<li>• Development Fee: ₹15,000</li>
+<li>• Technology Fee: ₹8,000</li>
+<li>• Activity & Sports Fee: ₹12,000</li>
+<li>• Examination Fee: ₹5,000</li>
+</ul>
+</div>
+<div>
+<h4 class="font-medium text-gray-800 mb-1">Optional Fees</h4>
+<ul class="text-sm text-gray-600 space-y-1">
+<li>• Transportation: ₹20,000 - ₹35,000 (based on distance)</li>
+<li>• Meal Plan: ₹25,000</li>
+<li>• Specialized Coaching: Varies by program</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="content-payment" class="p-4 hidden">
+<div class="space-y-4">
+<div>
+<h4 class="font-medium text-gray-800 mb-1">Payment Schedule</h4>
+<ul class="text-sm text-gray-600 space-y-1">
+<li>• Term 1: April 1 - April 15, 2025</li>
+<li>• Term 2: August 1 - August 15, 2025</li>
+<li>• Term 3: December 1 - December 15, 2025</li>
+</ul>
+</div>
+<div>
+<h4 class="font-medium text-gray-800 mb-1">Payment Methods</h4>
+<ul class="text-sm text-gray-600 space-y-1">
+<li>• Online Payment (Credit/Debit Card, Net Banking)</li>
+<li>• UPI Payment</li>
+<li>• Demand Draft in favor of "Vishwa Bharathi School"</li>
+<li>• NEFT/RTGS Transfer</li>
+</ul>
+</div>
+<div>
+<h4 class="font-medium text-gray-800 mb-1">Scholarships</h4>
+<p class="text-sm text-gray-600">Vishwa Bharathi offers merit-based scholarships ranging from 10% to 50% of the tuition fee. Academic excellence, sports achievements, and cultural talents are considered for scholarship awards.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Application Form -->
+<section id="admissionform" class="px-4 py-6 bg-white scroll-mt-20">
+<h2 class="text-xl font-semibold text-gray-800 mb-4">Application Form</h2>
+<form id="admission-form">
+<div class="space-y-5">
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Applying for Grade</label>
+<select
+  class="w-full p-3 border border-gray-300 !rounded text-gray-700 text-sm appearance-none bg-white"
+  style="background-image: url('data:image/svg+xml;charset=US-ASCII,<svg width=\'20\' height=\'20\' viewBox=\'0 0 20 20\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M5 7.5L10 12.5L15 7.5\' stroke=\'%236B7280\' stroke-width=\'1.5\' stroke-linecap=\'round\' stroke-linejoin=\'round\'/></svg>'); background-repeat: no-repeat; background-position: right 12px center;"
+>
+<option value="">Select Grade</option>
+<option value="pre-nursery">Pre-Nursery</option>
+<option value="nursery">Nursery</option>
+<option value="lkg">LKG</option>
+<option value="ukg">UKG</option>
+<option value="grade1">Grade 1</option>
+<option value="grade2">Grade 2</option>
+<option value="grade3">Grade 3</option>
+<option value="grade4">Grade 4</option>
+<option value="grade5">Grade 5</option>
+<option value="grade6">Grade 6</option>
+<option value="grade7">Grade 7</option>
+<option value="grade8">Grade 8</option>
+<option value="grade9">Grade 9</option>
+<option value="grade10">Grade 10</option>
+<option value="grade11">Grade 11</option>
+<option value="grade12">Grade 12</option>
+</select>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Academic Year</label>
+<div class="w-full p-3 border border-gray-300 !rounded text-gray-700 text-sm bg-gray-50">2025-26</div>
+</div>
+<div class="border-t border-gray-200 pt-4">
+<h3 class="text-base font-medium text-gray-800 mb-3">Student Information</h3>
+<div class="space-y-4">
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+<input type="text" class="w-full p-3 border border-gray-300 !rounded text-gray-700 text-sm" placeholder="Enter student's full name">
+</div>
+<div class="grid grid-cols-2 gap-3">
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Date of Birth</label>
+<input type="date" class="w-full p-3 border border-gray-300 !rounded text-gray-700 text-sm">
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Gender</label>
+<select
+  class="w-full p-3 border border-gray-300 !rounded text-gray-700 text-sm appearance-none"
+  style="background-image: url('data:image/svg+xml;charset=US-ASCII,<svg width=\'20\' height=\'20\' viewBox=\'0 0 20 20\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M5 7.5L10 12.5L15 7.5\' stroke=\'%236B7280\' stroke-width=\'1.5\' stroke-linecap=\'round\' stroke-linejoin=\'round\'/></svg>'); background-repeat: no-repeat; background-position: right 12px center;"
+>
+<option value="">Select Gender</option>
+<option value="male">Male</option>
+<option value="female">Female</option>
+<option value="other">Other</option>
+</select>
+</div>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Blood Group</label>
+<select
+  class="w-full p-3 border border-gray-300 !rounded text-gray-700 text-sm appearance-none"
+  style="background-image: url('data:image/svg+xml;charset=US-ASCII,<svg width=\'20\' height=\'20\' viewBox=\'0 0 20 20\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M5 7.5L10 12.5L15 7.5\' stroke=\'%236B7280\' stroke-width=\'1.5\' stroke-linecap=\'round\' stroke-linejoin=\'round\'/></svg>'); background-repeat: no-repeat; background-position: right 12px center;"
+>
+<option value="">Select Blood Group</option>
+<option value="A+">A+</option>
+<option value="A-">A-</option>
+<option value="B+">B+</option>
+<option value="B-">B-</option>
+<option value="AB+">AB+</option>
+<option value="AB-">AB-</option>
+<option value="O+">O+</option>
+<option value="O-">O-</option>
+</select>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Nationality</label>
+<input type="text" class="w-full p-3 border border-gray-300 !rounded text-gray-700 text-sm" placeholder="Enter nationality">
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Mother Tongue</label>
+<input type="text" class="w-full p-3 border border-gray-300 !rounded text-gray-700 text-sm" placeholder="Enter mother tongue">
+</div>
+<div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Upload Photo</label>
+        <div class="border border-dashed border-gray-300 !rounded p-4 text-center">
+          <i class="ri-upload-cloud-line ri-2x text-gray-400"></i>
+          <p class="text-sm text-gray-500 mt-2">Click to upload or drag and drop</p>
+          <p class="text-xs text-gray-400 mt-1">JPG or PNG (Max. 2MB)</p>
+          <input type="file" class="hidden" id="student-photo" accept="image/*" />
+          <button type="button" class="mt-3 px-4 py-2 bg-gray-100 text-gray-700 text-sm !rounded-button cursor-pointer" onclick="document.getElementById('student-photo').click()">Browse Files</button>
+          <!-- Image preview -->
+          <div id="student-photo-preview-container" class="mt-4 hidden">
+            <p class="text-sm text-gray-700 mb-2">Student Photo Preview:</p>
+            <img id="student-photo-preview" class="mx-auto max-h-40 rounded border border-gray-200" alt="Student Photo Preview" />
+            <button type="button" class="mt-2 text-xs text-red-500 hover:text-red-700" onclick="removePhoto('student-photo')">Remove Photo</button>
+          </div>
+        </div>
+      </div>
+</div>
+</div>
+<div class="border-t border-gray-200 pt-4">
+<h3 class="text-base font-medium text-gray-800 mb-3">Parent/Guardian Information</h3>
+<div class="space-y-4">
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Father's Name</label>
+<input type="text" class="w-full p-3 border border-gray-300 !rounded text-gray-700 text-sm" placeholder="Enter father's full name">
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Father's Occupation</label>
+<input type="text" class="w-full p-3 border border-gray-300 !rounded text-gray-700 text-sm" placeholder="Enter father's occupation">
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Father's Mobile Number</label>
+<input type="tel" class="w-full p-3 border border-gray-300 !rounded text-gray-700 text-sm" placeholder="Enter mobile number">
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Father's Email</label>
+<input type="email" class="w-full p-3 border border-gray-300 !rounded text-gray-700 text-sm" placeholder="Enter email address">
+</div>
+<div class="border-t border-gray-200 pt-4"></div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Mother's Name</label>
+<input type="text" class="w-full p-3 border border-gray-300 !rounded text-gray-700 text-sm" placeholder="Enter mother's full name">
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Mother's Occupation</label>
+<input type="text" class="w-full p-3 border border-gray-300 !rounded text-gray-700 text-sm" placeholder="Enter mother's occupation">
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Mother's Mobile Number</label>
+<input type="tel" class="w-full p-3 border border-gray-300 !rounded text-gray-700 text-sm" placeholder="Enter mobile number">
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Mother's Email</label>
+<input type="email" class="w-full p-3 border border-gray-300 !rounded text-gray-700 text-sm" placeholder="Enter email address">
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Residential Address</label>
+<textarea class="w-full p-3 border border-gray-300 !rounded text-gray-700 text-sm" rows="3" placeholder="Enter complete address"></textarea>
+</div>
+</div>
+</div>
+<div class="border-t border-gray-200 pt-4">
+<h3 class="text-base font-medium text-gray-800 mb-3">Academic History</h3>
+<div class="space-y-4">
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Previous School (if any)</label>
+<input type="text" class="w-full p-3 border border-gray-300 !rounded text-gray-700 text-sm" placeholder="Enter previous school name">
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Board/Curriculum</label>
+<select class="w-full p-3 border border-gray-300 !rounded text-gray-700 text-sm appearance-none" style="background-image: url('data:image/svg+xml;charset=US-ASCII,<svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M5 7.5L10 12.5L15 7.5\" stroke=\"%236B7280\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>'); background-repeat: no-repeat; background-position: right 12px center;">
+<option value="">Select Board</option>
+<option value="cbse">CBSE</option>
+<option value="icse">ICSE</option>
+<option value="state">State Board</option>
+<option value="igcse">IGCSE</option>
+<option value="ib">IB</option>
+<option value="other">Other</option>
+</select>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Last Grade Completed</label>
+<input type="text" class="w-full p-3 border border-gray-300 !rounded text-gray-700 text-sm" placeholder="Enter last grade completed">
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Academic Performance</label>
+<select class="w-full p-3 border border-gray-300 !rounded text-gray-700 text-sm appearance-none" style="background-image: url('data:image/svg+xml;charset=US-ASCII,<svg width=\'20\' height=\'20\' viewBox=\'0 0 20 20\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M5 7.5L10 12.5L15 7.5\' stroke=\'%236B7280\' stroke-width=\'1.5\' stroke-linecap=\'round\' stroke-linejoin=\'round\'/></svg>'); background-repeat: no-repeat; background-position: right 12px center;">
+<option value="">Select Performance</option>
+<option value="excellent">Excellent (90% and above)</option>
+<option value="verygood">Very Good (80% - 89%)</option>
+<option value="good">Good (70% - 79%)</option>
+<option value="average">Average (60% - 69%)</option>
+<option value="belowaverage">Below Average (Below 60%)</option>
+</select>
+</div>
+ <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Upload Last Report Card</label>
+        <div class="border border-dashed border-gray-300 !rounded p-4 text-center">
+          <i class="ri-file-upload-line ri-2x text-gray-400"></i>
+          <p class="text-sm text-gray-500 mt-2">Click to upload or drag and drop</p>
+          <p class="text-xs text-gray-400 mt-1">PDF or JPG (Max. 5MB)</p>
+          <input type="file" class="hidden" id="report-card" accept="image/*,.pdf">
+          <button type="button" class="mt-3 px-4 py-2 bg-gray-100 text-gray-700 text-sm !rounded-button cursor-pointer" onclick="document.getElementById('report-card').click()">Browse Files</button>
+          <!-- Image preview (for image files) -->
+          <div id="report-card-preview-container" class="mt-4 hidden">
+            <p class="text-sm text-gray-700 mb-2">Document Preview:</p>
+            <img id="report-card-preview" class="mx-auto max-h-40 rounded border border-gray-200 hidden" alt="Report Card Preview" />
+            <div id="pdf-preview" class="hidden p-2 bg-gray-100 rounded">
+              <i class="ri-file-pdf-line ri-2x text-red-500"></i>
+              <p class="text-sm text-gray-700 mt-1" id="pdf-filename"></p>
+            </div>
+            <button type="button" class="mt-2 text-xs text-red-500 hover:text-red-700" onclick="removePhoto('report-card')">Remove Document</button>
+          </div>
+        </div>
+      </div>
+</div>
+</div>
+<div class="border-t border-gray-200 pt-4">
+<h3 class="text-base font-medium text-gray-800 mb-3">Additional Information</h3>
+<div class="space-y-4">
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Special Skills/Talents</label>
+<textarea class="w-full p-3 border border-gray-300 !rounded text-gray-700 text-sm" rows="2" placeholder="Enter any special skills or talents"></textarea>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">Medical Conditions (if any)</label>
+<textarea class="w-full p-3 border border-gray-300 !rounded text-gray-700 text-sm" rows="2" placeholder="Enter any medical conditions or allergies"></textarea>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-1">How did you hear about us?</label>
+<select class="w-full p-3 border border-gray-300 !rounded text-gray-700 text-sm appearance-none" style="background-image: url('data:image/svg+xml;charset=US-ASCII,<svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M5 7.5L10 12.5L15 7.5\" stroke=\"%236B7280\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>'); background-repeat: no-repeat; background-position: right 12px center;">
+<option value="">Select Option</option>
+<option value="website">School Website</option>
+<option value="socialmedia">Social Media</option>
+<option value="friend">Friend/Family</option>
+<option value="newspaper">Newspaper</option>
+<option value="event">School Event</option>
+<option value="other">Other</option>
+</select>
+</div>
+</div>
+</div>
+<div class="border-t border-gray-200 pt-4">
+<div class="flex items-start">
+<div class="flex items-center h-5">
+<input type="checkbox" class="h-4 w-4 text-primary border-gray-300 !rounded">
+</div>
+<div class="ml-3 text-sm">
+<label class="font-medium text-gray-700">Declaration</label>
+<p class="text-gray-500">I hereby declare that all the information provided is true and correct to the best of my knowledge. I understand that any false information may result in the rejection of this application or termination of admission.</p>
+</div>
+</div>
+</div>
+<div class="flex justify-end space-x-4 pt-6">
+        <button type="button" id="save-draft-btn" class="px-6 py-2 border border-gray-300 !rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+          Save Draft
+        </button>
+        <button type="submit" id="submit-form-btn" class="px-6 py-2 border border-transparent !rounded text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+          Submit Application
+        </button>
+      </div>
+</div>
+</form>
+</section>
+<!-- Campus Tour -->
+<section id="campus-tour" class="px-4 py-6 bg-white">
+<h2 class="text-xl font-semibold text-gray-800 mb-4">Schedule a Campus Tour</h2>
+<div class="bg-gray-50 p-4 !rounded mb-4">
+<div class="flex">
+<div class="w-10 h-10 !rounded-full bg-primary/10 flex items-center justify-center mr-3 flex-shrink-0">
+<i class="ri-information-line ri-lg text-primary"></i>
+</div>
+<div>
+<h3 class="text-gray-800 font-medium">About Campus Tours</h3>
+<p class="text-gray-600 text-xs mt-1">Experience our world-class facilities and meet our faculty members. Campus tours are conducted on weekdays between 9:00 AM and 2:00 PM, and last approximately 60 minutes.</p>
+</div>
+</div>
+</div>
+<div class="bg-white border border-gray-200 !rounded overflow-hidden">
+<div class="p-4 border-b border-gray-200">
+<h3 class="font-medium text-gray-800">Select a Date</h3>
+<div class="mt-3 grid grid-cols-7 gap-1 text-center">
+<div class="text-xs text-gray-500 font-medium py-1">Sun</div>
+<div class="text-xs text-gray-500 font-medium py-1">Mon</div>
+<div class="text-xs text-gray-500 font-medium py-1">Tue</div>
+<div class="text-xs text-gray-500 font-medium py-1">Wed</div>
+<div class="text-xs text-gray-500 font-medium py-1">Thu</div>
+<div class="text-xs text-gray-500 font-medium py-1">Fri</div>
+<div class="text-xs text-gray-500 font-medium py-1">Sat</div>
+<div class="text-xs text-gray-400 py-2">1</div>
+<div class="text-xs text-gray-700 py-2 !rounded bg-gray-100 cursor-pointer">2</div>
+<div class="text-xs text-gray-700 py-2 !rounded cursor-pointer">3</div>
+<div class="text-xs text-gray-700 py-2 !rounded cursor-pointer">4</div>
+<div class="text-xs text-gray-700 py-2 !rounded cursor-pointer">5</div>
+<div class="text-xs text-gray-700 py-2 !rounded cursor-pointer">6</div>
+<div class="text-xs text-gray-400 py-2">7</div>
+<div class="text-xs text-gray-400 py-2">8</div>
+<div class="text-xs text-gray-700 py-2 !rounded cursor-pointer">9</div>
+<div class="text-xs text-gray-700 py-2 !rounded cursor-pointer">10</div>
+<div class="text-xs text-gray-700 py-2 !rounded cursor-pointer">11</div>
+<div class="text-xs text-gray-700 py-2 !rounded cursor-pointer">12</div>
+<div class="text-xs text-gray-700 py-2 !rounded cursor-pointer">13</div>
+<div class="text-xs text-gray-400 py-2">14</div>
+<div class="text-xs text-gray-400 py-2">15</div>
+<div class="text-xs text-gray-700 py-2 !rounded cursor-pointer">16</div>
+<div class="text-xs text-gray-700 py-2 !rounded cursor-pointer">17</div>
+<div class="text-xs text-gray-700 py-2 !rounded cursor-pointer">18</div>
+<div class="text-xs text-gray-700 py-2 !rounded cursor-pointer">19</div>
+<div class="text-xs text-gray-700 py-2 !rounded cursor-pointer">20</div>
+<div class="text-xs text-gray-400 py-2">21</div>
+</div>
+</div>
+<div class="p-4 border-b border-gray-200">
+<h3 class="font-medium text-gray-800 mb-3">Available Time Slots</h3>
+<div class="grid grid-cols-3 gap-2">
+<button class="py-2 px-1 border border-gray-300 !rounded text-xs text-gray-700 cursor-pointer">9:00 AM</button>
+<button class="py-2 px-1 border border-gray-300 !rounded text-xs text-gray-700 cursor-pointer">10:00 AM</button>
+<button class="py-2 px-1 border border-gray-300 !rounded text-xs text-gray-700 cursor-pointer">11:00 AM</button>
+<button class="py-2 px-1 border border-gray-300 !rounded text-xs text-gray-700 cursor-pointer">12:00 PM</button>
+<button class="py-2 px-1 border border-gray-300 !rounded text-xs text-gray-700 cursor-pointer">1:00 PM</button>
+<button class="py-2 px-1 border border-gray-300 !rounded text-xs text-gray-700 cursor-pointer">2:00 PM</button>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-800 mb-3">Your Details</h3>
+<div class="space-y-3">
+<div>
+<label class="block text-xs font-medium text-gray-700 mb-1">Name</label>
+<input type="text" class="w-full p-2.5 border border-gray-300 !rounded text-gray-700 text-sm" placeholder="Enter your name">
+</div>
+<div>
+<label class="block text-xs font-medium text-gray-700 mb-1">Phone Number</label>
+<input type="tel" class="w-full p-2.5 border border-gray-300 !rounded text-gray-700 text-sm" placeholder="Enter phone number">
+</div>
+<div>
+<label class="block text-xs font-medium text-gray-700 mb-1">Email</label>
+<input type="email" class="w-full p-2.5 border border-gray-300 !rounded text-gray-700 text-sm" placeholder="Enter email address">
+</div>
+<div>
+<label class="block text-xs font-medium text-gray-700 mb-1">Number of Visitors</label>
+<select
+  class="w-full p-2.5 border border-gray-300 !rounded text-gray-700 text-sm appearance-none"
+  style="background-image: url('data:image/svg+xml;charset=US-ASCII,<svg width=\'20\' height=\'20\' viewBox=\'0 0 20 20\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M5 7.5L10 12.5L15 7.5\' stroke=\'%236B7280\' stroke-width=\'1.5\' stroke-linecap=\'round\' stroke-linejoin=\'round\'/></svg>'); background-repeat: no-repeat; background-position: right 12px center;"
+>
+<option value="1">1 Person</option>
+<option value="2">2 People</option>
+<option value="3">3 People</option>
+<option value="4">4 People</option>
+<option value="5">5+ People</option>
+</select>
+</div>
+</div>
+<button class="mt-4 w-full py-2.5 bg-primary text-white font-medium !rounded-button cursor-pointer">
+Book Tour
+</button>
+<div class="mt-3 text-center">
+<button class="text-primary text-sm font-medium flex items-center justify-center w-full cursor-pointer">
+<i class="ri-computer-line ri-sm mr-1"></i> Take a Virtual Tour
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- FAQs -->
+<section class="px-4 py-6">
+<h2 class="text-xl font-semibold text-gray-800 mb-4">Frequently Asked Questions</h2>
+<div class="space-y-3">
+<div class="bg-white !rounded shadow-sm overflow-hidden">
+<button class="w-full flex justify-between items-center p-4 text-left cursor-pointer" id="faq-1-toggle">
+<span class="font-medium text-gray-800">What is the admission process?</span>
+<i class="ri-arrow-down-s-line ri-lg text-gray-500" id="faq-1-icon"></i>
+</button>
+<div class="px-4 pb-4 hidden" id="faq-1-content">
+<p class="text-sm text-gray-600">The admission process involves submitting an application form along with required documents, followed by document verification. For grades 2 and above, students need to take an entrance assessment. The final step is an interview and confirmation of admission upon selection.</p>
+</div>
+</div>
+<div class="bg-white !rounded shadow-sm overflow-hidden">
+<button class="w-full flex justify-between items-center p-4 text-left cursor-pointer" id="faq-2-toggle">
+<span class="font-medium text-gray-800">What is the school's curriculum?</span>
+<i class="ri-arrow-down-s-line ri-lg text-gray-500" id="faq-2-icon"></i>
+</button>
+<div class="px-4 pb-4 hidden" id="faq-2-content">
+<p class="text-sm text-gray-600">Vishwa Bharathi School follows the CBSE curriculum with a holistic approach to education. We emphasize academic excellence along with co-curricular activities, sports, and value education to ensure the all-round development of students.</p>
+</div>
+</div>
+<div class="bg-white !rounded shadow-sm overflow-hidden">
+<button class="w-full flex justify-between items-center p-4 text-left cursor-pointer" id="faq-3-toggle">
+<span class="font-medium text-gray-800">Are there any scholarships available?</span>
+<i class="ri-arrow-down-s-line ri-lg text-gray-500" id="faq-3-icon"></i>
+</button>
+<div class="px-4 pb-4 hidden" id="faq-3-content">
+<p class="text-sm text-gray-600">Yes, we offer merit-based scholarships ranging from 10% to 50% of the tuition fee. Scholarships are awarded based on academic excellence, sports achievements, and cultural talents. Students can apply for scholarships after admission confirmation.</p>
+</div>
+</div>
+<div class="bg-white !rounded shadow-sm overflow-hidden">
+<button class="w-full flex justify-between items-center p-4 text-left cursor-pointer" id="faq-4-toggle">
+<span class="font-medium text-gray-800">What are the school timings?</span>
+<i class="ri-arrow-down-s-line ri-lg text-gray-500" id="faq-4-icon"></i>
+</button>
+<div class="px-4 pb-4 hidden" id="faq-4-content">
+<p class="text-sm text-gray-600">The school timings are as follows:</p>
+<ul class="text-sm text-gray-600 mt-2 ml-4 space-y-1">
+<li>• Pre-Nursery to KG: 8:30 AM to 12:30 PM</li>
+<li>• Grades 1 to 5: 8:00 AM to 2:00 PM</li>
+<li>• Grades 6 to 12: 8:00 AM to 3:00 PM</li>
+</ul>
+</div>
+</div>
+<div class="bg-white !rounded shadow-sm overflow-hidden">
+<button class="w-full flex justify-between items-center p-4 text-left cursor-pointer" id="faq-5-toggle">
+<span class="font-medium text-gray-800">Is transportation available?</span>
+<i class="ri-arrow-down-s-line ri-lg text-gray-500" id="faq-5-icon"></i>
+</button>
+<div class="px-4 pb-4 hidden" id="faq-5-content">
+<p class="text-sm text-gray-600">Yes, the school provides transportation facilities for students. Our buses cover most areas in the city. The transportation fee varies based on the distance from school. All buses are equipped with GPS tracking and are monitored for safety.</p>
+</div>
+</div>
+</div>
+<div class="mt-4">
+<div class="relative">
+<input type="text" class="w-full p-3 pr-10 border border-gray-300 !rounded text-gray-700 text-sm" placeholder="Search more questions...">
+<div class="absolute right-3 top-1/2 transform -translate-y-1/2">
+<i class="ri-search-line ri-lg text-gray-400"></i>
+</div>
+</div>
+</div>
+</section>
+<!-- Contact Section -->
+<section class="px-4 py-6 bg-white">
+<h2 class="text-xl font-semibold text-gray-800 mb-4">Contact Admissions Office</h2>
+<div class="space-y-4">
+<div class="flex items-start">
+<div class="w-10 h-10 flex items-center justify-center bg-primary/10 !rounded-full mr-3">
+<i class="ri-phone-line ri-lg text-primary"></i>
+</div>
+<div>
+<h4 class="text-gray-800 font-medium">Phone</h4>
+<p class="text-gray-600 text-sm mt-1">
++91 98765 43210
+</p>
+</div>
+</div>
+<div class="flex items-start">
+<div class="w-10 h-10 flex items-center justify-center bg-primary/10 !rounded-full mr-3">
+<i class="ri-mail-line ri-lg text-primary"></i>
+</div>
+<div>
+<h4 class="text-gray-800 font-medium">Email</h4>
+<p class="text-gray-600 text-sm mt-1">
+admissions@vishwabharathi.edu
+</p>
+</div>
+</div>
+<div class="flex items-start">
+<div class="w-10 h-10 flex items-center justify-center bg-primary/10 !rounded-full mr-3">
+<i class="ri-time-line ri-lg text-primary"></i>
+</div>
+<div>
+<h4 class="text-gray-800 font-medium">Office Hours</h4>
+<p class="text-gray-600 text-sm mt-1">
+Monday to Friday: 8:00 AM - 4:00 PM<br>
+Saturday: 9:00 AM - 1:00 PM
+</p>
+</div>
+</div>
+</div>
+<div class="mt-6">
+<button  onclick="window.location.href='./index.html#contact-section'" class="w-full py-2.5 border border-primary text-primary font-medium !rounded-button cursor-pointer">
+Send a Message
+</button>
+</div>
+</section>
+</main>
+<!-- Fixed Action Buttons -->
+<!-- <div class="fixed bottom-20 w-full px-4 z-30">
+<div class="flex space-x-3">
+<button class="flex-1 py-3 bg-gray-200 text-gray-700 font-medium !rounded-button cursor-pointer">
+Save Draft
+</button>
+<button class="flex-1 py-3 bg-primary text-white font-medium !rounded-button cursor-pointer">
+Submit Application
+</button>
+</div>
+</div> -->
+<!-- Tab Bar -->
+<!-- <nav class="fixed bottom-0 w-full bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.05)] z-40">
+<div class="grid grid-cols-5 h-16">
+<a href="./index.html#hero" class="flex flex-col items-center justify-center cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center text-gray-500">
+<i class="ri-home-5-line ri-lg"></i>
+</div>
+<span class="text-xs text-primary mt-1">Home</span>
+</a>
+<a href="./Academics-Overview-Vishwa-Bharathi.html" class="flex flex-col items-center justify-center cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center text-gray-500">
+<i class="ri-book-open-line ri-lg"></i>
+</div>
+<span class="text-xs text-gray-500 mt-1">Academics</span>
+</a>
+<a href="./Gallery-vishwa bharathi school.html" data-readdy="true" class="flex flex-col items-center justify-center cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center text-gray-500">
+<i class="ri-gallery-line ri-lg"></i>
+</div>
+<span class="text-xs text-gray-500 mt-1">Gallery</span>
+</a>
+<a href="./School-Events-Calendar.html" class="flex flex-col items-center justify-center cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center text-gray-500">
+<i class="ri-calendar-event-line ri-lg"></i>
+</div>
+<span class="text-xs text-gray-500 mt-1">Events</span>
+</a>
+<a href="./index.html#contact-section" class="flex flex-col items-center justify-center cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center text-gray-500">
+<i class="ri-contacts-line ri-lg"></i>
+</div>
+<span class="text-xs text-gray-500 mt-1">Contact</span>
+</a>
+</div>
+</nav> -->
+<!-- Scripts -->
+<script id="fee-tabs-handler">
+document.addEventListener('DOMContentLoaded', function() {
+const tabTuition = document.getElementById('tab-tuition');
+const tabAdditional = document.getElementById('tab-additional');
+const tabPayment = document.getElementById('tab-payment');
+const contentTuition = document.getElementById('content-tuition');
+const contentAdditional = document.getElementById('content-additional');
+const contentPayment = document.getElementById('content-payment');
+tabTuition.addEventListener('click', function() {
+// Update tabs
+tabTuition.classList.add('text-primary', 'border-b-2', 'border-primary');
+tabTuition.classList.remove('text-gray-500');
+tabAdditional.classList.remove('text-primary', 'border-b-2', 'border-primary');
+tabAdditional.classList.add('text-gray-500');
+tabPayment.classList.remove('text-primary', 'border-b-2', 'border-primary');
+tabPayment.classList.add('text-gray-500');
+// Update content
+contentTuition.classList.remove('hidden');
+contentAdditional.classList.add('hidden');
+contentPayment.classList.add('hidden');
+});
+tabAdditional.addEventListener('click', function() {
+// Update tabs
+tabTuition.classList.remove('text-primary', 'border-b-2', 'border-primary');
+tabTuition.classList.add('text-gray-500');
+tabAdditional.classList.add('text-primary', 'border-b-2', 'border-primary');
+tabAdditional.classList.remove('text-gray-500');
+tabPayment.classList.remove('text-primary', 'border-b-2', 'border-primary');
+tabPayment.classList.add('text-gray-500');
+// Update content
+contentTuition.classList.add('hidden');
+contentAdditional.classList.remove('hidden');
+contentPayment.classList.add('hidden');
+});
+tabPayment.addEventListener('click', function() {
+// Update tabs
+tabTuition.classList.remove('text-primary', 'border-b-2', 'border-primary');
+tabTuition.classList.add('text-gray-500');
+tabAdditional.classList.remove('text-primary', 'border-b-2', 'border-primary');
+tabAdditional.classList.add('text-gray-500');
+tabPayment.classList.add('text-primary', 'border-b-2', 'border-primary');
+tabPayment.classList.remove('text-gray-500');
+// Update content
+contentTuition.classList.add('hidden');
+contentAdditional.classList.add('hidden');
+contentPayment.classList.remove('hidden');
+});
+});
+</script>
+<script id="accordion-handler">
+document.addEventListener('DOMContentLoaded', function() {
+// Eligibility accordion
+const eligibilityToggle = document.getElementById('eligibility-toggle');
+const eligibilityContent = document.getElementById('eligibility-content');
+const eligibilityIcon = document.getElementById('eligibility-icon');
+eligibilityToggle.addEventListener('click', function() {
+eligibilityContent.classList.toggle('hidden');
+if (eligibilityContent.classList.contains('hidden')) {
+eligibilityIcon.classList.remove('ri-arrow-up-s-line');
+eligibilityIcon.classList.add('ri-arrow-down-s-line');
+} else {
+eligibilityIcon.classList.remove('ri-arrow-down-s-line');
+eligibilityIcon.classList.add('ri-arrow-up-s-line');
+}
+});
+// Documents accordion
+const documentsToggle = document.getElementById('documents-toggle');
+const documentsContent = document.getElementById('documents-content');
+const documentsIcon = document.getElementById('documents-icon');
+documentsToggle.addEventListener('click', function() {
+documentsContent.classList.toggle('hidden');
+if (documentsContent.classList.contains('hidden')) {
+documentsIcon.classList.remove('ri-arrow-up-s-line');
+documentsIcon.classList.add('ri-arrow-down-s-line');
+} else {
+documentsIcon.classList.remove('ri-arrow-down-s-line');
+documentsIcon.classList.add('ri-arrow-up-s-line');
+}
+});
+// FAQ accordions
+for (let i = 1; i <= 5; i++) {
+const toggle = document.getElementById(`faq-${i}-toggle`);
+const content = document.getElementById(`faq-${i}-content`);
+const icon = document.getElementById(`faq-${i}-icon`);
+toggle.addEventListener('click', function() {
+content.classList.toggle('hidden');
+if (content.classList.contains('hidden')) {
+icon.classList.remove('ri-arrow-up-s-line');
+icon.classList.add('ri-arrow-down-s-line');
+} else {
+icon.classList.remove('ri-arrow-down-s-line');
+icon.classList.add('ri-arrow-up-s-line');
+}
+});
+}
+});
+</script>
+<script id="form-progress-handler">
+document.addEventListener('DOMContentLoaded', function() {
+const formFields = document.querySelectorAll('#admission-form input, #admission-form select, #admission-form textarea');
+const progressBar = document.querySelector('.form-progress');
+const progressContainer = document.querySelector('[class="w-12 h-12 !rounded-full bg-primary/10"]');
+const progressText = progressContainer ? progressContainer.querySelector('span') : null;
+ // Student photo upload preview
+  const studentPhotoInput = document.getElementById('student-photo');
+  const studentPhotoPreview = document.getElementById('student-photo-preview');
+  const studentPhotoPreviewContainer = document.getElementById('student-photo-preview-container');
+
+  studentPhotoInput.addEventListener('change', function() {
+    const file = this.files[0];
+    if (file) {
+      if (file.size > 2 * 1024 * 1024) { // 2MB limit
+        alert('File size exceeds 2MB limit');
+        this.value = '';
+        return;
+      }
+      
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        studentPhotoPreview.src = e.target.result;
+        studentPhotoPreviewContainer.classList.remove('hidden');
+      }
+      reader.readAsDataURL(file);
+    }
+  });
+
+  // Report card upload preview
+  const reportCardInput = document.getElementById('report-card');
+  const reportCardPreview = document.getElementById('report-card-preview');
+  const pdfPreview = document.getElementById('pdf-preview');
+  const pdfFilename = document.getElementById('pdf-filename');
+  const reportCardPreviewContainer = document.getElementById('report-card-preview-container');
+
+  reportCardInput.addEventListener('change', function() {
+    const file = this.files[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) { // 5MB limit
+        alert('File size exceeds 5MB limit');
+        this.value = '';
+        return;
+      }
+      
+      if (file.type === 'application/pdf') {
+        // Handle PDF file
+        reportCardPreview.classList.add('hidden');
+        pdfPreview.classList.remove('hidden');
+        pdfFilename.textContent = file.name;
+        reportCardPreviewContainer.classList.remove('hidden');
+      } else if (file.type.startsWith('image/')) {
+        // Handle image file
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          reportCardPreview.src = e.target.result;
+          reportCardPreview.classList.remove('hidden');
+          pdfPreview.classList.add('hidden');
+          reportCardPreviewContainer.classList.remove('hidden');
+        }
+        reader.readAsDataURL(file);
+      } else {
+        alert('Please upload a PDF or image file');
+        this.value = '';
+      }
+    }
+  });
+
+  // Remove photo function
+  window.removePhoto = function(inputId) {
+    const input = document.getElementById(inputId);
+    input.value = '';
+    
+    if (inputId === 'student-photo') {
+      studentPhotoPreviewContainer.classList.add('hidden');
+    } else if (inputId === 'report-card') {
+      reportCardPreviewContainer.classList.add('hidden');
+    }
+  };
+
+  // Form submission handlers
+  const form = document.getElementById('admission-form');
+  const saveDraftBtn = document.getElementById('save-draft-btn');
+  const submitBtn = document.getElementById('submit-form-btn');
+
+  // Save draft functionality
+  saveDraftBtn.addEventListener('click', function() {
+    const formData = new FormData(form);
+    formData.append('is_draft', 'true');
+    
+    submitForm(formData, false);
+  });
+
+  // Submit form functionality
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const formData = new FormData(form);
+    formData.append('is_draft', 'false');
+    
+    submitForm(formData, true);
+  });
+
+  // API call function
+  function submitForm(formData, isFinalSubmit) {
+    // Show loading state
+    const originalSubmitText = submitBtn.textContent;
+    const originalDraftText = saveDraftBtn.textContent;
+    
+    if (isFinalSubmit) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="ri-loader-4-line animate-spin mr-2"></i> Submitting...';
+    } else {
+      saveDraftBtn.disabled = true;
+      saveDraftBtn.innerHTML = '<i class="ri-loader-4-line animate-spin mr-2"></i> Saving...';
+    }
+
+    // API call
+    fetch('api/admission-form', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      if (isFinalSubmit) {
+        alert('Application submitted successfully!');
+        // Redirect or show success message
+        window.location.href = 'success-page.html';
+      } else {
+        alert('Draft saved successfully!');
+        // You might want to store the draft ID if your API returns one
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('An error occurred. Please try again.');
+    })
+    .finally(() => {
+      // Reset buttons
+      if (isFinalSubmit) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalSubmitText;
+      } else {
+        saveDraftBtn.disabled = false;
+        saveDraftBtn.textContent = originalDraftText;
+      }
+    });
+  }
+
+
+function updateProgress() {
+let filledFields = 0;
+formFields.forEach(field => {
+if (field.value.trim() !== '') {
+filledFields++;
+}
+});
+
+const totalFields = formFields.length;
+const progressPercentage = Math.round((filledFields / totalFields) * 100);
+
+if (progressBar) {
+progressBar.style.width = `${progressPercentage}%`;
+}
+
+if (progressText) {
+progressText.textContent = `${progressPercentage}%`;
+}
+
+const statusText = document.querySelector('.mt-2.flex.justify-between span:first-child');
+if (statusText) {
+if (progressPercentage === 0) {
+statusText.textContent = 'Not Started';
+} else if (progressPercentage < 50) {
+statusText.textContent = 'In Progress';
+} else if (progressPercentage < 100) {
+statusText.textContent = 'Almost Complete';
+} else {
+statusText.textContent = 'Complete';
+}
+}
+}
+
+formFields.forEach(field => {
+field.addEventListener('input', updateProgress);
+field.addEventListener('change', updateProgress);
+});
+});
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+  // Calendar Date Selection
+  const dateCells = document.querySelectorAll('.text-gray-700.py-2');
+  let selectedDate = null;
+
+  dateCells.forEach(cell => {
+    cell.addEventListener('click', function() {
+      // Remove selection from all cells
+      dateCells.forEach(c => {
+        c.classList.remove('bg-primary', 'text-white');
+        c.classList.add('bg-gray-100');
+      });
+      
+      // Add selection to clicked cell
+      this.classList.remove('bg-gray-100');
+      this.classList.add('bg-primary', 'text-white');
+      
+      selectedDate = this.textContent;
+      console.log('Selected date:', selectedDate);
+    });
+  });
+
+  // Time Slot Selection
+  const timeSlots = document.querySelectorAll('.p-4.border-b.border-gray-200 button');
+  let selectedTime = null;
+
+  timeSlots.forEach(slot => {
+    slot.addEventListener('click', function() {
+      // Remove selection from all time slots
+      timeSlots.forEach(s => {
+        s.classList.remove('bg-primary/10', 'border-primary', 'text-primary');
+        s.classList.add('border-gray-300', 'text-gray-700');
+      });
+      
+      // Add selection to clicked time slot
+      this.classList.remove('border-gray-300', 'text-gray-700');
+      this.classList.add('bg-primary', 'border-primary', 'text-primary');
+      
+      selectedTime = this.textContent.trim();
+      console.log('Selected time:', selectedTime);
+    });
+  });
+
+  // Form Submission
+  const bookTourBtn = document.querySelector('.p-4 button.bg-primary');
+  const virtualTourBtn = document.querySelector('.p-4 button.text-primary');
+  const nameInput = document.querySelector('input[type="text"]');
+  const phoneInput = document.querySelector('input[type="tel"]');
+  const emailInput = document.querySelector('input[type="email"]');
+  const visitorsSelect = document.querySelector('select');
+
+  bookTourBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    
+    // Validate selections
+    if (!selectedDate || !selectedTime) {
+      alert('Please select a date and time for your tour');
+      return;
+    }
+    
+    // Validate form inputs
+    if (!nameInput.value.trim() || !phoneInput.value.trim() || !emailInput.value.trim()) {
+      alert('Please fill in all your details');
+      return;
+    }
+    
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(emailInput.value)) {
+      alert('Please enter a valid email address');
+      return;
+    }
+    
+    // Phone validation (basic)
+    if (phoneInput.value.length < 8) {
+      alert('Please enter a valid phone number');
+      return;
+    }
+    
+    // Prepare data for submission
+    const formData = {
+      date: selectedDate,
+      time: selectedTime,
+      name: nameInput.value.trim(),
+      phone: phoneInput.value.trim(),
+      email: emailInput.value.trim(),
+      visitors: visitorsSelect.value
+    };
+    
+    console.log('Form data:', formData);
+    
+    // Show loading state
+    const originalText = bookTourBtn.textContent;
+    bookTourBtn.innerHTML = '<i class="ri-loader-4-line animate-spin mr-2"></i> Booking...';
+    bookTourBtn.disabled = true;
+    
+    // Simulate API call (replace with actual fetch)
+    setTimeout(() => {
+      // In a real app, you would use fetch() to send data to your server
+      /*
+      fetch('/api/schedule-tour', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Handle success
+      })
+      .catch(error => {
+        // Handle error
+      });
+      */
+      
+      // For demonstration, we'll just show a success message
+      alert(`Tour booked successfully!\n\nDate: ${selectedDate}\nTime: ${selectedTime}\nWe've sent confirmation details to ${emailInput.value.trim()}`);
+      
+      // Reset button
+      bookTourBtn.textContent = originalText;
+      bookTourBtn.disabled = false;
+    }, 1500);
+  });
+  
+  // Virtual Tour Button
+  virtualTourBtn.addEventListener('click', function() {
+    // In a real app, this would open a virtual tour
+    alert('Opening virtual tour experience...');
+    // window.location.href = '/virtual-tour';
+  });
+
+  // Initialize with the pre-selected time slot (12:00 PM in the HTML)
+  const preSelectedTime = document.querySelector('.border-primary');
+  if (preSelectedTime) {
+    selectedTime = preSelectedTime.textContent.trim();
+  }
+});
+</script>
+</body>
+</html>

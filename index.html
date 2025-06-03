@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vishwa Bharathi School</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#4F46E5',secondary:'#10B981'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Poppins', sans-serif;
+}
+@keyframes shake {
+0%, 100% { transform: translateX(0); }
+20% { transform: translateX(-2px); }
+40% { transform: translateX(2px); }
+60% { transform: translateX(-2px); }
+80% { transform: translateX(2px); }
+}
+.animate-shake {
+animation: shake 0.4s ease-in-out;
+}
+.splash-screen {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: linear-gradient(135deg, #ffffff, #f0f4ff);
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+z-index: 9999;
+transition: opacity 0.5s ease-out;
+}
+.splash-logo {
+animation: scale 2s ease-in-out;
+}
+@keyframes scale {
+0% { transform: scale(0.5); opacity: 0; }
+50% { transform: scale(1.1); }
+100% { transform: scale(1); opacity: 1; }
+}
+.typewriter {
+overflow: hidden;
+white-space: nowrap;
+margin: 0 auto;
+animation: typing 3.5s steps(40, end);
+}
+@keyframes typing {
+from { width: 0 }
+to { width: 100% }
+}
+.progress-bar {
+width: 200px;
+height: 4px;
+background-color: #e2e8f0;
+border-radius: 2px;
+overflow: hidden;
+margin-top: 2rem;
+}
+.progress {
+height: 100%;
+background-color: #4F46E5;
+animation: progress 2.5s ease-in-out;
+}
+@keyframes progress {
+0% { width: 0%; }
+100% { width: 100%; }
+}
+.ticker {
+overflow: hidden;
+white-space: nowrap;
+box-sizing: border-box;
+}
+.ticker-content {
+display: inline-block;
+padding-left: 100%;
+animation: ticker 20s linear infinite;
+}
+@keyframes ticker {
+0% { transform: translate3d(0, 0, 0); }
+100% { transform: translate3d(-100%, 0, 0); }
+}
+.counter-value {
+font-size: 2rem;
+font-weight: 700;
+color: #4F46E5;
+}
+</style>
+</head>
+<body class="bg-gray-50">
+<!-- Splash Screen -->
+<div class="splash-screen" id="splash-screen">
+<div class="splash-logo w-24 h-24 bg-primary !rounded-full flex items-center justify-center mb-4">
+<span class="text-white text-2xl font-['Pacifico']">VB</span>
+</div>
+<h1 class="typewriter text-2xl font-semibold text-gray-800 mt-4">Vishwa Bharathi School</h1>
+<div class="progress-bar">
+<div class="progress"></div>
+</div>
+</div>
+<!-- Navigation Bar -->
+<nav class="bg-white shadow-md fixed w-full top-0 z-50">
+<div class="max-w-full px-4 py-3 flex justify-between items-center">
+<a href="./index.html">
+<div class="flex items-center">
+<div class="w-10 h-10 bg-primary !rounded-full flex items-center justify-center mr-2">
+<span class="text-white text-lg font-['Pacifico']">VB</span>
+</div>
+<span class="text-lg font-semibold text-gray-800 ">Vishwa Bharathi</span>
+</div></a>
+<div class="flex items-center space-x-3">
+<!-- <button id="search-button" class="w-8 h-8 flex items-center justify-center text-gray-600">
+<i class="ri-search-line ri-lg"></i>
+</button> -->
+<!-- Search Overlay -->
+<!-- <div id="search-overlay" class="fixed inset-0 bg-white z-50 transform -translate-y-full transition-transform duration-300 ease-in-out">
+<div class="px-4 py-3 border-b border-gray-100">
+<div class="flex items-center">
+<div class="flex-1 relative">
+<i class="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+<input type="text" id="search-input" class="w-full pl-10 pr-4 py-2 bg-gray-50 !rounded-full text-sm" placeholder="Search for programs, events, news...">
+</div>
+<button id="close-search" class="w-8 h-8 flex items-center justify-center ml-2 text-gray-600">
+<i class="ri-close-line ri-lg"></i>
+</button>
+</div>
+</div>
+<div class="px-4 py-4">
+<div class="mb-6">
+<h3 class="text-sm font-medium text-gray-700 mb-3">Recent Searches</h3>
+<div class="space-y-3">
+<div class="flex items-center text-gray-600">
+<i class="ri-history-line w-5 h-5 mr-3"></i>
+<span class="text-sm">Admission Process 2025</span>
+</div>
+<div class="flex items-center text-gray-600">
+<i class="ri-history-line w-5 h-5 mr-3"></i>
+<span class="text-sm">Annual Cultural Fest</span>
+</div>
+<div class="flex items-center text-gray-600">
+<i class="ri-history-line w-5 h-5 mr-3"></i>
+<span class="text-sm">School Facilities</span>
+</div>
+</div>
+</div>
+<div>
+<h3 class="text-sm font-medium text-gray-700 mb-3">Popular Categories</h3>
+<div class="grid grid-cols-2 gap-2">
+<button class="flex items-center px-4 py-3 bg-gray-50 !rounded-lg text-gray-700">
+<i class="ri-user-add-line w-5 h-5 mr-2 text-primary"></i>
+<span class="text-sm">Admissions</span>
+</button>
+<a href="https://readdy.ai/home/5cf10ffc-5f32-4818-b78d-7b9128f844a3/e7306e2d-6c62-477b-8eed-6de59dbb7e4c" data-readdy="true" class="flex items-center px-4 py-3 bg-gray-50 !rounded-lg text-gray-700">
+<i class="ri-calendar-event-line w-5 h-5 mr-2 text-primary"></i>
+<span class="text-sm">Events</span>
+</a>
+<button class="flex items-center px-4 py-3 bg-gray-50 !rounded-lg text-gray-700">
+<i class="ri-book-open-line w-5 h-5 mr-2 text-primary"></i>
+<span class="text-sm">Programs</span>
+</button>
+<button class="flex items-center px-4 py-3 bg-gray-50 !rounded-lg text-gray-700">
+<i class="ri-gallery-line w-5 h-5 mr-2 text-primary"></i>
+<span class="text-sm">Gallery</span>
+</button>
+</div>
+</div>
+<div id="search-suggestions" class="hidden mt-4">
+<h3 class="text-sm font-medium text-gray-700 mb-3">Suggestions</h3>
+<div class="space-y-3">
+</div>
+</div>
+</div>
+</div> -->
+<!-- <button class="w-8 h-8 flex items-center justify-center text-gray-600">
+<i class="ri-user-line ri-lg"></i>
+</button> -->
+<button class="w-8 h-8 flex items-center justify-center text-gray-600" id="menu-button">
+  <i class="ri-menu-line ri-lg" id="menu-icon"></i>
+</button>
+</div>
+</div>
+</nav>
+<!-- Mobile Menu -->
+<div class="fixed inset-0 bg-white z-40 transform translate-x-full transition-transform duration-300 ease-in-out" id="mobile-menu">
+<div class="pt-16 pb-20 px-4 h-full overflow-y-auto">
+<div class="flex justify-end mb-6">
+</div>
+<div class="space-y-4">
+<a href="#hero" class="block py-3 px-4 text-gray-800 font-medium border-b border-gray-100 hover:text-white hover:bg-primary transition-all">
+  Home
+</a>
+<a href="./About-Vishwa-Bharathi-School.html" class="block py-3 px-4 text-gray-800 font-medium border-b border-gray-100 hover:text-white hover:bg-primary transition-all">About Us</a>
+<a href="./Academics-Overview-Vishwa-Bharathi.html" class="block py-3 px-4 text-gray-800 font-medium border-b border-gray-100 hover:text-white hover:bg-primary transition-all">Academics</a>
+<a href="#admissioncta" class="block py-3 px-4 text-gray-800 font-medium border-b border-gray-100 hover:text-white hover:bg-primary transition-all">Admissions</a>
+<a href="#facilities" class="block py-3 px-4 text-gray-800 font-medium border-b border-gray-100 hover:text-white hover:bg-primary transition-all">Facilities</a>
+<a href="#events" class="block py-3 px-4 text-gray-800 font-medium border-b border-gray-100 hover:text-white hover:bg-primary transition-all">Events & News</a>
+<a href="./Gallery-vishwa bharathi school.html" class="block py-3 px-4 text-gray-800 font-medium border-b border-gray-100 hover:text-white hover:bg-primary transition-all">Gallery</a>
+<a href="#contact-section" class="block py-3 px-4 text-gray-800 font-medium border-b border-gray-100 hover:text-white hover:bg-primary transition-all">Contact</a>
+</div>
+<div class="mt-8">
+<button onclick="window.location.href='./Parent-Portal-Login-Page.html'" class="w-full bg-primary text-white py-3 !rounded-button font-medium">Parent Portal Login</button>
+<button onclick="window.location.href='./10th-Class-Results-Display.html'" class="w-full bg-primary text-white py-3 mt-10 !rounded-button font-medium">10th class results</button>
+</div>
+<div class="mt-8 flex justify-center space-x-4">
+<a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-100 !rounded-full">
+<i class="ri-facebook-fill ri-lg text-gray-600"></i>
+</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-100 !rounded-full">
+<i class="ri-instagram-line ri-lg text-gray-600"></i>
+</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-100 !rounded-full">
+<i class="ri-youtube-line ri-lg text-gray-600"></i>
+</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-100 !rounded-full">
+<i class="ri-twitter-x-line ri-lg text-gray-600"></i>
+</a>
+</div>
+</div>
+</div>
+<!-- Main Content -->
+<main class="pt-16 pb-20">
+<!-- Hero Section -->
+<section id="hero" class="relative scroll-mt-20 ">
+<div class="w-full h-64 bg-gray-200 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=modern%20school%20building%20with%20students%20walking%20in%20front%2C%20bright%20and%20welcoming%20campus%2C%20clean%20architecture%2C%20educational%20environment%2C%20natural%20lighting%2C%20green%20surroundings%2C%20high%20quality%20professional%20photography&width=375&height=256&seq=1&orientation=landscape" alt="School Campus" class="w-full h-full object-cover">
+<div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex flex-col justify-end p-4">
+<h1 class="text-white text-2xl font-bold">Welcome to Vishwa Bharathi</h1>
+<p class="text-white text-sm mt-1 mb-10">Nurturing Minds, Shaping Futures</p>
+</div>
+</div>
+<!-- Announcement Ticker -->
+<div class="bg-primary py-2 px-4 text-white ticker">
+<div class="ticker-content">
+<span class="inline-block mr-8">📢 Admissions Open for 2025-26 Academic Year</span>
+<span class="inline-block mr-8">🏆 Our students won the National Science Olympiad</span>
+<span class="inline-block mr-8">📚 New STEM Lab inauguration on June 15, 2025</span>
+<span class="inline-block mr-8">🎭 Annual Cultural Fest starts on June 20, 2025</span>
+</div>
+</div>
+</section>
+<!-- Quick Links Section -->
+<section class="px-4 py-6">
+<div class="grid grid-cols-4 gap-3">
+<a href="./Admissions-Information-&-Application.html" data-readdy="true" class="flex flex-col items-center">
+<div class="w-14 h-14 bg-blue-50 !rounded-full flex items-center justify-center mb-2">
+<img src="https://readdy.ai/api/search-image?query=icon%2C%203D%20cartoon%2C%20Admission%20form%2C%20the%20icon%20should%20take%20up%2070%25%20of%20the%20frame%2C%20vibrant%20colors%20with%20soft%20gradients%2C%20minimalist%20design%2C%20smooth%20rounded%20shapes%2C%20subtle%20shading%2C%20no%20outlines%2C%20centered%20composition%2C%20isolated%20on%20white%20background%2C%20playful%20and%20friendly%20aesthetic%2C%20isometric%20perspective%2C%20high%20detail%20quality%2C%20clean%20and%20modern%20look%2C%20single%20object%20focus&width=56&height=56&seq=2&orientation=squarish" alt="Admissions" class="w-full h-full object-cover !rounded-full">
+</div>
+<span class="text-xs text-center text-gray-700 whitespace-nowrap overflow-hidden text-overflow-ellipsis">Admissions</span>
+</a>
+<a href="./Academics-Overview-Vishwa-Bharathi.html" data-readdy="true" class="flex flex-col items-center">
+<div class="w-14 h-14 bg-green-50 !rounded-full flex items-center justify-center mb-2">
+<img src="https://readdy.ai/api/search-image?query=icon%2C%203D%20cartoon%2C%20Academic%20books%20and%20graduation%20cap%2C%20the%20icon%20should%20take%20up%2070%25%20of%20the%20frame%2C%20vibrant%20colors%20with%20soft%20gradients%2C%20minimalist%20design%2C%20smooth%20rounded%20shapes%2C%20subtle%20shading%2C%20no%20outlines%2C%20centered%20composition%2C%20isolated%20on%20white%20background%2C%20playful%20and%20friendly%20aesthetic%2C%20isometric%20perspective%2C%20high%20detail%20quality%2C%20clean%20and%20modern%20look%2C%20single%20object%20focus&width=56&height=56&seq=3&orientation=squarish" alt="Academics" class="w-full h-full object-cover !rounded-full">
+</div>
+<span class="text-xs text-center text-gray-700 whitespace-nowrap overflow-hidden text-overflow-ellipsis">Academics</span>
+</a>
+<a href="./School-Events-Calendar.html" data-readdy="true" class="flex flex-col items-center">
+<div class="w-14 h-14 bg-purple-50 !rounded-full flex items-center justify-center mb-2">
+<img src="https://readdy.ai/api/search-image?query=icon%2C%203D%20cartoon%2C%20Calendar%20with%20events%20marked%2C%20the%20icon%20should%20take%20up%2070%25%20of%20the%20frame%2C%20vibrant%20colors%20with%20soft%20gradients%2C%20minimalist%20design%2C%20smooth%20rounded%20shapes%2C%20subtle%20shading%2C%20no%20outlines%2C%20centered%20composition%2C%20isolated%20on%20white%20background%2C%20playful%20and%20friendly%20aesthetic%2C%20isometric%20perspective%2C%20high%20detail%20quality%2C%20clean%20and%20modern%20look%2C%20single%20object%20focus&width=56&height=56&seq=4&orientation=squarish" alt="Events" class="w-full h-full object-cover !rounded-full">
+</div>
+<span class="text-xs text-center text-gray-700 whitespace-nowrap overflow-hidden text-overflow-ellipsis">Events</span>
+</a>
+<a href="./Parent-Portal-Login-Page.html" data-readdy="true" class="flex flex-col items-center">
+<div class="w-14 h-14 bg-yellow-50 !rounded-full flex items-center justify-center mb-2">
+<img src="https://readdy.ai/api/search-image?query=icon%2C%203D%20cartoon%2C%20Parent%20and%20teacher%20meeting%2C%20the%20icon%20should%20take%20up%2070%25%20of%20the%20frame%2C%20vibrant%20colors%20with%20soft%20gradients%2C%20minimalist%20design%2C%20smooth%20rounded%20shapes%2C%20subtle%20shading%2C%20no%20outlines%2C%20centered%20composition%2C%20isolated%20on%20white%20background%2C%20playful%20and%20friendly%20aesthetic%2C%20isometric%20perspective%2C%20high%20detail%20quality%2C%20clean%20and%20modern%20look%2C%20single%20object%20focus&width=56&height=56&seq=5&orientation=squarish" alt="Portal" class="w-full h-full object-cover !rounded-full">
+</div>
+<span class="text-xs text-center text-gray-700 whitespace-nowrap overflow-hidden text-overflow-ellipsis">Portal</span>
+</a>
+</div>
+</section>
+<!-- About Section -->
+<section id="aboutus" class="px-4 py-6 bg-white scroll-mt-20">
+<h2 class="text-xl font-semibold text-gray-800 mb-4">About Vishwa Bharathi</h2>
+<p class="text-gray-600 text-sm leading-relaxed">
+Founded in 1985, Vishwa Bharathi School has been a beacon of educational excellence for over four decades. Our institution is committed to providing a holistic learning environment that nurtures intellectual, physical, and emotional growth.
+</p>
+<div class="mt-4 flex justify-between">
+<div class="text-center">
+<div class="counter-value" data-target="40">0</div>
+<p class="text-xs text-gray-500">Years of Excellence</p>
+</div>
+<div class="text-center">
+<div class="counter-value" data-target="5000">0</div>
+<p class="text-xs text-gray-500">Alumni Network</p>
+</div>
+<div class="text-center">
+<div class="counter-value" data-target="100">0</div>
+<p class="text-xs text-gray-500">Expert Faculty</p>
+</div>
+</div>
+<button onclick="window.location.href='./About-Vishwa-Bharathi-School.html'" class="mt-4 text-primary text-sm font-medium flex items-center cursor-pointer">
+Learn More <i class="ri-arrow-right-line ri-sm ml-1"></i>
+</button>
+</section>
+<!-- Programs Section -->
+<section id="programs" class="px-4 py-6 scroll-mt-20">
+<div class="flex justify-between items-center mb-4">
+<h2 class="text-xl font-semibold text-gray-800">Our Programs</h2>
+<a href="./Comprehensive-Educational-Programs.html" data-readdy="true" class="text-primary text-sm font-medium flex items-center cursor-pointer">
+View All <i class="ri-arrow-right-line ri-sm ml-1"></i>
+</a>
+</div>
+<div class="space-y-4">
+<div class="bg-white p-4 !rounded shadow-sm flex">
+<div class="w-16 h-16 bg-blue-50 !rounded flex items-center justify-center mr-4">
+<img src="https://readdy.ai/api/search-image?query=icon%2C%203D%20cartoon%2C%20Elementary%20school%20education%2C%20colorful%20building%20blocks%2C%20the%20icon%20should%20take%20up%2070%25%20of%20the%20frame%2C%20vibrant%20colors%20with%20soft%20gradients%2C%20minimalist%20design%2C%20smooth%20rounded%20shapes%2C%20subtle%20shading%2C%20no%20outlines%2C%20centered%20composition%2C%20isolated%20on%20white%20background%2C%20playful%20and%20friendly%20aesthetic%2C%20isometric%20perspective%2C%20high%20detail%20quality%2C%20clean%20and%20modern%20look%2C%20single%20object%20focus&width=64&height=64&seq=6&orientation=squarish" alt="Primary" class="w-full h-full object-cover !rounded">
+</div>
+<div>
+<h3 class="text-gray-800 font-medium">Primary Education</h3>
+<p class="text-gray-600 text-xs mt-1">Grades 1-5 with foundational learning focus</p>
+</div>
+</div>
+<div class="bg-white p-4 !rounded shadow-sm flex">
+<div class="w-16 h-16 bg-green-50 !rounded flex items-center justify-center mr-4">
+<img src="https://readdy.ai/api/search-image?query=icon%2C%203D%20cartoon%2C%20Middle%20school%20education%2C%20science%20and%20math%20symbols%2C%20the%20icon%20should%20take%20up%2070%25%20of%20the%20frame%2C%20vibrant%20colors%20with%20soft%20gradients%2C%20minimalist%20design%2C%20smooth%20rounded%20shapes%2C%20subtle%20shading%2C%20no%20outlines%2C%20centered%20composition%2C%20isolated%20on%20white%20background%2C%20playful%20and%20friendly%20aesthetic%2C%20isometric%20perspective%2C%20high%20detail%20quality%2C%20clean%20and%20modern%20look%2C%20single%20object%20focus&width=64&height=64&seq=7&orientation=squarish" alt="Middle" class="w-full h-full object-cover !rounded">
+</div>
+<div>
+<h3 class="text-gray-800 font-medium">Middle School</h3>
+<p class="text-gray-600 text-xs mt-1">Grades 6-8 with specialized subject focus</p>
+</div>
+</div>
+<div class="bg-white p-4 !rounded shadow-sm flex">
+<div class="w-16 h-16 bg-purple-50 !rounded flex items-center justify-center mr-4">
+<img src="https://readdy.ai/api/search-image?query=icon%2C%203D%20cartoon%2C%20High%20school%20education%2C%20graduation%20cap%20and%20diploma%2C%20the%20icon%20should%20take%20up%2070%25%20of%20the%20frame%2C%20vibrant%20colors%20with%20soft%20gradients%2C%20minimalist%20design%2C%20smooth%20rounded%20shapes%2C%20subtle%20shading%2C%20no%20outlines%2C%20centered%20composition%2C%20isolated%20on%20white%20background%2C%20playful%20and%20friendly%20aesthetic%2C%20isometric%20perspective%2C%20high%20detail%20quality%2C%20clean%20and%20modern%20look%2C%20single%20object%20focus&width=64&height=64&seq=8&orientation=squarish" alt="Secondary" class="w-full h-full object-cover !rounded">
+</div>
+<div>
+<h3 class="text-gray-800 font-medium">Secondary Education</h3>
+<p class="text-gray-600 text-xs mt-1">Grades 9-12 with college preparation</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Facilities Section -->
+<section id="facilities" class="px-4 py-6 bg-white scroll-mt-20">
+<h2 class="text-xl font-semibold text-gray-800 mb-4">Our Facilities</h2>
+<div class="grid grid-cols-2 gap-3">
+<div class="relative h-32 overflow-hidden !rounded-md">
+<img src="https://readdy.ai/api/search-image?query=modern%20school%20science%20laboratory%20with%20students%20conducting%20experiments%2C%20bright%20and%20clean%20environment%2C%20educational%20setting%2C%20high%20quality%20professional%20photography&width=180&height=128&seq=9&orientation=landscape" alt="Science Lab" class="w-full h-full object-cover">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-2">
+<span class="text-white text-xs font-medium">Science Labs</span>
+</div>
+</div>
+<div class="relative h-32 overflow-hidden !rounded-md">
+<img src="https://readdy.ai/api/search-image?query=modern%20school%20library%20with%20students%20reading%20books%2C%20well-organized%20bookshelves%2C%20bright%20and%20spacious%20environment%2C%20educational%20setting%2C%20high%20quality%20professional%20photography&width=180&height=128&seq=10&orientation=landscape" alt="Library" class="w-full h-full object-cover">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-2">
+<span class="text-white text-xs font-medium">Library</span>
+</div>
+</div>
+<div class="relative h-32 overflow-hidden !rounded-md">
+<img src="https://readdy.ai/api/search-image?query=modern%20school%20sports%20ground%20with%20students%20playing%2C%20outdoor%20activities%2C%20bright%20and%20spacious%20environment%2C%20educational%20setting%2C%20high%20quality%20professional%20photography&width=180&height=128&seq=11&orientation=landscape" alt="Sports" class="w-full h-full object-cover">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-2">
+<span class="text-white text-xs font-medium">Sports Complex</span>
+</div>
+</div>
+<div class="relative h-32 overflow-hidden !rounded-md">
+<img src="https://readdy.ai/api/search-image?query=modern%20school%20computer%20lab%20with%20students%20using%20computers%2C%20digital%20learning%2C%20bright%20and%20clean%20environment%2C%20educational%20setting%2C%20high%20quality%20professional%20photography&width=180&height=128&seq=12&orientation=landscape" alt="Computer Lab" class="w-full h-full object-cover">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-2">
+<span class="text-white text-xs font-medium">Computer Labs</span>
+</div>
+</div>
+</div>
+<button onclick="window.location.href='./All-Vishwa-Bharathi-Facilities.html'" class="mt-4 w-full py-2.5 border border-primary text-primary font-medium !rounded-button cursor-pointer">
+View All Facilities
+</button>
+</section>
+<!-- Events Section -->
+<section id="events" class="px-4 py-6 scroll-mt-20">
+<div class="flex justify-between items-center mb-4">
+<h2 class="text-xl font-semibold text-gray-800">Upcoming Events</h2>
+<a href="#" class="text-primary text-sm font-medium flex items-center cursor-pointer">
+Calendar <i class="ri-calendar-line ri-sm ml-1"></i>
+</a>
+</div>
+<div class="space-y-4">
+<div class="bg-white p-4 !rounded shadow-sm">
+<div class="flex">
+<div class="w-14 h-14 bg-primary/10 !rounded flex flex-col items-center justify-center mr-4">
+<span class="text-primary text-sm font-bold">15</span>
+<span class="text-primary text-xs">Jun</span>
+</div>
+<div>
+<h3 class="text-gray-800 font-medium">STEM Lab Inauguration</h3>
+<p class="text-gray-500 text-xs mt-1">10:00 AM - Main Campus</p>
+</div>
+</div>
+</div>
+<div class="bg-white p-4 !rounded shadow-sm">
+<div class="flex">
+<div class="w-14 h-14 bg-primary/10 !rounded flex flex-col items-center justify-center mr-4">
+<span class="text-primary text-sm font-bold">20</span>
+<span class="text-primary text-xs">Jun</span>
+</div>
+<div>
+<h3 class="text-gray-800 font-medium">Annual Cultural Fest</h3>
+<p class="text-gray-500 text-xs mt-1">5:00 PM - Auditorium</p>
+</div>
+</div>
+</div>
+<div class="bg-white p-4 !rounded shadow-sm">
+<div class="flex">
+<div class="w-14 h-14 bg-primary/10 !rounded flex flex-col items-center justify-center mr-4">
+<span class="text-primary text-sm font-bold">25</span>
+<span class="text-primary text-xs">Jun</span>
+</div>
+<div>
+<h3 class="text-gray-800 font-medium">Parent-Teacher Meeting</h3>
+<p class="text-gray-500 text-xs mt-1">9:00 AM - All Classrooms</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- News Section -->
+<section id="news" class="px-4 py-6 bg-white scroll-mt-20">
+<div class="flex justify-between items-center mb-4">
+<h2 class="text-xl font-semibold text-gray-800">Latest News</h2>
+<a href="https://readdy.ai/home/5cf10ffc-5f32-4818-b78d-7b9128f844a3/6273bc0f-ed9d-4816-9e5d-01e5c54c6a07" data-readdy="true" class="text-primary text-sm font-medium flex items-center cursor-pointer">
+View All <i class="ri-arrow-right-line ri-sm ml-1"></i>
+</a>
+</div>
+<div class="space-y-4">
+<div class="bg-gray-50 !rounded overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=students%20celebrating%20winning%20a%20science%20competition%2C%20holding%20trophy%2C%20excited%20faces%2C%20school%20environment%2C%20educational%20achievement%2C%20high%20quality%20professional%20photography&width=375&height=180&seq=13&orientation=landscape" alt="Science Olympiad" class="w-full h-44 object-cover">
+<div class="p-3">
+<span class="text-xs text-gray-500">June 1, 2025</span>
+<h3 class="text-gray-800 font-medium mt-1">Our Students Win National Science Olympiad</h3>
+<p class="text-gray-600 text-xs mt-1 line-clamp-2">
+The team of 5 students from Grade 10 secured the first position at the prestigious National Science Olympiad held in Delhi last week.
+</p>
+<a href="#" class="text-primary text-xs font-medium mt-2 inline-block cursor-pointer">
+Read More
+</a>
+</div>
+</div>
+<div class="bg-gray-50 !rounded overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=school%20students%20planting%20trees%20in%20garden%2C%20environmental%20activity%2C%20educational%20program%2C%20sustainability%20initiative%2C%20high%20quality%20professional%20photography&width=375&height=180&seq=14&orientation=landscape" alt="Green Initiative" class="w-full h-44 object-cover">
+<div class="p-3">
+<span class="text-xs text-gray-500">May 28, 2025</span>
+<h3 class="text-gray-800 font-medium mt-1">School Launches Green Campus Initiative</h3>
+<p class="text-gray-600 text-xs mt-1 line-clamp-2">
+As part of our commitment to environmental sustainability, we've launched a new initiative to make our campus greener with 1000 new plants.
+</p>
+<a href="#" class="text-primary text-xs font-medium mt-2 inline-block cursor-pointer">
+Read More
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- Testimonials Section -->
+<section  id="testimonials" class="px-4 py-6 scroll-mt-20">
+<h2 class="text-xl font-semibold text-gray-800 mb-4">What Parents Say</h2>
+<div class="bg-white p-5 !rounded shadow-sm">
+<div class="flex items-center mb-3">
+<div class="w-12 h-12 bg-gray-200 !rounded-full overflow-hidden mr-3">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20Indian%20woman%20in%20her%2040s%2C%20smiling%2C%20neutral%20background%2C%20high%20quality%20portrait&width=48&height=48&seq=15&orientation=squarish" alt="Parent" class="w-full h-full object-cover">
+</div>
+<div>
+<h4 class="text-gray-800 font-medium">Priya Sharma</h4>
+<p class="text-gray-500 text-xs">Parent of Aryan, Grade 8</p>
+</div>
+</div>
+<p class="text-gray-600 text-sm italic">
+"The teachers at Vishwa Bharathi are exceptional. They not only focus on academics but also on character building. My son has shown remarkable improvement in both his studies and confidence since joining."
+</p>
+<div class="flex mt-3">
+<i class="ri-star-fill ri-sm text-yellow-400"></i>
+<i class="ri-star-fill ri-sm text-yellow-400"></i>
+<i class="ri-star-fill ri-sm text-yellow-400"></i>
+<i class="ri-star-fill ri-sm text-yellow-400"></i>
+<i class="ri-star-fill ri-sm text-yellow-400"></i>
+</div>
+</div>
+<div class="flex justify-center mt-4">
+<span class="w-2 h-2 bg-primary !rounded-full mx-1"></span>
+<span class="w-2 h-2 bg-gray-300 !rounded-full mx-1"></span>
+<span class="w-2 h-2 bg-gray-300 !rounded-full mx-1"></span>
+</div>
+</section>
+<!-- Admission CTA -->
+<section id="admissioncta" class="px-4 py-6 bg-primary/5 scroll-mt-20">
+<div class="text-center">
+<h2 class="text-xl font-semibold text-gray-800 mb-2">Join Vishwa Bharathi Family</h2>
+<p class="text-gray-600 text-sm mb-4">
+Applications for the 2025-26 academic year are now open. Limited seats available.
+</p>
+<button  onclick="window.location.href='./Admissions-Information-&-Application.html'" class="bg-primary text-white py-3 px-6 !rounded-button font-medium cursor-pointer">
+Apply Now
+</button>
+</div>
+</section>
+<!-- Contact Section -->
+<section id="contact-section" class="px-4 py-6 bg-white scroll-mt-20">
+<h2 class="text-xl font-semibold text-gray-800 mb-4">Get in Touch</h2>
+<form id="contact-form" action="" method="POST" class="bg-gray-50 p-4 !rounded mb-4">
+<div class="space-y-4 mb-4">
+<div>
+<label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+<input type="text" id="name" name="name" required class="w-full px-3 py-2 !rounded border-none bg-white text-sm" placeholder="Enter your name">
+</div>
+<div>
+<label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+<input type="email" id="email" name="email" required class="w-full px-3 py-2 !rounded border-none bg-white text-sm" placeholder="Enter your email">
+</div>
+<div>
+<label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+<input type="tel" id="phone" name="phone" class="w-full px-3 py-2 !rounded border-none bg-white text-sm" placeholder="Enter your phone number">
+</div>
+<div>
+<label for="subject" class="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+<input type="text" id="subject" name="subject" required class="w-full px-3 py-2 !rounded border-none bg-white text-sm" placeholder="Enter subject">
+</div>
+<div>
+<label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+<textarea id="message" name="message" required rows="4" class="w-full px-3 py-2 !rounded border-none bg-white text-sm resize-none" placeholder="Enter your message"></textarea>
+<div class="text-xs text-gray-500 mt-1">
+<span id="char-count">0</span>/500 characters
+</div>
+</div>
+<button type="submit" class="w-full bg-primary text-white py-3 !rounded-button font-medium">Send Message</button>
+</div>
+</form>
+<div id="success-message" class="hidden bg-green-50 text-green-700 p-4 !rounded mb-4">
+Thank you for your message! We'll get back to you soon.
+</div>
+<div class="bg-gray-50 p-4 !rounded mb-4">
+<div class="flex items-start mb-3">
+<div class="w-10 h-10 flex items-center justify-center bg-primary/10 !rounded-full mr-3">
+<i class="ri-map-pin-line ri-lg text-primary"></i>
+</div>
+<div>
+<h4 class="text-gray-800 font-medium">Address</h4>
+<p class="text-gray-600 text-xs mt-1">
+123 Education Street, Knowledge Park, New Delhi - 110001
+</p>
+</div>
+</div>
+<div class="flex items-start mb-3">
+<div class="w-10 h-10 flex items-center justify-center bg-primary/10 !rounded-full mr-3">
+<i class="ri-phone-line ri-lg text-primary"></i>
+</div>
+<div>
+<h4 class="text-gray-800 font-medium">Phone</h4>
+<p class="text-gray-600 text-xs mt-1">
++91 98765 43210 (Admissions)<br>
++91 98765 43211 (General Inquiries)
+</p>
+</div>
+</div>
+<div class="flex items-start">
+<div class="w-10 h-10 flex items-center justify-center bg-primary/10 !rounded-full mr-3">
+<i class="ri-mail-line ri-lg text-primary"></i>
+</div>
+<div>
+<h4 class="text-gray-800 font-medium">Email</h4>
+<p class="text-gray-600 text-xs mt-1">
+admissions@vishwabharathi.edu<br>
+info@vishwabharathi.edu
+</p>
+</div>
+</div>
+</div>
+<div class="h-48 bg-gray-200 !rounded overflow-hidden">
+<img src="https://public.readdy.ai/gen_page/map_placeholder_1280x720.png" alt="Map" class="w-full h-full object-cover">
+</div>
+</section>
+</main>
+<!-- Tab Bar -->
+<nav class="fixed bottom-0 w-full bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.05)] z-40">
+<div class="grid grid-cols-5 h-16">
+<a href="./index.html#hero" class="flex flex-col items-center justify-center cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center text-primary">
+<i class="ri-home-5-fill ri-lg"></i>
+</div>
+<span class="text-xs text-primary mt-1">Home</span>
+</a>
+<a href="./Academics-Overview-Vishwa-Bharathi.html" class="flex flex-col items-center justify-center cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center text-gray-500">
+<i class="ri-book-open-line ri-lg"></i>
+</div>
+<span class="text-xs text-gray-500 mt-1">Academics</span>
+</a>
+<a href="./Gallery-vishwa bharathi school.html" data-readdy="true" class="flex flex-col items-center justify-center cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center text-gray-500">
+<i class="ri-gallery-line ri-lg"></i>
+</div>
+<span class="text-xs text-gray-500 mt-1">Gallery</span>
+</a>
+<a href="./School-Events-Calendar.html" class="flex flex-col items-center justify-center cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center text-gray-500">
+<i class="ri-calendar-event-line ri-lg"></i>
+</div>
+<span class="text-xs text-gray-500 mt-1">Events</span>
+</a>
+<a href="./index.html#contact-section" class="flex flex-col items-center justify-center cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center text-gray-500">
+<i class="ri-contacts-line ri-lg"></i>
+</div>
+<span class="text-xs text-gray-500 mt-1">Contact</span>
+</a>
+</div>
+</nav>
+<!-- Chat Button and Dialog -->
+<div class="fixed bottom-20 right-4 z-30">
+<button id="chat-button" class="w-12 h-12 bg-primary !rounded-full shadow-lg flex items-center justify-center cursor-pointer">
+<i class="ri-chat-1-fill ri-lg text-white"></i>
+</button>
+<div id="chat-dialog" class="hidden fixed bottom-24 right-4 w-80 bg-white !rounded-lg shadow-xl overflow-hidden">
+<div class="bg-primary p-4 flex justify-between items-center">
+<h3 class="text-white font-medium">Chat with Vishwa Bharathi</h3>
+<div class="flex space-x-2">
+<button id="minimize-chat" class="w-8 h-8 flex items-center justify-center text-white/80 hover:text-white">
+<i class="ri-subtract-line"></i>
+</button>
+<button id="close-chat" class="w-8 h-8 flex items-center justify-center text-white/80 hover:text-white">
+<i class="ri-close-line"></i>
+</button>
+</div>
+</div>
+<div id="chat-messages" class="h-96 p-4 overflow-y-auto bg-gray-50">
+<div class="flex items-start mb-4">
+<div class="w-8 h-8 bg-primary !rounded-full flex items-center justify-center mr-2">
+<span class="text-white text-sm font-['Pacifico']">VB</span>
+</div>
+<div class="bg-white p-3 !rounded-lg shadow-sm max-w-[85%]">
+<p class="text-sm text-gray-600">👋 Welcome to Vishwa Bharathi School! How can we help you today?</p>
+</div>
+</div>
+</div>
+<div class="p-4 bg-white border-t">
+<div class="flex space-x-2">
+<input type="text" id="chat-input" class="flex-1 px-4 py-2 !rounded-full bg-gray-50 text-sm border-none" placeholder="Type your message...">
+<button id="send-message" class="w-10 h-10 bg-primary !rounded-full flex items-center justify-center text-white">
+<i class="ri-send-plane-fill"></i>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Scripts -->
+<script id="splash-screen-handler">
+document.addEventListener('DOMContentLoaded', function() {
+setTimeout(function() {
+const splashScreen = document.getElementById('splash-screen');
+splashScreen.style.opacity = '0';
+setTimeout(function() {
+splashScreen.style.display = 'none';
+}, 500);
+}, 2500);
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const menuButton = document.getElementById('menu-button');
+  const menuIcon = document.getElementById('menu-icon');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const menuLinks = mobileMenu.querySelectorAll('a');
+
+  // Toggle menu open/close
+  menuButton.addEventListener('click', function () {
+    const isOpen = !mobileMenu.classList.contains('translate-x-full');
+
+    if (isOpen) {
+      mobileMenu.classList.add('translate-x-full');
+      menuIcon.classList.remove('ri-close-line');
+      menuIcon.classList.add('ri-menu-line');
+    } else {
+      mobileMenu.classList.remove('translate-x-full');
+      menuIcon.classList.remove('ri-menu-line');
+      menuIcon.classList.add('ri-close-line');
+    }
+  });
+
+  // Close overlay when a menu link is clicked
+  menuLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.add('translate-x-full');
+      menuIcon.classList.remove('ri-close-line');
+      menuIcon.classList.add('ri-menu-line');
+    });
+  });
+});
+</script>
+
+
+<!-- <script id="search-handler">
+document.addEventListener('DOMContentLoaded', function() {
+const searchButton = document.getElementById('search-button');
+const closeSearchButton = document.getElementById('close-search');
+const searchOverlay = document.getElementById('search-overlay');
+const searchInput = document.getElementById('search-input');
+const searchSuggestions = document.getElementById('search-suggestions');
+const suggestionsContainer = searchSuggestions.querySelector('.space-y-3');
+const suggestions = [
+'Admission Process 2025',
+'School Facilities',
+'Academic Calendar',
+'Sports Activities',
+'Cultural Events',
+'Parent Portal Login',
+'Faculty Directory',
+'Transport Routes',
+'Fee Structure',
+'Exam Schedule'
+];
+searchButton.addEventListener('click', function() {
+searchOverlay.classList.remove('-translate-y-full');
+setTimeout(() => {
+searchInput.focus();
+}, 300);
+});
+closeSearchButton.addEventListener('click', function() {
+searchOverlay.classList.add('-translate-y-full');
+searchInput.value = '';
+searchSuggestions.classList.add('hidden');
+});
+searchInput.addEventListener('input', function() {
+const query = this.value.toLowerCase();
+if (query.length > 0) {
+const filteredSuggestions = suggestions.filter(suggestion =>
+suggestion.toLowerCase().includes(query)
+);
+suggestionsContainer.innerHTML = '';
+filteredSuggestions.forEach(suggestion => {
+const div = document.createElement('div');
+div.className = 'flex items-center text-gray-600 cursor-pointer hover:bg-gray-50 p-2 !rounded';
+div.innerHTML = `
+<i class="ri-search-line w-5 h-5 mr-3"></i>
+<span class="text-sm">${suggestion}</span>
+`;
+div.addEventListener('click', function() {
+searchInput.value = suggestion;
+});
+suggestionsContainer.appendChild(div);
+});
+searchSuggestions.classList.remove('hidden');
+} else {
+searchSuggestions.classList.add('hidden');
+}
+});
+});
+</script> -->
+<script id="contact-form-handler">
+document.addEventListener('DOMContentLoaded', function() {
+const contactForm = document.getElementById('contact-form');
+const messageInput = document.getElementById('message');
+const charCount = document.getElementById('char-count');
+const successMessage = document.getElementById('success-message');
+messageInput.addEventListener('input', function() {
+const currentLength = this.value.length;
+charCount.textContent = currentLength;
+if (currentLength > 500) {
+this.value = this.value.substring(0, 500);
+charCount.textContent = 500;
+}
+});
+contactForm.addEventListener('submit', function(e) {
+e.preventDefault();
+if (messageInput.value.length > 500) {
+return;
+}
+const formData = new FormData(contactForm);
+fetch(contactForm.action, {
+method: 'POST',
+body: new URLSearchParams(formData),
+headers: {
+'Content-Type': 'application/x-www-form-urlencoded'
+}
+})
+.then(() => {
+contactForm.reset();
+charCount.textContent = '0';
+successMessage.classList.remove('hidden');
+setTimeout(() => {
+successMessage.classList.add('hidden');
+}, 5000);
+})
+.catch(error => {
+console.error('Error:', error);
+});
+});
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+anchor.addEventListener('click', function(e) {
+e.preventDefault();
+const targetId = this.getAttribute('href');
+const targetElement = document.querySelector(targetId);
+if (targetElement) {
+targetElement.scrollIntoView({
+behavior: 'smooth',
+block: 'start'
+});
+}
+});
+});
+});
+</script>
+<script id="chat-handler">
+document.addEventListener('DOMContentLoaded', function() {
+const chatButton = document.getElementById('chat-button');
+const chatDialog = document.getElementById('chat-dialog');
+const minimizeChat = document.getElementById('minimize-chat');
+const closeChat = document.getElementById('close-chat');
+const chatInput = document.getElementById('chat-input');
+const sendMessage = document.getElementById('send-message');
+const chatMessages = document.getElementById('chat-messages');
+let isMinimized = false;
+let toastTimeout;
+chatButton.addEventListener('click', function() {
+if (isMinimized) {
+chatDialog.style.height = 'auto';
+isMinimized = false;
+} else {
+chatDialog.classList.remove('hidden');
+}
+});
+minimizeChat.addEventListener('click', function() {
+chatDialog.style.height = '48px';
+isMinimized = true;
+});
+closeChat.addEventListener('click', function() {
+chatDialog.classList.add('hidden');
+chatDialog.style.height = 'auto';
+isMinimized = false;
+});
+function addMessage(message, isUser = false) {
+const messageDiv = document.createElement('div');
+messageDiv.className = 'flex items-start mb-4' + (isUser ? ' justify-end' : '');
+if (!isUser) {
+const avatar = document.createElement('div');
+avatar.className = 'w-8 h-8 bg-primary !rounded-full flex items-center justify-center mr-2';
+avatar.innerHTML = '<span class="text-white text-sm font-[\'Pacifico\']">VB</span>';
+messageDiv.appendChild(avatar);
+}
+const bubble = document.createElement('div');
+bubble.className = isUser ?
+'bg-primary p-3 !rounded-lg shadow-sm max-w-[85%]' :
+'bg-white p-3 !rounded-lg shadow-sm max-w-[85%]';
+const text = document.createElement('p');
+text.className = isUser ? 'text-sm text-white' : 'text-sm text-gray-600';
+text.textContent = message;
+bubble.appendChild(text);
+messageDiv.appendChild(bubble);
+chatMessages.appendChild(messageDiv);
+chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+function showToast(message) {
+let toast = document.getElementById('chat-toast');
+if (toast) {
+clearTimeout(toastTimeout);
+toast.remove();
+}
+toast = document.createElement('div');
+toast.id = 'chat-toast';
+toast.className = 'fixed bottom-36 right-4 bg-gray-800 text-white text-sm py-2 px-4 !rounded-lg opacity-0 transition-opacity duration-300';
+toast.textContent = message;
+document.body.appendChild(toast);
+setTimeout(() => toast.style.opacity = '1', 10);
+toastTimeout = setTimeout(() => {
+toast.style.opacity = '0';
+setTimeout(() => toast.remove(), 300);
+}, 3000);
+}
+function handleMessage() {
+const message = chatInput.value.trim();
+if (!message) {
+chatInput.classList.add('animate-shake', 'border', 'border-red-500');
+showToast('Please enter a message');
+setTimeout(() => {
+chatInput.classList.remove('animate-shake', 'border', 'border-red-500');
+}, 800);
+return;
+}
+addMessage(message, true);
+chatInput.value = '';
+setTimeout(() => {
+addMessage('Thank you for your message. Our team will get back to you shortly.');
+}, 1000);
+}
+sendMessage.addEventListener('click', handleMessage);
+chatInput.addEventListener('keypress', function(e) {
+if (e.key === 'Enter') {
+handleMessage();
+}
+});
+});
+</script>
+<script id="counter-animation">
+document.addEventListener('DOMContentLoaded', function() {
+const counters = document.querySelectorAll('.counter-value');
+const animateCounter = (counter, target) => {
+let current = 0;
+const increment = target > 100 ? Math.ceil(target / 50) : 1;
+const duration = 2000; // 2 seconds
+const frameRate = 30; // frames per second
+const totalFrames = duration / 1000 * frameRate;
+let frame = 0;
+const timer = setInterval(() => {
+frame++;
+current += increment;
+if (current >= target || frame >= totalFrames) {
+counter.textContent = target;
+clearInterval(timer);
+} else {
+counter.textContent = current;
+}
+}, 1000 / frameRate);
+};
+const observerOptions = {
+root: null,
+rootMargin: '0px',
+threshold: 0.1
+};
+const observer = new IntersectionObserver((entries) => {
+entries.forEach(entry => {
+if (entry.isIntersecting) {
+const counter = entry.target;
+const target = parseInt(counter.getAttribute('data-target'));
+animateCounter(counter, target);
+observer.unobserve(counter);
+}
+});
+}, observerOptions);
+counters.forEach(counter => {
+observer.observe(counter);
+});
+});
+</script>
+</body>
+</html>

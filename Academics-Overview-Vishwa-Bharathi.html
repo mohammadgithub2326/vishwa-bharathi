@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Academics - Vishwa Bharathi School</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#4F46E5',secondary:'#10B981'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+  font-family: 'Poppins', sans-serif;
+}
+</style>
+</head>
+<body class="bg-gray-50">
+<!-- Navigation Bar -->
+<nav class="bg-white shadow-md fixed w-full top-0 z-50">
+  <div class="max-w-full px-4 py-3 flex justify-between items-center">
+    <div class="flex items-center">
+      <a href="./index.html"><i class="ri-arrow-left-line ri-lg"></i></a>
+      <a href="./index.html" data-readdy="true" class="w-10 h-10 bg-primary !rounded-full flex items-center justify-center mr-2 cursor-pointer">
+        
+        <span class="text-white text-lg font-['Pacifico']">VB</span>
+      </a>
+      <span class="text-lg font-semibold text-gray-800 ">Vishwa Bharathi</span>
+    </div>
+    <!-- <div class="flex items-center space-x-3">
+      <button class="w-8 h-8 flex items-center justify-center text-gray-600 cursor-pointer">
+        <i class="ri-search-line ri-lg"></i>
+      </button>
+      <button class="w-8 h-8 flex items-center justify-center text-gray-600 cursor-pointer">
+        <i class="ri-user-line ri-lg"></i>
+      </button>
+      <button class="w-8 h-8 flex items-center justify-center text-gray-600 cursor-pointer" id="menu-button">
+        <i class="ri-menu-line ri-lg"></i>
+      </button>
+    </div> -->
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="fixed inset-0 bg-white z-40 transform translate-x-full transition-transform duration-300 ease-in-out" id="mobile-menu">
+  <div class="pt-16 pb-20 px-4 h-full overflow-y-auto">
+    <div class="flex justify-end mb-6">
+      <button class="w-8 h-8 flex items-center justify-center text-gray-600 cursor-pointer" id="close-menu">
+        <i class="ri-close-line ri-lg"></i>
+      </button>
+    </div>
+    <div class="space-y-4">
+      <a href="https://readdy.ai/home/5cf10ffc-5f32-4818-b78d-7b9128f844a3/ec62445a-a69c-4815-a07e-a4dfe408bc59" data-readdy="true" class="block py-3 px-4 text-gray-800 font-medium border-b border-gray-100 cursor-pointer">Home</a>
+      <a href="#" class="block py-3 px-4 text-gray-800 font-medium border-b border-gray-100 cursor-pointer">About Us</a>
+      <a href="#" class="block py-3 px-4 text-primary font-medium border-b border-gray-100 cursor-pointer">Academics</a>
+      <a href="#" class="block py-3 px-4 text-gray-800 font-medium border-b border-gray-100 cursor-pointer">Admissions</a>
+      <a href="#" class="block py-3 px-4 text-gray-800 font-medium border-b border-gray-100 cursor-pointer">Facilities</a>
+      <a href="#" class="block py-3 px-4 text-gray-800 font-medium border-b border-gray-100 cursor-pointer">Events & News</a>
+      <a href="#" class="block py-3 px-4 text-gray-800 font-medium border-b border-gray-100 cursor-pointer">Gallery</a>
+      <a href="#" class="block py-3 px-4 text-gray-800 font-medium border-b border-gray-100 cursor-pointer">Contact</a>
+    </div>
+    <div class="mt-8">
+      <button class="w-full bg-primary text-white py-3 !rounded-button font-medium cursor-pointer">Parent Portal Login</button>
+    </div>
+    <div class="mt-8 flex justify-center space-x-4">
+      <a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-100 !rounded-full cursor-pointer">
+        <i class="ri-facebook-fill ri-lg text-gray-600"></i>
+      </a>
+      <a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-100 !rounded-full cursor-pointer">
+        <i class="ri-instagram-line ri-lg text-gray-600"></i>
+      </a>
+      <a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-100 !rounded-full cursor-pointer">
+        <i class="ri-youtube-line ri-lg text-gray-600"></i>
+      </a>
+      <a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-100 !rounded-full cursor-pointer">
+        <i class="ri-twitter-x-line ri-lg text-gray-600"></i>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Main Content -->
+<main class="pt-16 pb-20">
+  <!-- Hero Section -->
+  <section class="relative">
+    <div class="w-full h-64 bg-gray-200 overflow-hidden">
+      <img src="https://readdy.ai/api/search-image?query=modern%2520classroom%2520with%2520students%2520engaged%2520in%2520learning%252C%2520bright%2520and%2520spacious%2520environment%252C%2520educational%2520setting%252C%2520technology%2520integration%252C%2520collaborative%2520learning%252C%2520high%2520quality%2520professional%2520photography&width=375&height=256&seq=101&orientation=landscape" alt="Academic Environment" class="w-full h-full object-cover">
+      <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex flex-col justify-end p-4">
+        <!-- <div class="flex items-center mb-2">
+          <a href="https://readdy.ai/home/5cf10ffc-5f32-4818-b78d-7b9128f844a3/ec62445a-a69c-4815-a07e-a4dfe408bc59" data-readdy="true" class="flex items-center text-white cursor-pointer">
+            <i class="ri-arrow-left-line ri-lg mr-1"></i>
+            <span class="text-sm">Back</span>
+          </a>
+        </div> -->
+        <h1 class="text-white text-2xl font-bold">Academic Excellence</h1>
+        <p class="text-white text-sm mt-1">Nurturing Minds, Building Futures</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Academic Levels Section -->
+  <section class="px-4 py-6">
+    <h2 class="text-xl font-semibold text-gray-800 mb-4">Academic Levels</h2>
+    <div class="space-y-4">
+      <div class="bg-white p-4 !rounded shadow-sm">
+        <div class="flex">
+          <div class="w-16 h-16 bg-blue-50 !rounded flex items-center justify-center mr-4">
+            <img src="https://readdy.ai/api/search-image?query=icon%252C%25203D%2520cartoon%252C%2520Primary%2520school%2520education%252C%2520colorful%2520building%2520blocks%2520and%2520basic%2520learning%2520tools%252C%2520the%2520icon%2520should%2520take%2520up%252070%2525%2520of%2520the%2520frame%252C%2520vibrant%2520colors%2520with%2520soft%2520gradients%252C%2520minimalist%2520design%252C%2520smooth%2520rounded%2520shapes%252C%2520subtle%2520shading%252C%2520no%2520outlines%252C%2520centered%2520composition%252C%2520isolated%2520on%2520white%2520background%252C%2520playful%2520and%2520friendly%2520aesthetic%252C%2520isometric%2520perspective%252C%2520high%2520detail%2520quality%252C%2520clean%2520and%2520modern%2520look%252C%2520single%2520object%2520focus&width=64&height=64&seq=102&orientation=squarish" alt="Primary Education" class="w-full h-full object-cover !rounded">
+          </div>
+          <div class="flex-1">
+            <h3 class="text-gray-800 font-medium">Primary School</h3>
+            <p class="text-gray-600 text-xs mt-1">Grades 1-5</p>
+            <p class="text-gray-600 text-xs mt-2">Building a strong foundation through activity-based learning and foundational skill development.</p>
+            <!-- <button class="mt-2 text-primary text-xs font-medium flex items-center cursor-pointer">
+              Learn More <i class="ri-arrow-right-line ri-sm ml-1"></i>
+            </button> -->
+          </div>
+        </div>
+      </div>
+      
+      <div class="bg-white p-4 !rounded shadow-sm">
+        <div class="flex">
+          <div class="w-16 h-16 bg-green-50 !rounded flex items-center justify-center mr-4">
+            <img src="https://readdy.ai/api/search-image?query=icon%252C%25203D%2520cartoon%252C%2520Middle%2520school%2520education%252C%2520science%2520and%2520math%2520symbols%252C%2520books%2520and%2520learning%2520tools%252C%2520the%2520icon%2520should%2520take%2520up%252070%2525%2520of%2520the%2520frame%252C%2520vibrant%2520colors%2520with%2520soft%2520gradients%252C%2520minimalist%2520design%252C%2520smooth%2520rounded%2520shapes%252C%2520subtle%2520shading%252C%2520no%2520outlines%252C%2520centered%2520composition%252C%2520isolated%2520on%2520white%2520background%252C%2520playful%2520and%2520friendly%2520aesthetic%252C%2520isometric%2520perspective%252C%2520high%2520detail%2520quality%252C%2520clean%2520and%2520modern%2520look%252C%2520single%2520object%2520focus&width=64&height=64&seq=103&orientation=squarish" alt="Middle School" class="w-full h-full object-cover !rounded">
+          </div>
+          <div class="flex-1">
+            <h3 class="text-gray-800 font-medium">Middle School</h3>
+            <p class="text-gray-600 text-xs mt-1">Grades 6-8</p>
+            <p class="text-gray-600 text-xs mt-2">Developing critical thinking and specialized subject knowledge through interactive learning.</p>
+            <!-- <button class="mt-2 text-primary text-xs font-medium flex items-center cursor-pointer">
+              Learn More <i class="ri-arrow-right-line ri-sm ml-1"></i>
+            </button> -->
+          </div>
+        </div>
+      </div>
+      
+      <div class="bg-white p-4 !rounded shadow-sm">
+        <div class="flex">
+          <div class="w-16 h-16 bg-purple-50 !rounded flex items-center justify-center mr-4">
+            <img src="https://readdy.ai/api/search-image?query=icon%252C%25203D%2520cartoon%252C%2520High%2520school%2520education%252C%2520graduation%2520cap%2520and%2520diploma%252C%2520advanced%2520learning%2520materials%252C%2520the%2520icon%2520should%2520take%2520up%252070%2525%2520of%2520the%2520frame%252C%2520vibrant%2520colors%2520with%2520soft%2520gradients%252C%2520minimalist%2520design%252C%2520smooth%2520rounded%2520shapes%252C%2520subtle%2520shading%252C%2520no%2520outlines%252C%2520centered%2520composition%252C%2520isolated%2520on%2520white%2520background%252C%2520playful%2520and%2520friendly%2520aesthetic%252C%2520isometric%2520perspective%252C%2520high%2520detail%2520quality%252C%2520clean%2520and%2520modern%2520look%252C%2520single%2520object%2520focus&width=64&height=64&seq=104&orientation=squarish" alt="Secondary Education" class="w-full h-full object-cover !rounded">
+          </div>
+          <div class="flex-1">
+            <h3 class="text-gray-800 font-medium">Secondary School</h3>
+            <p class="text-gray-600 text-xs mt-1">Grades 9-12</p>
+            <p class="text-gray-600 text-xs mt-2">Preparing students for higher education with specialized streams and college readiness programs.</p>
+            <!-- <button class="mt-2 text-primary text-xs font-medium flex items-center cursor-pointer">
+              Learn More <i class="ri-arrow-right-line ri-sm ml-1"></i>
+            </button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Curriculum Framework Section -->
+  <section class="px-4 py-6 bg-white">
+    <h2 class="text-xl font-semibold text-gray-800 mb-4">Our Curriculum Framework</h2>
+    <div class="bg-gray-50 h-80 !rounded mb-6">
+      <div id="curriculum-chart" class="w-full pb-0  h-64"></div>
+    </div>
+    <div class="grid grid-cols-2 gap-4">
+      <div class="bg-blue-50 p-4 !rounded">
+        <div class="w-10 h-10 flex items-center justify-center bg-blue-100 !rounded-full mb-3">
+          <i class="ri-book-open-fill ri-lg text-primary"></i>
+        </div>
+        <h3 class="text-gray-800 font-medium text-sm">Academic Excellence</h3>
+        <p class="text-gray-600 text-xs mt-1">Rigorous academic standards aligned with national curriculum frameworks</p>
+      </div>
+      <div class="bg-green-50 p-4 !rounded">
+        <div class="w-10 h-10 flex items-center justify-center bg-green-100 !rounded-full mb-3">
+          <i class="ri-user-heart-fill ri-lg text-secondary"></i>
+        </div>
+        <h3 class="text-gray-800 font-medium text-sm">Holistic Development</h3>
+        <p class="text-gray-600 text-xs mt-1">Focus on social, emotional, physical, and intellectual growth</p>
+      </div>
+      <div class="bg-purple-50 p-4 !rounded">
+        <div class="w-10 h-10 flex items-center justify-center bg-purple-100 !rounded-full mb-3">
+          <i class="ri-computer-fill ri-lg text-purple-600"></i>
+        </div>
+        <h3 class="text-gray-800 font-medium text-sm">Technology Integration</h3>
+        <p class="text-gray-600 text-xs mt-1">Digital literacy and technology-enhanced learning experiences</p>
+      </div>
+      <div class="bg-amber-50 p-4 !rounded">
+        <div class="w-10 h-10 flex items-center justify-center bg-amber-100 !rounded-full mb-3">
+          <i class="ri-tools-fill ri-lg text-amber-600"></i>
+        </div>
+        <h3 class="text-gray-800 font-medium text-sm">Life Skills</h3>
+        <p class="text-gray-600 text-xs mt-1">Critical thinking, problem-solving, and real-world application</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Teaching Methodology Section -->
+  <section class="px-4 py-6">
+    <h2 class="text-xl font-semibold text-gray-800 mb-4">Teaching Methodology</h2>
+    <div class="space-y-4">
+      <div class="bg-white !rounded shadow-sm overflow-hidden">
+        <img src="https://readdy.ai/api/search-image?query=students%2520working%2520on%2520a%2520science%2520project%2520together%252C%2520collaborative%2520learning%252C%2520hands-on%2520education%252C%2520project-based%2520learning%2520in%2520classroom%252C%2520educational%2520setting%252C%2520high%2520quality%2520professional%2520photography&width=375&height=180&seq=105&orientation=landscape" alt="Project-based Learning" class="w-full h-40 object-cover object-top">
+        <div class="p-4">
+          <h3 class="text-gray-800 font-medium">Project-Based Learning</h3>
+          <p class="text-gray-600 text-xs mt-2">Students learn by actively engaging in real-world and personally meaningful projects, developing deeper knowledge through active exploration of challenges.</p>
+        </div>
+      </div>
+      
+      <div class="bg-white !rounded shadow-sm overflow-hidden">
+        <img src="https://readdy.ai/api/search-image?query=students%2520in%2520outdoor%2520learning%2520environment%252C%2520experiential%2520education%252C%2520hands-on%2520learning%2520activities%252C%2520field%2520trip%252C%2520educational%2520setting%252C%2520high%2520quality%2520professional%2520photography&width=375&height=180&seq=106&orientation=landscape" alt="Experiential Learning" class="w-full h-40 object-cover object-top">
+        <div class="p-4">
+          <h3 class="text-gray-800 font-medium">Experiential Learning</h3>
+          <p class="text-gray-600 text-xs mt-2">Learning through reflection on doing, with hands-on experiences that connect theory and practice through reflection, application, and analysis.</p>
+        </div>
+      </div>
+      
+      <div class="bg-white !rounded shadow-sm overflow-hidden">
+        <img src="https://readdy.ai/api/search-image?query=students%2520using%2520digital%2520tablets%2520and%2520computers%2520in%2520classroom%252C%2520technology%2520integration%252C%2520digital%2520learning%252C%2520educational%2520technology%252C%2520high%2520quality%2520professional%2520photography&width=375&height=180&seq=107&orientation=landscape" alt="Digital Integration" class="w-full h-40 object-cover object-top">
+        <div class="p-4">
+          <h3 class="text-gray-800 font-medium">Digital Integration</h3>
+          <p class="text-gray-600 text-xs mt-2">Incorporating digital tools and resources to enhance learning experiences, develop digital literacy, and prepare students for a technology-driven world.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Subject Offerings Section -->
+  <section class="px-4 py-6 bg-white">
+    <h2 class="text-xl font-semibold text-gray-800 mb-4">Subject Offerings</h2>
+    <div class="bg-gray-50 p-4 !rounded mb-4">
+      <div class="flex mb-4">
+        <button class="flex-1 py-2 bg-primary text-white text-sm font-medium !rounded-full px-1 py-1 cursor-pointer">
+          <span class="block py-1">Primary</span>
+        </button>
+        <button class="flex-1 py-2 bg-white text-gray-700 text-sm font-medium !rounded-full px-1 py-1 ml-2 cursor-pointer">
+          <span class="block py-1">Middle</span>
+        </button>
+        <button class="flex-1 py-2 bg-white text-gray-700 text-sm font-medium !rounded-full px-1 py-1 ml-2 cursor-pointer">
+          <span class="block py-1">Secondary</span>
+        </button>
+      </div>
+      
+      <div id="primary-subjects" class="subject-content">
+        <div class="grid grid-cols-2 gap-3">
+          <div class="bg-white p-3 !rounded flex items-center">
+            <div class="w-8 h-8 flex items-center justify-center bg-blue-100 !rounded-full mr-2">
+              <i class="ri-english-input ri-lg text-primary"></i>
+            </div>
+            <span class="text-gray-700 text-xs">English</span>
+          </div>
+          <div class="bg-white p-3 !rounded flex items-center">
+            <div class="w-8 h-8 flex items-center justify-center bg-green-100 !rounded-full mr-2">
+              <i class="ri-numbers-line ri-lg text-secondary"></i>
+            </div>
+            <span class="text-gray-700 text-xs">Mathematics</span>
+          </div>
+          <div class="bg-white p-3 !rounded flex items-center">
+            <div class="w-8 h-8 flex items-center justify-center bg-amber-100 !rounded-full mr-2">
+              <i class="ri-earth-fill ri-lg text-amber-600"></i>
+            </div>
+            <span class="text-gray-700 text-xs">Environmental Studies</span>
+          </div>
+          <div class="bg-white p-3 !rounded flex items-center">
+            <div class="w-8 h-8 flex items-center justify-center bg-red-100 !rounded-full mr-2">
+              <i class="ri-palette-fill ri-lg text-red-500"></i>
+            </div>
+            <span class="text-gray-700 text-xs">Arts & Crafts</span>
+          </div>
+          <div class="bg-white p-3 !rounded flex items-center">
+            <div class="w-8 h-8 flex items-center justify-center bg-purple-100 !rounded-full mr-2">
+              <i class="ri-music-fill ri-lg text-purple-600"></i>
+            </div>
+            <span class="text-gray-700 text-xs">Languages</span>
+          </div>
+          <div class="bg-white p-3 !rounded flex items-center">
+            <div class="w-8 h-8 flex items-center justify-center bg-blue-100 !rounded-full mr-2">
+              <i class="ri-basketball-fill ri-lg text-blue-600"></i>
+            </div>
+            <span class="text-gray-700 text-xs">Science Education</span>
+          </div>
+        </div>
+      </div>
+      
+      <div id="middle-subjects" class="subject-content hidden">
+        <!-- Middle School Subjects (Hidden by default) -->
+         <div class="grid grid-cols-2 gap-3">
+          <div class="bg-white p-3 !rounded flex items-center">
+            <div class="w-8 h-8 flex items-center justify-center bg-blue-100 !rounded-full mr-2">
+              <i class="ri-english-input ri-lg text-primary"></i>
+            </div>
+            <span class="text-gray-700 text-xs">English</span>
+          </div>
+          <div class="bg-white p-3 !rounded flex items-center">
+            <div class="w-8 h-8 flex items-center justify-center bg-green-100 !rounded-full mr-2">
+              <i class="ri-numbers-line ri-lg text-secondary"></i>
+            </div>
+            <span class="text-gray-700 text-xs">Mathematics</span>
+          </div>
+          <div class="bg-white p-3 !rounded flex items-center">
+            <div class="w-8 h-8 flex items-center justify-center bg-amber-100 !rounded-full mr-2">
+              <i class="ri-earth-fill ri-lg text-amber-600"></i>
+            </div>
+            <span class="text-gray-700 text-xs">Environmental Studies</span>
+          </div>
+          <div class="bg-white p-3 !rounded flex items-center">
+            <div class="w-8 h-8 flex items-center justify-center bg-red-100 !rounded-full mr-2">
+              <i class="ri-palette-fill ri-lg text-red-500"></i>
+            </div>
+            <span class="text-gray-700 text-xs">Arts & Crafts</span>
+          </div>
+          <div class="bg-white p-3 !rounded flex items-center">
+            <div class="w-8 h-8 flex items-center justify-center bg-purple-100 !rounded-full mr-2">
+              <i class="ri-music-fill ri-lg text-purple-600"></i>
+            </div>
+            <span class="text-gray-700 text-xs">Languages</span>
+          </div>
+          <div class="bg-white p-3 !rounded flex items-center">
+            <div class="w-8 h-8 flex items-center justify-center bg-blue-100 !rounded-full mr-2">
+              <i class="ri-basketball-fill ri-lg text-blue-600"></i>
+            </div>
+            <span class="text-gray-700 text-xs">Science Education</span>
+          </div>
+        </div>
+      </div>
+      
+      <div id="secondary-subjects" class="subject-content hidden">
+        <!-- Secondary School Subjects (Hidden by default) -->
+         <div class="grid grid-cols-2 gap-3">
+          <div class="bg-white p-3 !rounded flex items-center">
+            <div class="w-8 h-8 flex items-center justify-center bg-blue-100 !rounded-full mr-2">
+              <i class="ri-english-input ri-lg text-primary"></i>
+            </div>
+            <span class="text-gray-700 text-xs">English</span>
+          </div>
+          <div class="bg-white p-3 !rounded flex items-center">
+            <div class="w-8 h-8 flex items-center justify-center bg-green-100 !rounded-full mr-2">
+              <i class="ri-numbers-line ri-lg text-secondary"></i>
+            </div>
+            <span class="text-gray-700 text-xs">Mathematics</span>
+          </div>
+          <div class="bg-white p-3 !rounded flex items-center">
+            <div class="w-8 h-8 flex items-center justify-center bg-amber-100 !rounded-full mr-2">
+              <i class="ri-earth-fill ri-lg text-amber-600"></i>
+            </div>
+            <span class="text-gray-700 text-xs">Environmental Studies</span>
+          </div>
+          <div class="bg-white p-3 !rounded flex items-center">
+            <div class="w-8 h-8 flex items-center justify-center bg-red-100 !rounded-full mr-2">
+              <i class="ri-palette-fill ri-lg text-red-500"></i>
+            </div>
+            <span class="text-gray-700 text-xs">Arts & Crafts</span>
+          </div>
+          <div class="bg-white p-3 !rounded flex items-center">
+            <div class="w-8 h-8 flex items-center justify-center bg-purple-100 !rounded-full mr-2">
+              <i class="ri-music-fill ri-lg text-purple-600"></i>
+            </div>
+            <span class="text-gray-700 text-xs">Languages</span>
+          </div>
+          <div class="bg-white p-3 !rounded flex items-center">
+            <div class="w-8 h-8 flex items-center justify-center bg-blue-100 !rounded-full mr-2">
+              <i class="ri-basketball-fill ri-lg text-blue-600"></i>
+            </div>
+            <span class="text-gray-700 text-xs">Science Education</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Assessment Methods Section -->
+  <section class="px-4 py-6">
+    <h2 class="text-xl font-semibold text-gray-800 mb-4">Assessment Methods</h2>
+    <div class="bg-white p-4 !rounded shadow-sm">
+      <div class="space-y-4">
+        <div class="flex">
+          <div class="w-10 h-10 flex items-center justify-center bg-primary/10 !rounded-full mr-3">
+            <i class="ri-file-list-3-fill ri-lg text-primary"></i>
+          </div>
+          <div>
+            <h4 class="text-gray-800 font-medium">Continuous Assessment</h4>
+            <p class="text-gray-600 text-xs mt-1">
+              Regular formative assessments throughout the term to monitor progress and provide timely feedback.
+            </p>
+          </div>
+        </div>
+        
+        <div class="flex">
+          <div class="w-10 h-10 flex items-center justify-center bg-secondary/10 !rounded-full mr-3">
+            <i class="ri-folder-chart-fill ri-lg text-secondary"></i>
+          </div>
+          <div>
+            <h4 class="text-gray-800 font-medium">Project Evaluation</h4>
+            <p class="text-gray-600 text-xs mt-1">
+              Assessment through projects, presentations, and practical work to evaluate application of knowledge.
+            </p>
+          </div>
+        </div>
+        
+        <div class="flex">
+          <div class="w-10 h-10 flex items-center justify-center bg-purple-100 !rounded-full mr-3">
+            <i class="ri-draft-fill ri-lg text-purple-600"></i>
+          </div>
+          <div>
+            <h4 class="text-gray-800 font-medium">Term Examinations</h4>
+            <p class="text-gray-600 text-xs mt-1">
+              Comprehensive assessments at the end of each term to evaluate overall understanding and retention.
+            </p>
+          </div>
+        </div>
+        
+        <div class="flex">
+          <div class="w-10 h-10 flex items-center justify-center bg-amber-100 !rounded-full mr-3">
+            <i class="ri-user-star-fill ri-lg text-amber-600"></i>
+          </div>
+          <div>
+            <h4 class="text-gray-800 font-medium">Holistic Evaluation</h4>
+            <p class="text-gray-600 text-xs mt-1">
+              Assessment of co-curricular activities, social skills, and personal development.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Faculty Profiles Section -->
+  <section class="px-4 py-6 bg-white">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-xl font-semibold text-gray-800">Meet Our Faculty</h2>
+      <a href="#" class="text-primary text-sm font-medium flex items-center cursor-pointer">
+        View All <i class="ri-arrow-right-line ri-sm ml-1"></i>
+      </a>
+    </div>
+    <div class="overflow-x-auto">
+      <div class="flex space-x-4 pb-4" style="min-width: max-content;">
+        <div class="w-40 bg-gray-50 !rounded overflow-hidden">
+          <img src="https://readdy.ai/api/search-image?query=professional%2520headshot%2520of%2520Indian%2520woman%2520in%2520her%252040s%252C%2520teacher%252C%2520confident%2520pose%252C%2520neutral%2520background%252C%2520high%2520quality%2520portrait&width=160&height=160&seq=108&orientation=squarish" alt="Dr. Priya Sharma" class="w-full h-40 object-cover object-top">
+          <div class="p-3">
+            <h3 class="text-gray-800 font-medium text-sm">Dr. Priya Sharma</h3>
+            <p class="text-gray-500 text-xs mt-1">Head of Sciences</p>
+            <p class="text-gray-600 text-xs mt-2">Ph.D. in Physics with 15+ years of teaching experience.</p>
+          </div>
+        </div>
+        
+        <div class="w-40 bg-gray-50 !rounded overflow-hidden">
+          <img src="https://readdy.ai/api/search-image?query=professional%2520headshot%2520of%2520Indian%2520man%2520in%2520his%252050s%252C%2520teacher%252C%2520confident%2520pose%252C%2520neutral%2520background%252C%2520high%2520quality%2520portrait&width=160&height=160&seq=109&orientation=squarish" alt="Mr. Rajesh Verma" class="w-full h-40 object-cover object-top">
+          <div class="p-3">
+            <h3 class="text-gray-800 font-medium text-sm">Mr. Rajesh Verma</h3>
+            <p class="text-gray-500 text-xs mt-1">Mathematics Dept.</p>
+            <p class="text-gray-600 text-xs mt-2">M.Sc. in Mathematics with expertise in competitive exam preparation.</p>
+          </div>
+        </div>
+        
+        <div class="w-40 bg-gray-50 !rounded overflow-hidden">
+          <img src="https://readdy.ai/api/search-image?query=professional%2520headshot%2520of%2520Indian%2520woman%2520in%2520her%252030s%252C%2520teacher%252C%2520confident%2520pose%252C%2520neutral%2520background%252C%2520high%2520quality%2520portrait&width=160&height=160&seq=110&orientation=squarish" alt="Ms. Anjali Desai" class="w-full h-40 object-cover object-top">
+          <div class="p-3">
+            <h3 class="text-gray-800 font-medium text-sm">Ms. Anjali Desai</h3>
+            <p class="text-gray-500 text-xs mt-1">English Literature</p>
+            <p class="text-gray-600 text-xs mt-2">M.A. in English Literature with creative writing specialization.</p>
+          </div>
+        </div>
+        
+        <div class="w-40 bg-gray-50 !rounded overflow-hidden">
+          <img src="https://readdy.ai/api/search-image?query=professional%2520headshot%2520of%2520Indian%2520man%2520in%2520his%252040s%252C%2520teacher%252C%2520confident%2520pose%252C%2520neutral%2520background%252C%2520high%2520quality%2520portrait&width=160&height=160&seq=111&orientation=squarish" alt="Dr. Vikram Singh" class="w-full h-40 object-cover object-top">
+          <div class="p-3">
+            <h3 class="text-gray-800 font-medium text-sm">Dr. Vikram Singh</h3>
+            <p class="text-gray-500 text-xs mt-1">Computer Science</p>
+            <p class="text-gray-600 text-xs mt-2">Ph.D. in Computer Science with industry experience.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Academic Calendar Section -->
+  <section class="px-4 py-6">
+    <h2 class="text-xl font-semibold text-gray-800 mb-4">Academic Calendar</h2>
+    <div class="bg-white p-4 !rounded shadow-sm">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-gray-800 font-medium">June 2025</h3>
+        <div class="flex space-x-2">
+          <button class="w-8 h-8 flex items-center justify-center bg-gray-100 !rounded cursor-pointer">
+            <i class="ri-arrow-left-s-line ri-lg text-gray-600"></i>
+          </button>
+          <button class="w-8 h-8 flex items-center justify-center bg-gray-100 !rounded cursor-pointer">
+            <i class="ri-arrow-right-s-line ri-lg text-gray-600"></i>
+          </button>
+        </div>
+      </div>
+      
+      <div class="grid grid-cols-7 gap-1 text-center mb-2">
+        <span class="text-xs text-gray-500">Sun</span>
+        <span class="text-xs text-gray-500">Mon</span>
+        <span class="text-xs text-gray-500">Tue</span>
+        <span class="text-xs text-gray-500">Wed</span>
+        <span class="text-xs text-gray-500">Thu</span>
+        <span class="text-xs text-gray-500">Fri</span>
+        <span class="text-xs text-gray-500">Sat</span>
+      </div>
+      
+      <div class="grid grid-cols-7 gap-1 text-center">
+        <div class="h-8 flex items-center justify-center text-gray-400 text-xs">26</div>
+        <div class="h-8 flex items-center justify-center text-gray-400 text-xs">27</div>
+        <div class="h-8 flex items-center justify-center text-gray-400 text-xs">28</div>
+        <div class="h-8 flex items-center justify-center text-gray-400 text-xs">29</div>
+        <div class="h-8 flex items-center justify-center text-gray-400 text-xs">30</div>
+        <div class="h-8 flex items-center justify-center text-gray-400 text-xs">31</div>
+        <div class="h-8 flex items-center justify-center text-gray-700 text-xs">1</div>
+        
+        <div class="h-8 flex items-center justify-center text-gray-700 text-xs">2</div>
+        <div class="h-8 flex items-center justify-center text-gray-700 text-xs">3</div>
+        <div class="h-8 flex items-center justify-center text-gray-700 text-xs">4</div>
+        <div class="h-8 flex items-center justify-center text-gray-700 text-xs">5</div>
+        <div class="h-8 flex items-center justify-center text-gray-700 text-xs">6</div>
+        <div class="h-8 flex items-center justify-center text-gray-700 text-xs">7</div>
+        <div class="h-8 flex items-center justify-center text-gray-700 text-xs">8</div>
+        
+        <div class="h-8 flex items-center justify-center text-gray-700 text-xs">9</div>
+        <div class="h-8 flex items-center justify-center text-gray-700 text-xs">10</div>
+        <div class="h-8 flex items-center justify-center text-gray-700 text-xs">11</div>
+        <div class="h-8 flex items-center justify-center text-gray-700 text-xs">12</div>
+        <div class="h-8 flex items-center justify-center text-gray-700 text-xs">13</div>
+        <div class="h-8 flex items-center justify-center text-gray-700 text-xs">14</div>
+        <div class="h-8 flex items-center justify-center text-white text-xs bg-primary !rounded-full">15</div>
+        
+        <div class="h-8 flex items-center justify-center text-gray-700 text-xs">16</div>
+        <div class="h-8 flex items-center justify-center text-gray-700 text-xs">17</div>
+        <div class="h-8 flex items-center justify-center text-gray-700 text-xs">18</div>
+        <div class="h-8 flex items-center justify-center text-gray-700 text-xs">19</div>
+        <div class="h-8 flex items-center justify-center text-white text-xs bg-secondary !rounded-full">20</div>
+        <div class="h-8 flex items-center justify-center text-gray-700 text-xs">21</div>
+        <div class="h-8 flex items-center justify-center text-gray-700 text-xs">22</div>
+        
+        <div class="h-8 flex items-center justify-center text-gray-700 text-xs">23</div>
+        <div class="h-8 flex items-center justify-center text-gray-700 text-xs">24</div>
+        <div class="h-8 flex items-center justify-center text-white text-xs bg-purple-600 !rounded-full">25</div>
+        <div class="h-8 flex items-center justify-center text-gray-700 text-xs">26</div>
+        <div class="h-8 flex items-center justify-center text-gray-700 text-xs">27</div>
+        <div class="h-8 flex items-center justify-center text-gray-700 text-xs">28</div>
+        <div class="h-8 flex items-center justify-center text-gray-700 text-xs">29</div>
+        
+        <div class="h-8 flex items-center justify-center text-gray-700 text-xs">30</div>
+        <div class="h-8 flex items-center justify-center text-gray-400 text-xs">1</div>
+        <div class="h-8 flex items-center justify-center text-gray-400 text-xs">2</div>
+        <div class="h-8 flex items-center justify-center text-gray-400 text-xs">3</div>
+        <div class="h-8 flex items-center justify-center text-gray-400 text-xs">4</div>
+        <div class="h-8 flex items-center justify-center text-gray-400 text-xs">5</div>
+        <div class="h-8 flex items-center justify-center text-gray-400 text-xs">6</div>
+      </div>
+      
+      <div class="mt-4 space-y-2">
+        <div class="flex items-center">
+          <div class="w-3 h-3 bg-primary !rounded-full mr-2"></div>
+          <span class="text-xs text-gray-700">June 15 - STEM Lab Inauguration</span>
+        </div>
+        <div class="flex items-center">
+          <div class="w-3 h-3 bg-secondary !rounded-full mr-2"></div>
+          <span class="text-xs text-gray-700">June 20 - Annual Cultural Fest</span>
+        </div>
+        <div class="flex items-center">
+          <div class="w-3 h-3 bg-purple-600 !rounded-full mr-2"></div>
+          <span class="text-xs text-gray-700">June 25 - Parent-Teacher Meeting</span>
+        </div>
+      </div>
+      
+      <button class="mt-4 w-full py-2 border border-primary text-primary text-sm font-medium !rounded-button flex items-center justify-center cursor-pointer">
+        <i class="ri-download-line ri-sm mr-1"></i> Download Full Calendar
+      </button>
+    </div>
+  </section>
+
+  <!-- Student Achievements Section -->
+  <section class="px-4 py-6 bg-white">
+    <h2 class="text-xl font-semibold text-gray-800 mb-4">Student Achievements</h2>
+    <div class="grid grid-cols-2 gap-4 mb-4">
+      <div class="bg-primary/5 p-4 !rounded text-center">
+        <div class="text-2xl font-bold text-primary">98%</div>
+        <p class="text-gray-600 text-xs mt-1">Board Exam Pass Rate</p>
+      </div>
+      <div class="bg-secondary/5 p-4 !rounded text-center">
+        <div class="text-2xl font-bold text-secondary">45+</div>
+        <p class="text-gray-600 text-xs mt-1">Competition Awards</p>
+      </div>
+      <div class="bg-purple-100/50 p-4 !rounded text-center">
+        <div class="text-2xl font-bold text-purple-600">12</div>
+        <p class="text-gray-600 text-xs mt-1">National Scholars</p>
+      </div>
+      <div class="bg-amber-100/50 p-4 !rounded text-center">
+        <div class="text-2xl font-bold text-amber-600">85%</div>
+        <p class="text-gray-600 text-xs mt-1">College Placements</p>
+      </div>
+    </div>
+    
+    <div class="bg-gray-50 p-4 !rounded">
+      <h3 class="text-gray-800 font-medium mb-3">Recent Achievements</h3>
+      <div class="space-y-3">
+        <div class="flex items-start">
+          <div class="w-8 h-8 flex items-center justify-center bg-primary/10 !rounded-full mr-3 flex-shrink-0">
+            <i class="ri-trophy-fill ri-lg text-primary"></i>
+          </div>
+          <div>
+            <h4 class="text-gray-800 text-sm font-medium">National Science Olympiad</h4>
+            <p class="text-gray-600 text-xs mt-1">First place in the senior category by Aditya Sharma, Grade 12</p>
+          </div>
+        </div>
+        
+        <div class="flex items-start">
+          <div class="w-8 h-8 flex items-center justify-center bg-secondary/10 !rounded-full mr-3 flex-shrink-0">
+            <i class="ri-trophy-fill ri-lg text-secondary"></i>
+          </div>
+          <div>
+            <h4 class="text-gray-800 text-sm font-medium">International Math Competition</h4>
+            <p class="text-gray-600 text-xs mt-1">Bronze medal won by Riya Patel, Grade 9</p>
+          </div>
+        </div>
+        
+        <div class="flex items-start">
+          <div class="w-8 h-8 flex items-center justify-center bg-purple-100 !rounded-full mr-3 flex-shrink-0">
+            <i class="ri-trophy-fill ri-lg text-purple-600"></i>
+          </div>
+          <div>
+            <h4 class="text-gray-800 text-sm font-medium">State Debate Championship</h4>
+            <p class="text-gray-600 text-xs mt-1">First runner-up position by the school debate team</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Academic Resources Section -->
+  <section class="px-4 py-6">
+    <h2 class="text-xl font-semibold text-gray-800 mb-4">Academic Resources</h2>
+    <div class="bg-white p-4 !rounded shadow-sm">
+      <div class="space-y-4">
+        <div class="flex items-center justify-between border-b border-gray-100 pb-3">
+          <div class="flex items-center">
+            <div class="w-10 h-10 flex items-center justify-center bg-primary/10 !rounded mr-3">
+              <i class="ri-file-pdf-fill ri-lg text-primary"></i>
+            </div>
+            <div>
+              <h4 class="text-gray-800 text-sm font-medium">Academic Handbook</h4>
+              <p class="text-gray-500 text-xs">PDF • 2.5 MB</p>
+            </div>
+          </div>
+          <button class="w-8 h-8 flex items-center justify-center bg-gray-100 !rounded cursor-pointer">
+            <i class="ri-download-line ri-lg text-gray-600"></i>
+          </button>
+        </div>
+        
+        <div class="flex items-center justify-between border-b border-gray-100 pb-3">
+          <div class="flex items-center">
+            <div class="w-10 h-10 flex items-center justify-center bg-secondary/10 !rounded mr-3">
+              <i class="ri-file-pdf-fill ri-lg text-secondary"></i>
+            </div>
+            <div>
+              <h4 class="text-gray-800 text-sm font-medium">Subject Syllabi</h4>
+              <p class="text-gray-500 text-xs">PDF • 3.8 MB</p>
+            </div>
+          </div>
+          <button class="w-8 h-8 flex items-center justify-center bg-gray-100 !rounded cursor-pointer">
+            <i class="ri-download-line ri-lg text-gray-600"></i>
+          </button>
+        </div>
+        
+        <div class="flex items-center justify-between border-b border-gray-100 pb-3">
+          <div class="flex items-center">
+            <div class="w-10 h-10 flex items-center justify-center bg-purple-100 !rounded mr-3">
+              <i class="ri-file-pdf-fill ri-lg text-purple-600"></i>
+            </div>
+            <div>
+              <h4 class="text-gray-800 text-sm font-medium">Study Materials</h4>
+              <p class="text-gray-500 text-xs">PDF • 5.2 MB</p>
+            </div>
+          </div>
+          <button class="w-8 h-8 flex items-center justify-center bg-gray-100 !rounded cursor-pointer">
+            <i class="ri-download-line ri-lg text-gray-600"></i>
+          </button>
+        </div>
+        
+        <div class="flex items-center justify-between">
+          <div class="flex items-center">
+            <div class="w-10 h-10 flex items-center justify-center bg-amber-100 !rounded mr-3">
+              <i class="ri-file-pdf-fill ri-lg text-amber-600"></i>
+            </div>
+            <div>
+              <h4 class="text-gray-800 text-sm font-medium">Parent Guide</h4>
+              <p class="text-gray-500 text-xs">PDF • 1.8 MB</p>
+            </div>
+          </div>
+          <button class="w-8 h-8 flex items-center justify-center bg-gray-100 !rounded cursor-pointer">
+            <i class="ri-download-line ri-lg text-gray-600"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="px-4 py-6 bg-white">
+    <h2 class="text-xl font-semibold text-gray-800 mb-4">Academic Coordinators</h2>
+    <div class="space-y-4">
+      <div class="bg-gray-50 p-4 !rounded">
+        <div class="flex items-start">
+          <div class="w-10 h-10 flex items-center justify-center bg-primary/10 !rounded-full mr-3 flex-shrink-0">
+            <i class="ri-user-3-fill ri-lg text-primary"></i>
+          </div>
+          <div>
+            <h4 class="text-gray-800 font-medium">Primary School</h4>
+            <p class="text-gray-600 text-xs mt-1">
+              Mrs. Sunita Kapoor<br>
+              primary@vishwabharathi.edu<br>
+              +91 98765 43212
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="bg-gray-50 p-4 !rounded">
+        <div class="flex items-start">
+          <div class="w-10 h-10 flex items-center justify-center bg-secondary/10 !rounded-full mr-3 flex-shrink-0">
+            <i class="ri-user-3-fill ri-lg text-secondary"></i>
+          </div>
+          <div>
+            <h4 class="text-gray-800 font-medium">Middle School</h4>
+            <p class="text-gray-600 text-xs mt-1">
+              Mr. Rahul Mehta<br>
+              middle@vishwabharathi.edu<br>
+              +91 98765 43213
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="bg-gray-50 p-4 !rounded">
+        <div class="flex items-start">
+          <div class="w-10 h-10 flex items-center justify-center bg-purple-100 !rounded-full mr-3 flex-shrink-0">
+            <i class="ri-user-3-fill ri-lg text-purple-600"></i>
+          </div>
+          <div>
+            <h4 class="text-gray-800 font-medium">Secondary School</h4>
+            <p class="text-gray-600 text-xs mt-1">
+              Dr. Anand Joshi<br>
+              secondary@vishwabharathi.edu<br>
+              +91 98765 43214
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="mt-4">
+      <p class="text-gray-600 text-xs">
+        <strong>Office Hours:</strong> Monday to Friday, 9:00 AM to 4:00 PM
+      </p>
+    </div>
+  </section>
+</main>
+
+<!-- Tab Bar -->
+<nav class="fixed bottom-0 w-full bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.05)] z-40">
+<div class="grid grid-cols-5 h-16">
+<a href="./index.html#hero" class="flex flex-col items-center justify-center cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center text-gray-500">
+<i class="ri-home-5-line ri-lg"></i>
+</div>
+<span class="text-xs text-gray-500 mt-1">Home</span>
+</a>
+<a href="./Academics-Overview-Vishwa-Bharathi.html" class="flex flex-col items-center justify-center cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center text-primary">
+<i class="ri-book-open-fill ri-lg"></i>
+</div>
+<span class="text-xs text-primary mt-1">Academics</span>
+</a>
+<a href="./Gallery-vishwa bharathi school.html" data-readdy="true" class="flex flex-col items-center justify-center cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center text-gray-500">
+<i class="ri-gallery-line ri-lg"></i>
+</div>
+<span class="text-xs text-gray-500 mt-1">Gallery</span>
+</a>
+<a href="./School-Events-Calendar.html" class="flex flex-col items-center justify-center cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center text-gray-500">
+<i class="ri-calendar-event-line ri-lg"></i>
+</div>
+<span class="text-xs text-gray-500 mt-1">Events</span>
+</a>
+<a href="./index.html#contact-section" class="flex flex-col items-center justify-center cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center text-gray-500">
+<i class="ri-contacts-line ri-lg"></i>
+</div>
+<span class="text-xs text-gray-500 mt-1">Contact</span>
+</a>
+</div>
+</nav>
+
+<!-- Scripts -->
+<script id="mobile-menu-handler">
+document.addEventListener('DOMContentLoaded', function() {
+  const menuButton = document.getElementById('menu-button');
+  const closeMenuButton = document.getElementById('close-menu');
+  const mobileMenu = document.getElementById('mobile-menu');
+  
+  menuButton.addEventListener('click', function() {
+    mobileMenu.classList.remove('translate-x-full');
+  });
+  
+  closeMenuButton.addEventListener('click', function() {
+    mobileMenu.classList.add('translate-x-full');
+  });
+});
+</script>
+
+<script id="subject-tabs-handler">
+document.addEventListener('DOMContentLoaded', function() {
+  const tabButtons = document.querySelectorAll('.bg-gray-50 .flex button');
+  const tabContents = document.querySelectorAll('.subject-content');
+  
+  tabButtons.forEach((button, index) => {
+    button.addEventListener('click', function() {
+      // Reset all buttons
+      tabButtons.forEach(btn => {
+        btn.classList.remove('bg-primary', 'text-white');
+        btn.classList.add('bg-white', 'text-gray-700');
+      });
+      
+      // Set active button
+      this.classList.remove('bg-white', 'text-gray-700');
+      this.classList.add('bg-primary', 'text-white');
+      
+      // Hide all content
+      tabContents.forEach(content => {
+        content.classList.add('hidden');
+      });
+      
+      // Show selected content
+      tabContents[index].classList.remove('hidden');
+    });
+  });
+});
+</script>
+
+<script id="curriculum-chart-handler">
+document.addEventListener('DOMContentLoaded', function() {
+  const chartDom = document.getElementById('curriculum-chart');
+  const myChart = echarts.init(chartDom);
+  
+  const option = {
+    tooltip: {
+      trigger: 'item',
+      position: function(point, params, dom, rect, size) {
+        // Position tooltip to the right of the chart
+        return [point[0] + 30, point[1] - size.contentSize[1]/2];
+      },
+      formatter: function(params) {
+        return `
+          <div class="text-sm p-2">
+            <div class="font-semibold text-gray-800">${params.name}</div>
+            <div class="flex items-center mt-1">
+              <span class="w-3 h-3 rounded-full mr-2" style="background:${params.color}"></span>
+              <span class="text-gray-600">${params.value}% of curriculum</span>
+            </div>
+          </div>
+        `;
+      },
+      backgroundColor: '#fff',
+      borderColor: '#e5e7eb',
+      borderWidth: 1,
+      padding: 0,
+      textStyle: {
+        color: '#374151'
+      },
+      extraCssText: 'box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);'
+    },
+    legend: {
+      orient: 'vertical',
+      right: 10,
+      top: 'center',
+      textStyle: {
+        fontSize: 12
+      },
+      itemGap: 8,
+      formatter: function(name) {
+        return '{a|' + name + '}';
+      },
+      textStyle: {
+        rich: {
+          a: {
+            verticalAlign: 'middle',
+            lineHeight: 16,
+            fontSize: 12
+          }
+        }
+      }
+    },
+    series: [
+      {
+        name: 'Curriculum Framework',
+        type: 'pie',
+        radius: ['40%', '60%'],
+        center: ['25%', '50%'],
+        avoidLabelOverlap: true,
+        itemStyle: {
+          borderRadius: 10,
+          borderColor: '#fff',
+          borderWidth: 2
+        },
+        label: {
+          show: false,
+          position: 'center'
+        },
+        emphasis: {
+          label: {
+            show: true,
+            fontSize: '14',
+            fontWeight: 'bold',
+            formatter: '{b}\n{c}%'
+          }
+        },
+        labelLine: {
+          show: false
+        },
+        data: [
+          { value: 30, name: 'Academic Excellence', itemStyle: { color: '#4F46E5' } },
+          { value: 25, name: 'Holistic Development', itemStyle: { color: '#10B981' } },
+          { value: 20, name: 'Technology Integration', itemStyle: { color: '#8B5CF6' } },
+          { value: 15, name: 'Life Skills', itemStyle: { color: '#F59E0B' } },
+          { value: 10, name: 'Cultural Values', itemStyle: { color: '#EF4444' } }
+        ]
+      }
+    ]
+  };
+  
+  myChart.setOption(option);
+  
+  window.addEventListener('resize', function() {
+    myChart.resize();
+  });
+});
+</script>
+</body>
+</html>

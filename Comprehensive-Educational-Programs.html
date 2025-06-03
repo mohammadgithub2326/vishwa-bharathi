@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Programs - Vishwa Bharathi School</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#4F46E5',secondary:'#10B981'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+  font-family: 'Poppins', sans-serif;
+}
+.filter-tab.active {
+  color: #4F46E5;
+  border-color: #4F46E5;
+  background-color: rgba(79, 70, 229, 0.1);
+}
+.program-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.program-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+.program-card.expanded .program-details {
+  max-height: 1000px;
+  opacity: 1;
+}
+.program-card .program-details {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease, opacity 0.5s ease;
+}
+</style>
+</head>
+<body class="bg-gray-50">
+<!-- Navigation Bar -->
+<nav class="bg-white shadow-md fixed w-full top-0 z-50">
+  <div class="max-w-full px-4 py-3 flex justify-between items-center">
+    <div class="flex items-center">
+      <a href="https://readdy.ai/home/5cf10ffc-5f32-4818-b78d-7b9128f844a3/ec62445a-a69c-4815-a07e-a4dfe408bc59" data-readdy="true" class="flex items-center">
+        <i class="ri-arrow-left-line ri-lg mr-2 text-gray-600"></i>
+      </a>
+      <div class="w-10 h-10 bg-primary !rounded-full flex items-center justify-center mr-2">
+        <span class="text-white text-lg font-['Pacifico']">VB</span>
+      </div>
+      <span class="text-lg font-semibold text-gray-800">Programs</span>
+    </div>
+    <div class="flex items-center space-x-3">
+      <button id="search-button" class="w-8 h-8 flex items-center justify-center text-gray-600 cursor-pointer">
+        <i class="ri-search-line ri-lg"></i>
+      </button>
+      <button id="menu-button" class="w-8 h-8 flex items-center justify-center text-gray-600 cursor-pointer">
+        <i class="ri-menu-line ri-lg"></i>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Search Overlay -->
+<div id="search-overlay" class="fixed inset-0 bg-white z-50 transform -translate-y-full transition-transform duration-300 ease-in-out">
+  <div class="px-4 py-3 border-b border-gray-100">
+    <div class="flex items-center">
+      <div class="flex-1 relative">
+        <i class="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+        <input type="text" id="search-input" class="w-full pl-10 pr-4 py-2 bg-gray-50 !rounded-full text-sm" placeholder="Search for programs...">
+      </div>
+      <button id="close-search" class="w-8 h-8 flex items-center justify-center ml-2 text-gray-600 cursor-pointer">
+        <i class="ri-close-line ri-lg"></i>
+      </button>
+    </div>
+  </div>
+  <div class="px-4 py-4">
+    <div id="search-suggestions" class="hidden mt-4">
+      <h3 class="text-sm font-medium text-gray-700 mb-3">Suggestions</h3>
+      <div class="space-y-3">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Mobile Menu -->
+<div class="fixed inset-0 bg-white z-40 transform translate-x-full transition-transform duration-300 ease-in-out" id="mobile-menu">
+  <div class="pt-16 pb-20 px-4 h-full overflow-y-auto">
+    <div class="flex justify-end mb-6">
+      <button class="w-8 h-8 flex items-center justify-center text-gray-600 cursor-pointer" id="close-menu">
+        <i class="ri-close-line ri-lg"></i>
+      </button>
+    </div>
+    <div class="space-y-4">
+      <a href="https://readdy.ai/home/5cf10ffc-5f32-4818-b78d-7b9128f844a3/ec62445a-a69c-4815-a07e-a4dfe408bc59" data-readdy="true" class="block py-3 px-4 text-gray-800 font-medium border-b border-gray-100">Home</a>
+      <a href="#" class="block py-3 px-4 text-gray-800 font-medium border-b border-gray-100">About Us</a>
+      <a href="#" class="block py-3 px-4 text-primary font-medium border-b border-gray-100">Programs</a>
+      <a href="#" class="block py-3 px-4 text-gray-800 font-medium border-b border-gray-100">Admissions</a>
+      <a href="#" class="block py-3 px-4 text-gray-800 font-medium border-b border-gray-100">Facilities</a>
+      <a href="#" class="block py-3 px-4 text-gray-800 font-medium border-b border-gray-100">Events & News</a>
+      <a href="#" class="block py-3 px-4 text-gray-800 font-medium border-b border-gray-100">Gallery</a>
+      <a href="#" class="block py-3 px-4 text-gray-800 font-medium border-b border-gray-100">Contact</a>
+    </div>
+    <div class="mt-8">
+      <button class="w-full bg-primary text-white py-3 !rounded-button font-medium cursor-pointer">Parent Portal Login</button>
+    </div>
+  </div>
+</div>
+
+<!-- Main Content -->
+<main class="pt-16 pb-20">
+  <!-- Header Section -->
+  <section class="px-4 py-6">
+    <h1 class="text-2xl font-bold text-gray-800">Educational Programs</h1>
+    <p class="text-gray-600 text-sm mt-2">Discover our comprehensive range of educational programs designed to nurture young minds and prepare them for future success.</p>
+  </section>
+
+  <!-- Filter Tabs -->
+  <section class="px-4 mb-6">
+    <div class="flex overflow-x-auto pb-2 hide-scrollbar">
+      <div class="flex space-x-2">
+        <button class="filter-tab active whitespace-nowrap px-4 py-2 !rounded-full text-sm font-medium border-2 cursor-pointer" data-filter="all">All Programs</button>
+        <button class="filter-tab whitespace-nowrap px-4 py-2 !rounded-full text-sm font-medium border-2 border-gray-200 text-gray-700 cursor-pointer" data-filter="pre-primary">Pre-Primary</button>
+        <button class="filter-tab whitespace-nowrap px-4 py-2 !rounded-full text-sm font-medium border-2 border-gray-200 text-gray-700 cursor-pointer" data-filter="primary">Primary</button>
+        <button class="filter-tab whitespace-nowrap px-4 py-2 !rounded-full text-sm font-medium border-2 border-gray-200 text-gray-700 cursor-pointer" data-filter="middle">Middle School</button>
+        <button class="filter-tab whitespace-nowrap px-4 py-2 !rounded-full text-sm font-medium border-2 border-gray-200 text-gray-700 cursor-pointer" data-filter="secondary">Secondary</button>
+        <button class="filter-tab whitespace-nowrap px-4 py-2 !rounded-full text-sm font-medium border-2 border-gray-200 text-gray-700 cursor-pointer" data-filter="special">Special Programs</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Programs Grid -->
+  <section class="px-4 pb-6">
+    <div class="grid grid-cols-1 gap-4" id="programs-container">
+      <!-- Pre-Primary Programs -->
+      <div class="program-card bg-white !rounded-lg shadow-sm overflow-hidden" data-category="pre-primary">
+        <div class="relative h-48 overflow-hidden">
+          <img src="https://readdy.ai/api/search-image?query=kindergarten%2520classroom%2520with%2520colorful%2520learning%2520materials%252C%2520toys%252C%2520and%2520educational%2520games%252C%2520bright%2520and%2520cheerful%2520environment%252C%2520small%2520tables%2520and%2520chairs%252C%2520alphabet%2520charts%2520on%2520walls%252C%2520professional%2520photography%252C%2520no%2520people&width=375&height=192&seq=101&orientation=landscape" alt="Playgroup Program" class="w-full h-full object-cover">
+        </div>
+        <div class="p-4">
+          <div class="flex justify-between items-start">
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800">Playgroup Program</h3>
+              <p class="text-sm text-gray-500 mt-1">Ages 2.5-3.5 years</p>
+            </div>
+            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 !rounded">Pre-Primary</span>
+          </div>
+          <p class="text-gray-600 text-sm mt-3">A nurturing environment for toddlers to develop social skills and begin their educational journey through play-based learning.</p>
+          
+          <button class="toggle-details mt-4 text-primary text-sm font-medium flex items-center cursor-pointer">
+            Learn More <i class="ri-arrow-down-s-line ri-lg ml-1"></i>
+          </button>
+          
+          <div class="program-details mt-4 pt-4 border-t border-gray-100">
+            <div class="space-y-4">
+              <div>
+                <h4 class="text-sm font-medium text-gray-800">Curriculum Highlights</h4>
+                <ul class="mt-2 text-sm text-gray-600 space-y-1 list-disc list-inside">
+                  <li>Sensory development activities</li>
+                  <li>Basic language and communication skills</li>
+                  <li>Motor skills development</li>
+                  <li>Music and movement</li>
+                  <li>Social interaction</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h4 class="text-sm font-medium text-gray-800">Teaching Methodology</h4>
+                <p class="mt-2 text-sm text-gray-600">Our play-based approach focuses on learning through exploration, guided play, and creative activities. Children learn at their own pace in a supportive environment.</p>
+              </div>
+              
+              <div>
+                <h4 class="text-sm font-medium text-gray-800">Special Features</h4>
+                <ul class="mt-2 text-sm text-gray-600 space-y-1 list-disc list-inside">
+                  <li>Low student-teacher ratio (8:1)</li>
+                  <li>Specialized play areas</li>
+                  <li>Regular parent-teacher interaction</li>
+                  <li>Child-friendly infrastructure</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h4 class="text-sm font-medium text-gray-800">Program Duration</h4>
+                <p class="mt-2 text-sm text-gray-600">Half-day program (9:00 AM - 12:30 PM)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="program-card bg-white !rounded-lg shadow-sm overflow-hidden" data-category="pre-primary">
+        <div class="relative h-48 overflow-hidden">
+          <img src="https://readdy.ai/api/search-image?query=modern%2520nursery%2520classroom%2520with%2520educational%2520toys%252C%2520colorful%2520learning%2520stations%252C%2520child-sized%2520furniture%252C%2520bright%2520natural%2520lighting%252C%2520alphabet%2520and%2520number%2520displays%2520on%2520walls%252C%2520professional%2520photography%252C%2520no%2520people&width=375&height=192&seq=102&orientation=landscape" alt="Nursery Program" class="w-full h-full object-cover">
+        </div>
+        <div class="p-4">
+          <div class="flex justify-between items-start">
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800">Nursery Program</h3>
+              <p class="text-sm text-gray-500 mt-1">Ages 3.5-4.5 years</p>
+            </div>
+            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 !rounded">Pre-Primary</span>
+          </div>
+          <p class="text-gray-600 text-sm mt-3">Building on foundational skills with a structured approach to early literacy, numeracy, and creative development.</p>
+          
+          <button class="toggle-details mt-4 text-primary text-sm font-medium flex items-center cursor-pointer">
+            Learn More <i class="ri-arrow-down-s-line ri-lg ml-1"></i>
+          </button>
+          
+          <div class="program-details mt-4 pt-4 border-t border-gray-100">
+            <div class="space-y-4">
+              <div>
+                <h4 class="text-sm font-medium text-gray-800">Curriculum Highlights</h4>
+                <ul class="mt-2 text-sm text-gray-600 space-y-1 list-disc list-inside">
+                  <li>Pre-reading and pre-writing skills</li>
+                  <li>Basic numeracy concepts</li>
+                  <li>Environmental awareness</li>
+                  <li>Creative arts and crafts</li>
+                  <li>Physical education</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h4 class="text-sm font-medium text-gray-800">Teaching Methodology</h4>
+                <p class="mt-2 text-sm text-gray-600">We use a blend of Montessori and play-based approaches, encouraging children to explore and learn through guided activities and structured play.</p>
+              </div>
+              
+              <div>
+                <h4 class="text-sm font-medium text-gray-800">Special Features</h4>
+                <ul class="mt-2 text-sm text-gray-600 space-y-1 list-disc list-inside">
+                  <li>Student-teacher ratio (10:1)</li>
+                  <li>Thematic learning approach</li>
+                  <li>Indoor and outdoor play areas</li>
+                  <li>Regular developmental assessments</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h4 class="text-sm font-medium text-gray-800">Program Duration</h4>
+                <p class="mt-2 text-sm text-gray-600">Half-day program (9:00 AM - 1:00 PM)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="program-card bg-white !rounded-lg shadow-sm overflow-hidden" data-category="pre-primary">
+        <div class="relative h-48 overflow-hidden">
+          <img src="https://readdy.ai/api/search-image?query=kindergarten%2520classroom%2520with%2520learning%2520centers%252C%2520reading%2520corner%2520with%2520books%252C%2520art%2520station%252C%2520number%2520and%2520letter%2520activities%252C%2520bright%2520educational%2520posters%252C%2520child-sized%2520tables%2520and%2520chairs%252C%2520professional%2520photography%252C%2520no%2520people&width=375&height=192&seq=103&orientation=landscape" alt="Kindergarten Program" class="w-full h-full object-cover">
+        </div>
+        <div class="p-4">
+          <div class="flex justify-between items-start">
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800">Kindergarten Program</h3>
+              <p class="text-sm text-gray-500 mt-1">Ages 4.5-5.5 years</p>
+            </div>
+            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 !rounded">Pre-Primary</span>
+          </div>
+          <p class="text-gray-600 text-sm mt-3">Preparing children for primary education with a focus on literacy, numeracy, and social-emotional development.</p>
+          
+          <button class="toggle-details mt-4 text-primary text-sm font-medium flex items-center cursor-pointer">
+            Learn More <i class="ri-arrow-down-s-line ri-lg ml-1"></i>
+          </button>
+          
+          <div class="program-details mt-4 pt-4 border-t border-gray-100">
+            <div class="space-y-4">
+              <div>
+                <h4 class="text-sm font-medium text-gray-800">Curriculum Highlights</h4>
+                <ul class="mt-2 text-sm text-gray-600 space-y-1 list-disc list-inside">
+                  <li>Reading and writing readiness</li>
+                  <li>Mathematical concepts</li>
+                  <li>Science exploration</li>
+                  <li>Social studies</li>
+                  <li>Technology introduction</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h4 class="text-sm font-medium text-gray-800">Teaching Methodology</h4>
+                <p class="mt-2 text-sm text-gray-600">Our kindergarten program uses a structured approach with thematic units, integrating multiple subjects while maintaining the joy of learning through hands-on activities.</p>
+              </div>
+              
+              <div>
+                <h4 class="text-sm font-medium text-gray-800">Special Features</h4>
+                <ul class="mt-2 text-sm text-gray-600 space-y-1 list-disc list-inside">
+                  <li>Student-teacher ratio (12:1)</li>
+                  <li>School readiness focus</li>
+                  <li>Introduction to digital learning</li>
+                  <li>Regular progress reports</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h4 class="text-sm font-medium text-gray-800">Program Duration</h4>
+                <p class="mt-2 text-sm text-gray-600">Full-day program (9:00 AM - 2:00 PM)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Primary Education Programs -->
+      <div class="program-card bg-white !rounded-lg shadow-sm overflow-hidden" data-category="primary">
+        <div class="relative h-48 overflow-hidden">
+          <img src="https://readdy.ai/api/search-image?query=primary%2520school%2520classroom%2520with%2520students%2520engaged%2520in%2520learning%252C%2520colorful%2520educational%2520displays%252C%2520modern%2520desks%2520and%2520chairs%252C%2520interactive%2520whiteboard%252C%2520books%2520and%2520learning%2520materials%252C%2520bright%2520natural%2520lighting%252C%2520professional%2520photography&width=375&height=192&seq=104&orientation=landscape" alt="Primary Education" class="w-full h-full object-cover">
+        </div>
+        <div class="p-4">
+          <div class="flex justify-between items-start">
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800">Primary Education</h3>
+              <p class="text-sm text-gray-500 mt-1">Grades 1-5 (Ages 6-11)</p>
+            </div>
+            <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 !rounded">Primary</span>
+          </div>
+          <p class="text-gray-600 text-sm mt-3">A comprehensive program focusing on developing strong foundations in core subjects while nurturing creativity and critical thinking.</p>
+          
+          <button class="toggle-details mt-4 text-primary text-sm font-medium flex items-center cursor-pointer">
+            Learn More <i class="ri-arrow-down-s-line ri-lg ml-1"></i>
+          </button>
+          
+          <div class="program-details mt-4 pt-4 border-t border-gray-100">
+            <div class="space-y-4">
+              <div>
+                <h4 class="text-sm font-medium text-gray-800">Curriculum Highlights</h4>
+                <ul class="mt-2 text-sm text-gray-600 space-y-1 list-disc list-inside">
+                  <li>Language Arts (English and Hindi)</li>
+                  <li>Mathematics</li>
+                  <li>Environmental Studies</li>
+                  <li>Computer Science</li>
+                  <li>Arts, Music, and Physical Education</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h4 class="text-sm font-medium text-gray-800">Teaching Methodology</h4>
+                <p class="mt-2 text-sm text-gray-600">We employ a blend of traditional and progressive teaching methods, including project-based learning, collaborative activities, and technology integration to make learning engaging and effective.</p>
+              </div>
+              
+              <div>
+                <h4 class="text-sm font-medium text-gray-800">Special Features</h4>
+                <ul class="mt-2 text-sm text-gray-600 space-y-1 list-disc list-inside">
+                  <li>Student-teacher ratio (20:1)</li>
+                  <li>Regular field trips and experiential learning</li>
+                  <li>Digital learning resources</li>
+                  <li>Personalized attention</li>
+                  <li>Value education</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h4 class="text-sm font-medium text-gray-800">Program Duration</h4>
+                <p class="mt-2 text-sm text-gray-600">Full-day program (8:30 AM - 3:00 PM)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Middle School Programs -->
+      <div class="program-card bg-white !rounded-lg shadow-sm overflow-hidden" data-category="middle">
+        <div class="relative h-48 overflow-hidden">
+          <img src="https://readdy.ai/api/search-image?query=middle%2520school%2520classroom%2520with%2520students%2520engaged%2520in%2520collaborative%2520learning%252C%2520science%2520experiments%252C%2520modern%2520educational%2520technology%252C%2520subject-specific%2520displays%252C%2520bright%2520and%2520well-equipped%2520environment%252C%2520professional%2520photography&width=375&height=192&seq=105&orientation=landscape" alt="Middle School Education" class="w-full h-full object-cover">
+        </div>
+        <div class="p-4">
+          <div class="flex justify-between items-start">
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800">Middle School Education</h3>
+              <p class="text-sm text-gray-500 mt-1">Grades 6-8 (Ages 11-14)</p>
+            </div>
+            <span class="bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 !rounded">Middle School</span>
+          </div>
+          <p class="text-gray-600 text-sm mt-3">A specialized program designed to bridge primary and secondary education with a focus on deeper subject knowledge and skill development.</p>
+          
+          <button class="toggle-details mt-4 text-primary text-sm font-medium flex items-center cursor-pointer">
+            Learn More <i class="ri-arrow-down-s-line ri-lg ml-1"></i>
+          </button>
+          
+          <div class="program-details mt-4 pt-4 border-t border-gray-100">
+            <div class="space-y-4">
+              <div>
+                <h4 class="text-sm font-medium text-gray-800">Curriculum Highlights</h4>
+                <ul class="mt-2 text-sm text-gray-600 space-y-1 list-disc list-inside">
+                  <li>English, Hindi, and Third Language</li>
+                  <li>Mathematics</li>
+                  <li>Science (Physics, Chemistry, Biology)</li>
+                  <li>Social Studies</li>
+                  <li>Computer Science</li>
+                  <li>Arts, Music, and Physical Education</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h4 class="text-sm font-medium text-gray-800">Teaching Methodology</h4>
+                <p class="mt-2 text-sm text-gray-600">Our approach emphasizes conceptual understanding, critical thinking, and application of knowledge through inquiry-based learning, discussions, and collaborative projects.</p>
+              </div>
+              
+              <div>
+                <h4 class="text-sm font-medium text-gray-800">Special Features</h4>
+                <ul class="mt-2 text-sm text-gray-600 space-y-1 list-disc list-inside">
+                  <li>Student-teacher ratio (25:1)</li>
+                  <li>Subject specialist teachers</li>
+                  <li>STEM-focused activities</li>
+                  <li>Leadership development</li>
+                  <li>Career guidance introduction</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h4 class="text-sm font-medium text-gray-800">Program Duration</h4>
+                <p class="mt-2 text-sm text-gray-600">Full-day program (8:30 AM - 3:30 PM)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Secondary Education Programs -->
+      <div class="program-card bg-white !rounded-lg shadow-sm overflow-hidden" data-category="secondary">
+        <div class="relative h-48 overflow-hidden">
+          <img src="https://readdy.ai/api/search-image?query=high%2520school%2520classroom%2520with%2520students%2520engaged%2520in%2520advanced%2520learning%252C%2520science%2520laboratory%2520setup%252C%2520modern%2520educational%2520technology%252C%2520academic%2520displays%252C%2520professional%2520environment%252C%2520professional%2520photography&width=375&height=192&seq=106&orientation=landscape" alt="Secondary Education" class="w-full h-full object-cover">
+        </div>
+        <div class="p-4">
+          <div class="flex justify-between items-start">
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800">Secondary Education</h3>
+              <p class="text-sm text-gray-500 mt-1">Grades 9-10 (Ages 14-16)</p>
+            </div>
+            <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 !rounded">Secondary</span>
+          </div>
+          <p class="text-gray-600 text-sm mt-3">Preparing students for board examinations with comprehensive subject knowledge and skill development for future academic success.</p>
+          
+          <button class="toggle-details mt-4 text-primary text-sm font-medium flex items-center cursor-pointer">
+            Learn More <i class="ri-arrow-down-s-line ri-lg ml-1"></i>
+          </button>
+          
+          <div class="program-details mt-4 pt-4 border-t border-gray-100">
+            <div class="space-y-4">
+              <div>
+                <h4 class="text-sm font-medium text-gray-800">Curriculum Highlights</h4>
+                <ul class="mt-2 text-sm text-gray-600 space-y-1 list-disc list-inside">
+                  <li>English and Second Language</li>
+                  <li>Mathematics</li>
+                  <li>Science (Physics, Chemistry, Biology)</li>
+                  <li>Social Studies</li>
+                  <li>Information Technology</li>
+                  <li>Physical Education</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h4 class="text-sm font-medium text-gray-800">Teaching Methodology</h4>
+                <p class="mt-2 text-sm text-gray-600">Our approach combines comprehensive content coverage with analytical thinking, problem-solving, and exam preparation strategies to ensure academic excellence.</p>
+              </div>
+              
+              <div>
+                <h4 class="text-sm font-medium text-gray-800">Special Features</h4>
+                <ul class="mt-2 text-sm text-gray-600 space-y-1 list-disc list-inside">
+                  <li>Student-teacher ratio (25:1)</li>
+                  <li>Subject expert teachers</li>
+                  <li>Regular assessments and feedback</li>
+                  <li>Exam preparation workshops</li>
+                  <li>Career counseling</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h4 class="text-sm font-medium text-gray-800">Program Duration</h4>
+                <p class="mt-2 text-sm text-gray-600">Full-day program (8:30 AM - 4:00 PM)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="program-card bg-white !rounded-lg shadow-sm overflow-hidden" data-category="secondary">
+        <div class="relative h-48 overflow-hidden">
+          <img src="https://readdy.ai/api/search-image?query=senior%2520secondary%2520classroom%2520with%2520students%2520engaged%2520in%2520advanced%2520academic%2520work%252C%2520college%2520preparation%2520materials%252C%2520career%2520guidance%2520resources%252C%2520modern%2520educational%2520technology%252C%2520professional%2520environment%252C%2520professional%2520photography&width=375&height=192&seq=107&orientation=landscape" alt="Senior Secondary Education" class="w-full h-full object-cover">
+        </div>
+        <div class="p-4">
+          <div class="flex justify-between items-start">
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800">Senior Secondary Education</h3>
+              <p class="text-sm text-gray-500 mt-1">Grades 11-12 (Ages 16-18)</p>
+            </div>
+            <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 !rounded">Secondary</span>
+          </div>
+          <p class="text-gray-600 text-sm mt-3">Specialized streams for college preparation with advanced subject knowledge and competitive exam readiness.</p>
+          
+          <button class="toggle-details mt-4 text-primary text-sm font-medium flex items-center cursor-pointer">
+            Learn More <i class="ri-arrow-down-s-line ri-lg ml-1"></i>
+          </button>
+          
+          <div class="program-details mt-4 pt-4 border-t border-gray-100">
+            <div class="space-y-4">
+              <div>
+                <h4 class="text-sm font-medium text-gray-800">Streams Available</h4>
+                <ul class="mt-2 text-sm text-gray-600 space-y-1 list-disc list-inside">
+                  <li>Science (PCM/PCB)</li>
+                  <li>Commerce</li>
+                  <li>Humanities</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h4 class="text-sm font-medium text-gray-800">Curriculum Highlights</h4>
+                <p class="mt-2 text-sm text-gray-600">Stream-specific subjects with advanced content aligned with national curriculum standards and competitive exam requirements.</p>
+              </div>
+              
+              <div>
+                <h4 class="text-sm font-medium text-gray-800">Teaching Methodology</h4>
+                <p class="mt-2 text-sm text-gray-600">Our approach emphasizes in-depth subject mastery, analytical thinking, and exam preparation with specialized faculty for each subject area.</p>
+              </div>
+              
+              <div>
+                <h4 class="text-sm font-medium text-gray-800">Special Features</h4>
+                <ul class="mt-2 text-sm text-gray-600 space-y-1 list-disc list-inside">
+                  <li>Student-teacher ratio (20:1)</li>
+                  <li>Subject specialist faculty</li>
+                  <li>College and career counseling</li>
+                  <li>Competitive exam preparation</li>
+                  <li>Mentorship programs</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h4 class="text-sm font-medium text-gray-800">Program Duration</h4>
+                <p class="mt-2 text-sm text-gray-600">Full-day program (8:30 AM - 4:00 PM)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Special Programs -->
+      <div class="program-card bg-white !rounded-lg shadow-sm overflow-hidden" data-category="special">
+        <div class="relative h-48 overflow-hidden">
+          <img src="https://readdy.ai/api/search-image?query=STEM%2520education%2520lab%2520with%2520robotics%252C%2520coding%2520stations%252C%2520science%2520equipment%252C%2520modern%2520technology%252C%2520collaborative%2520workspace%252C%2520bright%2520and%2520innovative%2520environment%252C%2520professional%2520photography%252C%2520no%2520people&width=375&height=192&seq=108&orientation=landscape" alt="STEM Program" class="w-full h-full object-cover">
+        </div>
+        <div class="p-4">
+          <div class="flex justify-between items-start">
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800">STEM Excellence Program</h3>
+              <p class="text-sm text-gray-500 mt-1">Grades 6-12</p>
+            </div>
+            <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 !rounded">Special</span>
+          </div>
+          <p class="text-gray-600 text-sm mt-3">An enrichment program focusing on Science, Technology, Engineering, and Mathematics with hands-on projects and competitions.</p>
+          
+          <button class="toggle-details mt-4 text-primary text-sm font-medium flex items-center cursor-pointer">
+            Learn More <i class="ri-arrow-down-s-line ri-lg ml-1"></i>
+          </button>
+          
+          <div class="program-details mt-4 pt-4 border-t border-gray-100">
+            <div class="space-y-4">
+              <div>
+                <h4 class="text-sm font-medium text-gray-800">Program Highlights</h4>
+                <ul class="mt-2 text-sm text-gray-600 space-y-1 list-disc list-inside">
+                  <li>Robotics and coding</li>
+                  <li>Advanced science experiments</li>
+                  <li>Engineering design challenges</li>
+                  <li>Mathematics olympiad preparation</li>
+                  <li>Technology innovation projects</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h4 class="text-sm font-medium text-gray-800">Teaching Methodology</h4>
+                <p class="mt-2 text-sm text-gray-600">Project-based learning with expert mentorship, focusing on real-world problem-solving, innovation, and scientific inquiry.</p>
+              </div>
+              
+              <div>
+                <h4 class="text-sm font-medium text-gray-800">Special Features</h4>
+                <ul class="mt-2 text-sm text-gray-600 space-y-1 list-disc list-inside">
+                  <li>State-of-the-art STEM lab</li>
+                  <li>Industry partnerships</li>
+                  <li>Competition opportunities</li>
+                  <li>Expert guest lectures</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h4 class="text-sm font-medium text-gray-800">Program Schedule</h4>
+                <p class="mt-2 text-sm text-gray-600">After-school program (2 days per week, 2 hours per session)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="program-card bg-white !rounded-lg shadow-sm overflow-hidden" data-category="special">
+        <div class="relative h-48 overflow-hidden">
+          <img src="https://readdy.ai/api/search-image?query=performing%2520arts%2520studio%2520with%2520dance%2520floor%252C%2520mirrors%252C%2520musical%2520instruments%252C%2520theater%2520props%252C%2520bright%2520and%2520creative%2520space%252C%2520professional%2520photography%252C%2520no%2520people&width=375&height=192&seq=109&orientation=landscape" alt="Performing Arts Program" class="w-full h-full object-cover">
+        </div>
+        <div class="p-4">
+          <div class="flex justify-between items-start">
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800">Performing Arts Program</h3>
+              <p class="text-sm text-gray-500 mt-1">All Grades</p>
+            </div>
+            <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 !rounded">Special</span>
+          </div>
+          <p class="text-gray-600 text-sm mt-3">A comprehensive program for developing talents in music, dance, drama, and visual arts with professional instruction.</p>
+          
+          <button class="toggle-details mt-4 text-primary text-sm font-medium flex items-center cursor-pointer">
+            Learn More <i class="ri-arrow-down-s-line ri-lg ml-1"></i>
+          </button>
+          
+          <div class="program-details mt-4 pt-4 border-t border-gray-100">
+            <div class="space-y-4">
+              <div>
+                <h4 class="text-sm font-medium text-gray-800">Program Highlights</h4>
+                <ul class="mt-2 text-sm text-gray-600 space-y-1 list-disc list-inside">
+                  <li>Classical and contemporary dance</li>
+                  <li>Vocal and instrumental music</li>
+                  <li>Theater and drama</li>
+                  <li>Visual arts and crafts</li>
+                  <li>Annual performances and exhibitions</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h4 class="text-sm font-medium text-gray-800">Teaching Methodology</h4>
+                <p class="mt-2 text-sm text-gray-600">Professional instruction from practicing artists with a focus on technique, creativity, and performance skills in specialized studios.</p>
+              </div>
+              
+              <div>
+                <h4 class="text-sm font-medium text-gray-800">Special Features</h4>
+                <ul class="mt-2 text-sm text-gray-600 space-y-1 list-disc list-inside">
+                  <li>Dedicated performance spaces</li>
+                  <li>Professional-grade equipment</li>
+                  <li>Performance opportunities</li>
+                  <li>Inter-school competitions</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h4 class="text-sm font-medium text-gray-800">Program Schedule</h4>
+                <p class="mt-2 text-sm text-gray-600">After-school program (varies by discipline, typically 2-3 days per week)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="program-card bg-white !rounded-lg shadow-sm overflow-hidden" data-category="special">
+        <div class="relative h-48 overflow-hidden">
+          <img src="https://readdy.ai/api/search-image?query=sports%2520facility%2520with%2520multiple%2520courts%252C%2520training%2520equipment%252C%2520athletic%2520gear%252C%2520bright%2520and%2520modern%2520space%252C%2520professional%2520sports%2520environment%252C%2520professional%2520photography%252C%2520no%2520people&width=375&height=192&seq=110&orientation=landscape" alt="Sports Excellence Program" class="w-full h-full object-cover">
+        </div>
+        <div class="p-4">
+          <div class="flex justify-between items-start">
+            <div>
+              <h3 class="text-lg font-semibold text-gray-800">Sports Excellence Program</h3>
+              <p class="text-sm text-gray-500 mt-1">All Grades</p>
+            </div>
+            <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 !rounded">Special</span>
+          </div>
+          <p class="text-gray-600 text-sm mt-3">A specialized program for athletic development with professional coaching in various sports disciplines.</p>
+          
+          <button class="toggle-details mt-4 text-primary text-sm font-medium flex items-center cursor-pointer">
+            Learn More <i class="ri-arrow-down-s-line ri-lg ml-1"></i>
+          </button>
+          
+          <div class="program-details mt-4 pt-4 border-t border-gray-100">
+            <div class="space-y-4">
+              <div>
+                <h4 class="text-sm font-medium text-gray-800">Program Highlights</h4>
+                <ul class="mt-2 text-sm text-gray-600 space-y-1 list-disc list-inside">
+                  <li>Multiple sports disciplines (Cricket, Football, Basketball, Athletics, etc.)</li>
+                  <li>Professional coaching</li>
+                  <li>Physical fitness training</li>
+                  <li>Sports nutrition guidance</li>
+                  <li>Competition preparation</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h4 class="text-sm font-medium text-gray-800">Teaching Methodology</h4>
+                <p class="mt-2 text-sm text-gray-600">Structured training programs with professional coaches focusing on technique, fitness, strategy, and sportsmanship.</p>
+              </div>
+              
+              <div>
+                <h4 class="text-sm font-medium text-gray-800">Special Features</h4>
+                <ul class="mt-2 text-sm text-gray-600 space-y-1 list-disc list-inside">
+                  <li>State-of-the-art sports facilities</li>
+                  <li>Professional equipment</li>
+                  <li>Tournament participation</li>
+                  <li>Sports scholarships</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h4 class="text-sm font-medium text-gray-800">Program Schedule</h4>
+                <p class="mt-2 text-sm text-gray-600">Morning and evening training sessions (varies by sport)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Admission CTA -->
+  <section class="px-4 py-6 bg-primary/5">
+    <div class="text-center">
+      <h2 class="text-xl font-semibold text-gray-800 mb-2">Join Our Educational Programs</h2>
+      <p class="text-gray-600 text-sm mb-4">
+        Applications for the 2025-26 academic year are now open. Contact our admissions office for more information.
+      </p>
+      <button class="bg-primary text-white py-3 px-6 !rounded-button font-medium cursor-pointer">
+        Apply Now
+      </button>
+    </div>
+  </section>
+</main>
+
+<!-- Tab Bar -->
+<nav class="fixed bottom-0 w-full bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.05)] z-40">
+<div class="grid grid-cols-5 h-16">
+<a href="./index.html#hero" class="flex flex-col items-center justify-center cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center text-primary">
+<i class="ri-home-5-fill ri-lg"></i>
+</div>
+<span class="text-xs text-primary mt-1">Home</span>
+</a>
+<a href="./Academics-Overview-Vishwa-Bharathi.html" class="flex flex-col items-center justify-center cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center text-gray-500">
+<i class="ri-book-open-line ri-lg"></i>
+</div>
+<span class="text-xs text-gray-500 mt-1">Academics</span>
+</a>
+<a href="./Gallery-vishwa bharathi school.html" data-readdy="true" class="flex flex-col items-center justify-center cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center text-gray-500">
+<i class="ri-gallery-line ri-lg"></i>
+</div>
+<span class="text-xs text-gray-500 mt-1">Gallery</span>
+</a>
+<a href="./School-Events-Calendar.html" class="flex flex-col items-center justify-center cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center text-gray-500">
+<i class="ri-calendar-event-line ri-lg"></i>
+</div>
+<span class="text-xs text-gray-500 mt-1">Events</span>
+</a>
+<a href="./index.html#contact-section" class="flex flex-col items-center justify-center cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center text-gray-500">
+<i class="ri-contacts-line ri-lg"></i>
+</div>
+<span class="text-xs text-gray-500 mt-1">Contact</span>
+</a>
+</div>
+</nav>
+
+<!-- Scripts -->
+<script id="mobile-menu-handler">
+document.addEventListener('DOMContentLoaded', function() {
+  const menuButton = document.getElementById('menu-button');
+  const closeMenuButton = document.getElementById('close-menu');
+  const mobileMenu = document.getElementById('mobile-menu');
+  
+  menuButton.addEventListener('click', function() {
+    mobileMenu.classList.remove('translate-x-full');
+  });
+  
+  closeMenuButton.addEventListener('click', function() {
+    mobileMenu.classList.add('translate-x-full');
+  });
+});
+</script>
+
+<script id="search-handler">
+document.addEventListener('DOMContentLoaded', function() {
+  const searchButton = document.getElementById('search-button');
+  const closeSearchButton = document.getElementById('close-search');
+  const searchOverlay = document.getElementById('search-overlay');
+  const searchInput = document.getElementById('search-input');
+  const searchSuggestions = document.getElementById('search-suggestions');
+  const suggestionsContainer = searchSuggestions.querySelector('.space-y-3');
+  
+  const suggestions = [
+    'Pre-Primary Programs',
+    'Primary Education',
+    'Middle School Programs',
+    'Secondary Education',
+    'STEM Excellence Program',
+    'Performing Arts Program',
+    'Sports Excellence Program',
+    'Admission Requirements',
+    'Program Fees',
+    'Academic Calendar'
+  ];
+  
+  searchButton.addEventListener('click', function() {
+    searchOverlay.classList.remove('-translate-y-full');
+    setTimeout(() => {
+      searchInput.focus();
+    }, 300);
+  });
+  
+  closeSearchButton.addEventListener('click', function() {
+    searchOverlay.classList.add('-translate-y-full');
+    searchInput.value = '';
+    searchSuggestions.classList.add('hidden');
+  });
+  
+  searchInput.addEventListener('input', function() {
+    const query = this.value.toLowerCase();
+    if (query.length > 0) {
+      const filteredSuggestions = suggestions.filter(suggestion =>
+        suggestion.toLowerCase().includes(query)
+      );
+      
+      suggestionsContainer.innerHTML = '';
+      
+      filteredSuggestions.forEach(suggestion => {
+        const div = document.createElement('div');
+        div.className = 'flex items-center text-gray-600 cursor-pointer hover:bg-gray-50 p-2 !rounded';
+        div.innerHTML = `
+          <i class="ri-search-line w-5 h-5 mr-3"></i>
+          <span class="text-sm">${suggestion}</span>
+        `;
+        
+        div.addEventListener('click', function() {
+          searchInput.value = suggestion;
+        });
+        
+        suggestionsContainer.appendChild(div);
+      });
+      
+      searchSuggestions.classList.remove('hidden');
+    } else {
+      searchSuggestions.classList.add('hidden');
+    }
+  });
+});
+</script>
+
+<script id="filter-handler">
+document.addEventListener('DOMContentLoaded', function() {
+  const filterTabs = document.querySelectorAll('.filter-tab');
+  const programCards = document.querySelectorAll('.program-card');
+  
+  filterTabs.forEach(tab => {
+    tab.addEventListener('click', function() {
+      // Remove active class from all tabs
+      filterTabs.forEach(t => t.classList.remove('active'));
+      
+      // Add active class to clicked tab
+      this.classList.add('active');
+      
+      const filter = this.getAttribute('data-filter');
+      
+      // Show/hide program cards based on filter
+      programCards.forEach(card => {
+        if (filter === 'all' || card.getAttribute('data-category') === filter) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+  
+  // Program card details toggle
+  const toggleButtons = document.querySelectorAll('.toggle-details');
+  
+  toggleButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const card = this.closest('.program-card');
+      card.classList.toggle('expanded');
+      
+      const icon = this.querySelector('i');
+      if (card.classList.contains('expanded')) {
+        this.innerHTML = 'Show Less <i class="ri-arrow-up-s-line ri-lg ml-1"></i>';
+      } else {
+        this.innerHTML = 'Learn More <i class="ri-arrow-down-s-line ri-lg ml-1"></i>';
+      }
+    });
+  });
+});
+</script>
+
+</body>
+</html>

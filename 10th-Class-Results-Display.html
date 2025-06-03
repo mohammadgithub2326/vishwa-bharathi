@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>10th Class Exam Results</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#4F46E5',secondary:'#10B981'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Inter', sans-serif;
+background-color: #f9fafb;
+}
+.result-card {
+box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+.circular-progress {
+position: relative;
+width: 120px;
+height: 120px;
+}
+.circular-progress svg {
+transform: rotate(-90deg);
+}
+.circular-progress circle {
+fill: none;
+stroke-width: 8;
+stroke-linecap: round;
+}
+.circular-progress .bg {
+stroke: #e5e7eb;
+}
+.circular-progress .progress {
+stroke: #4F46E5;
+transition: stroke-dashoffset 0.5s ease;
+}
+.progress-text {
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+text-align: center;
+}
+</style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+<!-- Nav Bar -->
+<nav class="fixed w-full top-0 bg-white shadow-sm z-50">
+<div class="flex items-center justify-between px-4 py-3">
+    <a href="./index.html">
+    <div class="flex items-center">
+        <i class="ri-arrow-left-line ri-lg"></i>
+        <span class="font-['Pacifico'] text-primary text-xl">logo</span>
+    </div>
+</a>
+<div class="flex items-center space-x-3">
+<div id="notification-bell" class="w-8 h-8 flex items-center justify-center cursor-pointer relative">
+<i class="ri-notification-3-line ri-lg"></i>
+<span id="notification-badge" class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-[10px] flex items-center justify-center rounded-full">3</span>
+<div id="notification-panel" class="hidden absolute right-0 top-full mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-100 z-50">
+<div class="p-3 border-b border-gray-100">
+<div class="flex items-center justify-between">
+<h3 class="font-medium">Notifications</h3>
+<button id="mark-all-read" class="text-xs text-primary hover:text-primary/80">Mark all as read</button>
+</div>
+</div>
+<div class="max-h-96 overflow-y-auto">
+<div class="notification-item p-3 border-b border-gray-100 bg-blue-50/50 cursor-pointer">
+<div class="flex items-start">
+<div class="w-2 h-2 mt-2 bg-primary rounded-full"></div>
+<div class="ml-2 flex-1">
+<p class="text-sm font-medium">Final Term Results Published</p>
+<p class="text-xs text-gray-500 mt-0.5">Your 10th class final term results are now available.</p>
+<p class="text-[10px] text-gray-400 mt-1">2 minutes ago</p>
+</div>
+</div>
+</div>
+<div class="notification-item p-3 border-b border-gray-100 bg-blue-50/50 cursor-pointer">
+<div class="flex items-start">
+<div class="w-2 h-2 mt-2 bg-primary rounded-full"></div>
+<div class="ml-2 flex-1">
+<p class="text-sm font-medium">Grade Update Alert</p>
+<p class="text-xs text-gray-500 mt-0.5">Mathematics grade has been updated from B+ to A.</p>
+<p class="text-[10px] text-gray-400 mt-1">1 hour ago</p>
+</div>
+</div>
+</div>
+<div class="notification-item p-3 border-b border-gray-100 bg-blue-50/50 cursor-pointer">
+<div class="flex items-start">
+<div class="w-2 h-2 mt-2 bg-primary rounded-full"></div>
+<div class="ml-2 flex-1">
+<p class="text-sm font-medium">System Maintenance</p>
+<p class="text-xs text-gray-500 mt-0.5">Portal will be under maintenance on June 5th, 2025.</p>
+<p class="text-[10px] text-gray-400 mt-1">2 hours ago</p>
+</div>
+</div>
+</div>
+</div>
+<div class="p-3 text-center border-t border-gray-100">
+<a href="#" class="text-xs text-primary hover:text-primary/80">View all notifications</a>
+</div>
+</div>
+</div>
+<div id="help-button" class="w-8 h-8 flex items-center justify-center cursor-pointer">
+<i class="ri-question-line ri-lg"></i>
+</div>
+<div id="help-dialog" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+<div class="bg-white w-[340px] rounded-lg max-h-[80vh] overflow-hidden flex flex-col">
+<div class="p-4 border-b border-gray-100 flex items-center justify-between">
+<h3 class="font-semibold text-lg">Help Guide</h3>
+<button id="close-help" class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700">
+<i class="ri-close-line ri-lg"></i>
+</button>
+</div>
+<div class="overflow-y-auto p-4 space-y-4">
+<div class="space-y-2">
+<h4 class="font-medium text-primary">Results Summary</h4>
+<p class="text-sm text-gray-600">The circular progress shows your overall performance percentage. Total marks and grade are displayed alongside for quick reference.</p>
+</div>
+<div class="space-y-2">
+<h4 class="font-medium text-primary">Grading System</h4>
+<div class="text-sm text-gray-600 space-y-1">
+<p>• A+ (90-100): Outstanding</p>
+<p>• A (80-89): Excellent</p>
+<p>• B+ (70-79): Very Good</p>
+<p>• B (60-69): Good</p>
+<p>• C+ (50-59): Average</p>
+<p>• C (40-49): Below Average</p>
+<p>• F (Below 40): Fail</p>
+</div>
+</div>
+<div class="space-y-2">
+<h4 class="font-medium text-primary">Performance Analytics</h4>
+<p class="text-sm text-gray-600">The bar chart compares your performance with class averages. Green and red indicators show your highest and lowest scoring subjects.</p>
+</div>
+<div class="space-y-2">
+<h4 class="font-medium text-primary">Quick Actions</h4>
+<div class="text-sm text-gray-600 space-y-1">
+<p>• Download: Save results as PDF</p>
+<p>• Print: Get a physical copy</p>
+<p>• Share: Send results via email</p>
+</div>
+</div>
+<div class="mt-4 bg-blue-50 p-3 rounded-lg">
+<p class="text-sm text-primary font-medium">Need more help?</p>
+<p class="text-xs text-gray-600 mt-1">Contact your class teacher or academic coordinator for detailed guidance.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="pt-16 pb-20 px-4">
+<!-- Search Bar -->
+<div class="mb-4 mt-4">
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<i class="ri-search-line text-gray-400"></i>
+</div>
+<input type="text" id="student-search" placeholder="Search by name or roll number" class="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary">
+<button id="search-button" class="absolute inset-y-0 right-0 px-4 flex items-center bg-primary text-white rounded-r-lg !rounded-button">
+<i class="ri-arrow-right-line"></i>
+</button>
+</div>
+</div>
+<!-- Header Section -->
+<div class="mb-6">
+<h1 class="text-2xl font-bold text-gray-900">Exam Results</h1>
+<p class="text-sm text-gray-500">Academic Year 2024-2025 • Final Term</p>
+</div>
+<!-- Student Info Card -->
+<div class="bg-white rounded-lg p-4 shadow-sm mb-6">
+<div class="flex items-center mb-3">
+<div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-3">
+<i class="ri-user-line ri-lg text-primary"></i>
+</div>
+<div>
+<h2 class="font-semibold text-gray-900">Emily Johnson</h2>
+<p class="text-sm text-gray-500">Roll No: 10B-2458</p>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-3 mt-2">
+<div class="bg-gray-50 p-2 rounded">
+<p class="text-xs text-gray-500">Class</p>
+<p class="font-medium">10th Standard</p>
+</div>
+<div class="bg-gray-50 p-2 rounded">
+<p class="text-xs text-gray-500">Section</p>
+<p class="font-medium">B</p>
+</div>
+<div class="bg-gray-50 p-2 rounded">
+<p class="text-xs text-gray-500">School</p>
+<p class="font-medium">Greenwood High School</p>
+</div>
+<div class="bg-gray-50 p-2 rounded">
+<p class="text-xs text-gray-500">Exam Date</p>
+<p class="font-medium">May 15, 2025</p>
+</div>
+</div>
+</div>
+<!-- Results Summary Card -->
+<div class="bg-white rounded-lg p-4 shadow-sm mb-6">
+<h2 class="font-semibold text-lg mb-4">Results Summary</h2>
+<div class="flex items-center justify-between">
+<div class="circular-progress" id="overall-progress">
+<svg width="120" height="120" viewBox="0 0 120 120">
+<circle class="bg" cx="60" cy="60" r="54" />
+<circle class="progress" cx="60" cy="60" r="54" stroke-dasharray="339.292" stroke-dashoffset="67.8584" />
+</svg>
+<div class="progress-text">
+<span class="text-3xl font-bold">80%</span>
+<p class="text-xs text-gray-500">Overall</p>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<div class="mb-2">
+<p class="text-sm text-gray-500">Total Marks</p>
+<p class="text-xl font-semibold">480/600</p>
+</div>
+<div class="mb-2">
+<p class="text-sm text-gray-500">Grade</p>
+<p class="text-xl font-semibold">A</p>
+</div>
+<div>
+<span class="inline-block px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">
+PASSED
+</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Subject-wise Results -->
+<div class="bg-white rounded-lg p-4 shadow-sm mb-6">
+<h2 class="font-semibold text-lg mb-4">Subject-wise Results</h2>
+<div class="space-y-4">
+<!-- Mathematics -->
+<div class="p-3 bg-blue-50 rounded-lg">
+<div class="flex justify-between items-center mb-2">
+<h3 class="font-medium">Mathematics</h3>
+<div class="flex items-center">
+<span class="text-sm font-semibold mr-2">92/100</span>
+<span class="inline-block px-2 py-0.5 bg-green-100 text-green-800 rounded-full text-xs">A+</span>
+</div>
+</div>
+<div class="w-full bg-gray-200 rounded-full h-2">
+<div class="bg-primary h-2 rounded-full" style="width: 92%"></div>
+</div>
+</div>
+<!-- Science -->
+<div class="p-3 bg-purple-50 rounded-lg">
+<div class="flex justify-between items-center mb-2">
+<h3 class="font-medium">Science</h3>
+<div class="flex items-center">
+<span class="text-sm font-semibold mr-2">85/100</span>
+<span class="inline-block px-2 py-0.5 bg-green-100 text-green-800 rounded-full text-xs">A</span>
+</div>
+</div>
+<div class="w-full bg-gray-200 rounded-full h-2">
+<div class="bg-primary h-2 rounded-full" style="width: 85%"></div>
+</div>
+</div>
+<!-- English -->
+<div class="p-3 bg-green-50 rounded-lg">
+<div class="flex justify-between items-center mb-2">
+<h3 class="font-medium">English</h3>
+<div class="flex items-center">
+<span class="text-sm font-semibold mr-2">78/100</span>
+<span class="inline-block px-2 py-0.5 bg-green-100 text-green-800 rounded-full text-xs">B+</span>
+</div>
+</div>
+<div class="w-full bg-gray-200 rounded-full h-2">
+<div class="bg-primary h-2 rounded-full" style="width: 78%"></div>
+</div>
+</div>
+<!-- Social Studies -->
+<div class="p-3 bg-yellow-50 rounded-lg">
+<div class="flex justify-between items-center mb-2">
+<h3 class="font-medium">Social Studies</h3>
+<div class="flex items-center">
+<span class="text-sm font-semibold mr-2">75/100</span>
+<span class="inline-block px-2 py-0.5 bg-green-100 text-green-800 rounded-full text-xs">B</span>
+</div>
+</div>
+<div class="w-full bg-gray-200 rounded-full h-2">
+<div class="bg-primary h-2 rounded-full" style="width: 75%"></div>
+</div>
+</div>
+<!-- Hindi -->
+<div class="p-3 bg-red-50 rounded-lg">
+<div class="flex justify-between items-center mb-2">
+<h3 class="font-medium">Hindi</h3>
+<div class="flex items-center">
+<span class="text-sm font-semibold mr-2">82/100</span>
+<span class="inline-block px-2 py-0.5 bg-green-100 text-green-800 rounded-full text-xs">A</span>
+</div>
+</div>
+<div class="w-full bg-gray-200 rounded-full h-2">
+<div class="bg-primary h-2 rounded-full" style="width: 82%"></div>
+</div>
+</div>
+<!-- Computer Science -->
+<div class="p-3 bg-indigo-50 rounded-lg">
+<div class="flex justify-between items-center mb-2">
+<h3 class="font-medium">Computer Science</h3>
+<div class="flex items-center">
+<span class="text-sm font-semibold mr-2">68/100</span>
+<span class="inline-block px-2 py-0.5 bg-yellow-100 text-yellow-800 rounded-full text-xs">C+</span>
+</div>
+</div>
+<div class="w-full bg-gray-200 rounded-full h-2">
+<div class="bg-primary h-2 rounded-full" style="width: 68%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Performance Analytics -->
+<div class="bg-white rounded-lg p-4 shadow-sm mb-6">
+<h2 class="font-semibold text-lg mb-4">Performance Analytics</h2>
+<div id="performance-chart" class="w-full h-64"></div>
+<div class="mt-4 grid grid-cols-2 gap-3">
+<div class="bg-green-50 p-3 rounded-lg">
+<p class="text-xs text-gray-500">Highest Score</p>
+<div class="flex items-center mt-1">
+<div class="w-8 h-8 flex items-center justify-center bg-green-100 rounded-full mr-2">
+<i class="ri-arrow-up-line text-green-600"></i>
+</div>
+<div>
+<p class="font-medium">Mathematics</p>
+<p class="text-xs text-gray-500">92/100</p>
+</div>
+</div>
+</div>
+<div class="bg-red-50 p-3 rounded-lg">
+<p class="text-xs text-gray-500">Lowest Score</p>
+<div class="flex items-center mt-1">
+<div class="w-8 h-8 flex items-center justify-center bg-red-100 rounded-full mr-2">
+<i class="ri-arrow-down-line text-red-600"></i>
+</div>
+<div>
+<p class="font-medium">Computer Science</p>
+<p class="text-xs text-gray-500">68/100</p>
+</div>
+</div>
+</div>
+<div class="bg-blue-50 p-3 rounded-lg col-span-2">
+<p class="text-xs text-gray-500">Class Average Comparison</p>
+<div class="flex items-center justify-between mt-2">
+<div>
+<p class="text-sm font-medium">Your Average</p>
+<p class="text-lg font-semibold text-primary">80%</p>
+</div>
+<div class="w-px h-10 bg-gray-300"></div>
+<div>
+<p class="text-sm font-medium">Class Average</p>
+<p class="text-lg font-semibold text-gray-700">72%</p>
+</div>
+<div class="w-8 h-8 flex items-center justify-center bg-green-100 rounded-full">
+<i class="ri-arrow-up-line text-green-600"></i>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="grid grid-cols-3 gap-3 mb-6">
+<button class="flex flex-col items-center justify-center bg-white p-3 rounded-button shadow-sm cursor-pointer">
+<div class="w-10 h-10 flex items-center justify-center bg-primary/10 rounded-full mb-1">
+<i class="ri-download-line text-primary"></i>
+</div>
+<span class="text-xs">Download</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-white p-3 rounded-button shadow-sm cursor-pointer">
+<div class="w-10 h-10 flex items-center justify-center bg-primary/10 rounded-full mb-1">
+<i class="ri-printer-line text-primary"></i>
+</div>
+<span class="text-xs">Print</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-white p-3 rounded-button shadow-sm cursor-pointer">
+<div class="w-10 h-10 flex items-center justify-center bg-primary/10 rounded-full mb-1">
+<i class="ri-share-line text-primary"></i>
+</div>
+<span class="text-xs">Share</span>
+</button>
+</div>
+</main>
+<!-- Tab Bar -->
+<nav class="fixed bottom-0 w-full bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.05)] z-40">
+<div class="grid grid-cols-5 h-16">
+<a href="./index.html#hero" class="flex flex-col items-center justify-center cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center text-primary">
+<i class="ri-home-5-fill ri-lg"></i>
+</div>
+<span class="text-xs text-primary mt-1">Home</span>
+</a>
+<a href="./Academics-Overview-Vishwa-Bharathi.html" class="flex flex-col items-center justify-center cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center text-gray-500">
+<i class="ri-book-open-line ri-lg"></i>
+</div>
+<span class="text-xs text-gray-500 mt-1">Academics</span>
+</a>
+<a href="./Gallery-vishwa bharathi school.html" data-readdy="true" class="flex flex-col items-center justify-center cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center text-gray-500">
+<i class="ri-gallery-line ri-lg"></i>
+</div>
+<span class="text-xs text-gray-500 mt-1">Gallery</span>
+</a>
+<a href="./School-Events-Calendar.html" class="flex flex-col items-center justify-center cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center text-gray-500">
+<i class="ri-calendar-event-line ri-lg"></i>
+</div>
+<span class="text-xs text-gray-500 mt-1">Events</span>
+</a>
+<a href="#contact-section" class="flex flex-col items-center justify-center cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center text-gray-500">
+<i class="ri-contacts-line ri-lg"></i>
+</div>
+<span class="text-xs text-gray-500 mt-1">Contact</span>
+</a>
+</div>
+</nav>
+<!-- Loading Overlay -->
+<div id="loading-overlay" class="fixed inset-0 bg-white bg-opacity-90 flex items-center justify-center z-50 hidden">
+<div class="text-center">
+<div class="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+<p class="text-gray-700">Loading results...</p>
+</div>
+</div>
+<!-- Error Message -->
+<div id="error-message" class="fixed inset-x-0 top-16 mx-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded hidden">
+<div class="flex items-center">
+<div class="w-6 h-6 flex items-center justify-center mr-2">
+<i class="ri-error-warning-line"></i>
+</div>
+<p>Failed to load results. Please try again.</p>
+</div>
+</div>
+<!-- Scripts -->
+<script id="search-handler">
+document.addEventListener('DOMContentLoaded', function() {
+const searchInput = document.getElementById('student-search');
+const searchButton = document.getElementById('search-button');
+const loadingOverlay = document.getElementById('loading-overlay');
+const errorMessage = document.getElementById('error-message');
+function handleSearch() {
+const searchValue = searchInput.value.trim();
+if (!searchValue) {
+showError('Please enter a name or roll number');
+return;
+}
+loadingOverlay.classList.remove('hidden');
+setTimeout(() => {
+loadingOverlay.classList.add('hidden');
+}, 1500);
+}
+function showError(message) {
+errorMessage.querySelector('p').textContent = message;
+errorMessage.classList.remove('hidden');
+setTimeout(() => {
+errorMessage.classList.add('hidden');
+}, 3000);
+}
+searchButton.addEventListener('click', handleSearch);
+searchInput.addEventListener('keypress', function(e) {
+if (e.key === 'Enter') {
+handleSearch();
+}
+});
+});
+</script>
+<script id="results-api-handler">
+document.addEventListener('DOMContentLoaded', function() {
+// Show loading overlay
+const loadingOverlay = document.getElementById('loading-overlay');
+loadingOverlay.classList.remove('hidden');
+// Simulate API call with timeout
+setTimeout(() => {
+// Hide loading overlay
+loadingOverlay.classList.add('hidden');
+// In a real application, you would fetch data from an API
+// const fetchResults = async () => {
+//     try {
+//         const response = await fetch('https://api.example.com/results/10th-class/2458');
+//         if (!response.ok) throw new Error('Failed to fetch results');
+//         const data = await response.json();
+//         displayResults(data);
+//     } catch (error) {
+//         document.getElementById('error-message').classList.remove('hidden');
+//         setTimeout(() => {
+//             document.getElementById('error-message').classList.add('hidden');
+//         }, 5000);
+//     }
+// };
+// fetchResults();
+}, 1500);
+});
+</script>
+<script id="performance-chart-handler">
+document.addEventListener('DOMContentLoaded', function() {
+// Initialize the performance chart
+const performanceChart = echarts.init(document.getElementById('performance-chart'));
+const option = {
+tooltip: {
+trigger: 'axis',
+axisPointer: {
+type: 'shadow'
+}
+},
+grid: {
+left: '3%',
+right: '4%',
+bottom: '3%',
+containLabel: true
+},
+xAxis: {
+type: 'category',
+data: ['Math', 'Science', 'English', 'Social', 'Hindi', 'CS'],
+axisLabel: {
+interval: 0,
+rotate: 0
+}
+},
+yAxis: {
+type: 'value',
+max: 100
+},
+series: [
+{
+name: 'Your Score',
+type: 'bar',
+data: [92, 85, 78, 75, 82, 68],
+itemStyle: {
+color: '#4F46E5'
+}
+},
+{
+name: 'Class Average',
+type: 'bar',
+data: [75, 72, 70, 68, 74, 65],
+itemStyle: {
+color: '#10B981'
+}
+}
+]
+};
+performanceChart.setOption(option);
+// Handle window resize
+window.addEventListener('resize', function() {
+performanceChart.resize();
+});
+});
+</script>
+<script id="notification-handler">
+document.addEventListener('DOMContentLoaded', function() {
+const notificationBell = document.getElementById('notification-bell');
+const notificationPanel = document.getElementById('notification-panel');
+const notificationBadge = document.getElementById('notification-badge');
+const markAllReadBtn = document.getElementById('mark-all-read');
+const notificationItems = document.querySelectorAll('.notification-item');
+let isNotificationPanelOpen = false;
+notificationBell.addEventListener('click', function(e) {
+e.stopPropagation();
+isNotificationPanelOpen = !isNotificationPanelOpen;
+notificationPanel.classList.toggle('hidden');
+});
+document.addEventListener('click', function(e) {
+if (isNotificationPanelOpen && !notificationPanel.contains(e.target)) {
+notificationPanel.classList.add('hidden');
+isNotificationPanelOpen = false;
+}
+});
+markAllReadBtn.addEventListener('click', function() {
+notificationItems.forEach(item => {
+item.classList.remove('bg-blue-50/50');
+item.querySelector('.w-2.h-2').classList.add('hidden');
+});
+notificationBadge.classList.add('hidden');
+});
+notificationItems.forEach(item => {
+item.addEventListener('click', function() {
+this.classList.remove('bg-blue-50/50');
+this.querySelector('.w-2.h-2').classList.add('hidden');
+const unreadCount = document.querySelectorAll('.notification-item.bg-blue-50/50').length;
+if (unreadCount === 0) {
+notificationBadge.classList.add('hidden');
+}
+});
+});
+});
+</script>
+<script id="help-dialog-handler">
+document.addEventListener('DOMContentLoaded', function() {
+const helpButton = document.getElementById('help-button');
+const helpDialog = document.getElementById('help-dialog');
+const closeHelp = document.getElementById('close-help');
+
+function toggleHelpDialog() {
+helpDialog.classList.toggle('hidden');
+}
+
+helpButton.addEventListener('click', toggleHelpDialog);
+closeHelp.addEventListener('click', toggleHelpDialog);
+
+helpDialog.addEventListener('click', function(e) {
+if (e.target === helpDialog) {
+toggleHelpDialog();
+}
+});
+
+document.addEventListener('keydown', function(e) {
+if (e.key === 'Escape' && !helpDialog.classList.contains('hidden')) {
+toggleHelpDialog();
+}
+});
+});
+</script>
+
+<script id="pull-to-refresh">
+document.addEventListener('DOMContentLoaded', function() {
+let touchStartY = 0;
+let touchEndY = 0;
+const minSwipeDistance = 80;
+const mainContent = document.querySelector('main');
+document.addEventListener('touchstart', function(e) {
+touchStartY = e.changedTouches[0].screenY;
+}, false);
+document.addEventListener('touchend', function(e) {
+touchEndY = e.changedTouches[0].screenY;
+handleSwipeGesture();
+}, false);
+function handleSwipeGesture() {
+const swipeDistance = touchEndY - touchStartY;
+if (swipeDistance > minSwipeDistance && window.scrollY === 0) {
+// Show loading overlay
+const loadingOverlay = document.getElementById('loading-overlay');
+loadingOverlay.classList.remove('hidden');
+// Simulate refresh with timeout
+setTimeout(() => {
+loadingOverlay.classList.add('hidden');
+}, 1500);
+}
+}
+});
+</script>
+</body>
+</html>

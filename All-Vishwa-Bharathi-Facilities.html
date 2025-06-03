@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>School Facilities - Vishwa Bharathi School</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#4F46E5',secondary:'#10B981'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+  font-family: 'Poppins', sans-serif;
+}
+.facility-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.facility-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+.modal {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.modal-enter {
+  opacity: 0;
+  transform: translateY(50px);
+}
+.modal-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+.modal-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+.modal-exit-active {
+  opacity: 0;
+  transform: translateY(50px);
+}
+.category-tab {
+  transition: all 0.3s ease;
+}
+.category-tab.active {
+  background-color: #4F46E5;
+  color: white;
+}
+.skeleton {
+  animation: skeleton-loading 1s linear infinite alternate;
+}
+@keyframes skeleton-loading {
+  0% {
+    background-color: rgba(226, 232, 240, 0.7);
+  }
+  100% {
+    background-color: rgba(226, 232, 240, 0.3);
+  }
+}
+</style>
+</head>
+<body class="bg-gray-50">
+<!-- Navigation Bar -->
+<nav class="bg-white shadow-md fixed w-full top-0 z-50">
+  <div class="max-w-full px-4 py-3 flex justify-between items-center">
+    <div class="flex items-center">
+      <a href="./index.html" data-readdy="true" class="flex items-center">
+        <i class="ri-arrow-left-line ri-lg mr-2 text-gray-600"></i>
+      </a>
+      <div class="w-10 h-10 bg-primary !rounded-full flex items-center justify-center mr-2">
+        <span class="text-white text-lg font-['Pacifico']">VB</span>
+      </div>
+      <span class="text-lg font-semibold text-gray-800">Facilities</span>
+    </div>
+    <!-- <div class="flex items-center space-x-3">
+      <button id="search-button" class="w-8 h-8 flex items-center justify-center text-gray-600 cursor-pointer">
+        <i class="ri-search-line ri-lg"></i>
+      </button>
+      <button class="w-8 h-8 flex items-center justify-center text-gray-600 cursor-pointer">
+        <i class="ri-user-line ri-lg"></i>
+      </button>
+    </div> -->
+  </div>
+</nav>
+
+<!-- Search Overlay -->
+<div id="search-overlay" class="fixed inset-0 bg-white z-50 transform -translate-y-full transition-transform duration-300 ease-in-out">
+  <div class="px-4 py-3 border-b border-gray-100">
+    <div class="flex items-center">
+      <div class="flex-1 relative">
+        <i class="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+        <input type="text" id="search-input" class="w-full pl-10 pr-4 py-2 bg-gray-50 !rounded-full text-sm" placeholder="Search for facilities...">
+      </div>
+      <button id="close-search" class="w-8 h-8 flex items-center justify-center ml-2 text-gray-600 cursor-pointer">
+        <i class="ri-close-line ri-lg"></i>
+      </button>
+    </div>
+  </div>
+  <div class="px-4 py-4">
+    <div class="mb-6">
+      <h3 class="text-sm font-medium text-gray-700 mb-3">Popular Searches</h3>
+      <div class="space-y-3">
+        <div class="flex items-center text-gray-600 cursor-pointer">
+          <i class="ri-search-line w-5 h-5 mr-3"></i>
+          <span class="text-sm">Science Labs</span>
+        </div>
+        <div class="flex items-center text-gray-600 cursor-pointer">
+          <i class="ri-search-line w-5 h-5 mr-3"></i>
+          <span class="text-sm">Sports Complex</span>
+        </div>
+        <div class="flex items-center text-gray-600 cursor-pointer">
+          <i class="ri-search-line w-5 h-5 mr-3"></i>
+          <span class="text-sm">Library</span>
+        </div>
+      </div>
+    </div>
+    <div id="search-results" class="hidden">
+      <h3 class="text-sm font-medium text-gray-700 mb-3">Results</h3>
+      <div class="space-y-3" id="results-container">
+        <!-- Search results will be populated here -->
+      </div>
+    </div>
+    <div id="no-results" class="hidden text-center py-8">
+      <i class="ri-search-line ri-3x text-gray-300 mb-2"></i>
+      <p class="text-gray-500">No facilities found. Try a different search term.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Main Content -->
+<main class="pt-16 pb-20">
+  <!-- Filter Section -->
+  <section class="px-4 py-4 bg-white shadow-sm">
+    <div class="relative">
+      <i class="ri-search-line absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+      <input type="text" id="facility-search" class="w-full pl-10 pr-4 py-2.5 bg-gray-50 !rounded-full text-sm" placeholder="Search for facilities...">
+    </div>
+    
+    <div class="mt-4 overflow-x-auto pb-1">
+      <div class="flex space-x-2 min-w-max">
+        <button class="category-tab active px-4 py-2 !rounded-full text-sm font-medium whitespace-nowrap cursor-pointer" data-category="all">All Facilities</button>
+        <button class="category-tab bg-gray-100 text-gray-700 px-4 py-2 !rounded-full text-sm font-medium whitespace-nowrap cursor-pointer" data-category="academic">Academic</button>
+        <button class="category-tab bg-gray-100 text-gray-700 px-4 py-2 !rounded-full text-sm font-medium whitespace-nowrap cursor-pointer" data-category="sports">Sports</button>
+        <button class="category-tab bg-gray-100 text-gray-700 px-4 py-2 !rounded-full text-sm font-medium whitespace-nowrap cursor-pointer" data-category="arts">Arts & Culture</button>
+        <button class="category-tab bg-gray-100 text-gray-700 px-4 py-2 !rounded-full text-sm font-medium whitespace-nowrap cursor-pointer" data-category="infrastructure">Infrastructure</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Facilities Grid -->
+  <section class="px-4 py-4">
+    <div id="facilities-grid" class="grid grid-cols-2 gap-4">
+      <!-- Academic Facilities -->
+      <div class="facility-card bg-white !rounded-lg shadow-sm overflow-hidden cursor-pointer" data-category="academic">
+        <div class="h-32 overflow-hidden">
+          <img src="https://readdy.ai/api/search-image?query=modern%2520school%2520science%2520laboratory%2520with%2520students%2520conducting%2520experiments%252C%2520bright%2520and%2520clean%2520environment%252C%2520educational%2520setting%252C%2520high%2520quality%2520professional%2520photography%252C%2520clear%2520lighting%252C%2520organized%2520workspace&width=180&height=128&seq=101&orientation=landscape" alt="Science Labs" class="w-full h-full object-cover">
+        </div>
+        <div class="p-3">
+          <span class="inline-block px-2 py-1 bg-blue-100 text-blue-700 text-xs !rounded-full mb-2">Academic</span>
+          <h3 class="text-gray-800 font-medium text-sm">Science Labs</h3>
+          <p class="text-gray-600 text-xs mt-1 line-clamp-2">State-of-the-art laboratories for physics, chemistry and biology experiments.</p>
+          <button class="mt-2 text-primary text-xs font-medium flex items-center cursor-pointer">
+            Learn More <i class="ri-arrow-right-line ri-sm ml-1"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="facility-card bg-white !rounded-lg shadow-sm overflow-hidden cursor-pointer" data-category="academic">
+        <div class="h-32 overflow-hidden">
+          <img src="https://readdy.ai/api/search-image?query=modern%2520school%2520computer%2520lab%2520with%2520students%2520using%2520computers%252C%2520digital%2520learning%252C%2520bright%2520and%2520clean%2520environment%252C%2520educational%2520setting%252C%2520high%2520quality%2520professional%2520photography%252C%2520clear%2520lighting%252C%2520organized%2520workspace&width=180&height=128&seq=102&orientation=landscape" alt="Computer Labs" class="w-full h-full object-cover">
+        </div>
+        <div class="p-3">
+          <span class="inline-block px-2 py-1 bg-blue-100 text-blue-700 text-xs !rounded-full mb-2">Academic</span>
+          <h3 class="text-gray-800 font-medium text-sm">Computer Labs</h3>
+          <p class="text-gray-600 text-xs mt-1 line-clamp-2">Modern computer labs with latest hardware and software for digital learning.</p>
+          <button class="mt-2 text-primary text-xs font-medium flex items-center cursor-pointer">
+            Learn More <i class="ri-arrow-right-line ri-sm ml-1"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="facility-card bg-white !rounded-lg shadow-sm overflow-hidden cursor-pointer" data-category="academic">
+        <div class="h-32 overflow-hidden">
+          <img src="https://readdy.ai/api/search-image?query=modern%2520school%2520library%2520with%2520students%2520reading%2520books%252C%2520well-organized%2520bookshelves%252C%2520bright%2520and%2520spacious%2520environment%252C%2520educational%2520setting%252C%2520high%2520quality%2520professional%2520photography%252C%2520clear%2520lighting&width=180&height=128&seq=103&orientation=landscape" alt="Library" class="w-full h-full object-cover">
+        </div>
+        <div class="p-3">
+          <span class="inline-block px-2 py-1 bg-blue-100 text-blue-700 text-xs !rounded-full mb-2">Academic</span>
+          <h3 class="text-gray-800 font-medium text-sm">Library</h3>
+          <p class="text-gray-600 text-xs mt-1 line-clamp-2">Extensive collection of books, journals, and digital resources for research and reading.</p>
+          <button class="mt-2 text-primary text-xs font-medium flex items-center cursor-pointer">
+            Learn More <i class="ri-arrow-right-line ri-sm ml-1"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="facility-card bg-white !rounded-lg shadow-sm overflow-hidden cursor-pointer" data-category="academic">
+        <div class="h-32 overflow-hidden">
+          <img src="https://readdy.ai/api/search-image?query=modern%2520school%2520smart%2520classroom%2520with%2520interactive%2520whiteboard%252C%2520students%2520engaged%2520in%2520learning%252C%2520bright%2520and%2520clean%2520environment%252C%2520educational%2520setting%252C%2520high%2520quality%2520professional%2520photography%252C%2520clear%2520lighting&width=180&height=128&seq=104&orientation=landscape" alt="Smart Classrooms" class="w-full h-full object-cover">
+        </div>
+        <div class="p-3">
+          <span class="inline-block px-2 py-1 bg-blue-100 text-blue-700 text-xs !rounded-full mb-2">Academic</span>
+          <h3 class="text-gray-800 font-medium text-sm">Smart Classrooms</h3>
+          <p class="text-gray-600 text-xs mt-1 line-clamp-2">Technology-enabled classrooms with interactive boards and multimedia systems.</p>
+          <button class="mt-2 text-primary text-xs font-medium flex items-center cursor-pointer">
+            Learn More <i class="ri-arrow-right-line ri-sm ml-1"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="facility-card bg-white !rounded-lg shadow-sm overflow-hidden cursor-pointer" data-category="academic">
+        <div class="h-32 overflow-hidden">
+          <img src="https://readdy.ai/api/search-image?query=modern%2520school%2520language%2520lab%2520with%2520students%2520using%2520headphones%252C%2520language%2520learning%2520environment%252C%2520bright%2520and%2520clean%2520setting%252C%2520educational%2520facility%252C%2520high%2520quality%2520professional%2520photography%252C%2520clear%2520lighting&width=180&height=128&seq=105&orientation=landscape" alt="Language Lab" class="w-full h-full object-cover">
+        </div>
+        <div class="p-3">
+          <span class="inline-block px-2 py-1 bg-blue-100 text-blue-700 text-xs !rounded-full mb-2">Academic</span>
+          <h3 class="text-gray-800 font-medium text-sm">Language Lab</h3>
+          <p class="text-gray-600 text-xs mt-1 line-clamp-2">Specialized lab for language learning with audio-visual equipment and software.</p>
+          <button class="mt-2 text-primary text-xs font-medium flex items-center cursor-pointer">
+            Learn More <i class="ri-arrow-right-line ri-sm ml-1"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Sports Facilities -->
+      <div class="facility-card bg-white !rounded-lg shadow-sm overflow-hidden cursor-pointer" data-category="sports">
+        <div class="h-32 overflow-hidden">
+          <img src="https://readdy.ai/api/search-image?query=modern%2520school%2520indoor%2520sports%2520complex%2520with%2520students%2520playing%252C%2520basketball%2520court%252C%2520bright%2520and%2520spacious%2520environment%252C%2520educational%2520setting%252C%2520high%2520quality%2520professional%2520photography%252C%2520clear%2520lighting&width=180&height=128&seq=106&orientation=landscape" alt="Indoor Sports Complex" class="w-full h-full object-cover">
+        </div>
+        <div class="p-3">
+          <span class="inline-block px-2 py-1 bg-green-100 text-green-700 text-xs !rounded-full mb-2">Sports</span>
+          <h3 class="text-gray-800 font-medium text-sm">Indoor Sports Complex</h3>
+          <p class="text-gray-600 text-xs mt-1 line-clamp-2">Multi-purpose indoor facility for badminton, basketball, volleyball and more.</p>
+          <button class="mt-2 text-primary text-xs font-medium flex items-center cursor-pointer">
+            Learn More <i class="ri-arrow-right-line ri-sm ml-1"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="facility-card bg-white !rounded-lg shadow-sm overflow-hidden cursor-pointer" data-category="sports">
+        <div class="h-32 overflow-hidden">
+          <img src="https://readdy.ai/api/search-image?query=modern%2520school%2520swimming%2520pool%2520with%2520students%2520swimming%252C%2520clean%2520water%252C%2520bright%2520and%2520spacious%2520environment%252C%2520educational%2520setting%252C%2520high%2520quality%2520professional%2520photography%252C%2520clear%2520lighting&width=180&height=128&seq=107&orientation=landscape" alt="Swimming Pool" class="w-full h-full object-cover">
+        </div>
+        <div class="p-3">
+          <span class="inline-block px-2 py-1 bg-green-100 text-green-700 text-xs !rounded-full mb-2">Sports</span>
+          <h3 class="text-gray-800 font-medium text-sm">Swimming Pool</h3>
+          <p class="text-gray-600 text-xs mt-1 line-clamp-2">Olympic-sized swimming pool with trained instructors and safety measures.</p>
+          <button class="mt-2 text-primary text-xs font-medium flex items-center cursor-pointer">
+            Learn More <i class="ri-arrow-right-line ri-sm ml-1"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="facility-card bg-white !rounded-lg shadow-sm overflow-hidden cursor-pointer" data-category="sports">
+        <div class="h-32 overflow-hidden">
+          <img src="https://readdy.ai/api/search-image?query=modern%2520school%2520basketball%2520court%2520with%2520students%2520playing%252C%2520outdoor%2520court%252C%2520bright%2520environment%252C%2520educational%2520setting%252C%2520high%2520quality%2520professional%2520photography%252C%2520clear%2520lighting&width=180&height=128&seq=108&orientation=landscape" alt="Basketball Court" class="w-full h-full object-cover">
+        </div>
+        <div class="p-3">
+          <span class="inline-block px-2 py-1 bg-green-100 text-green-700 text-xs !rounded-full mb-2">Sports</span>
+          <h3 class="text-gray-800 font-medium text-sm">Basketball Court</h3>
+          <p class="text-gray-600 text-xs mt-1 line-clamp-2">Standard basketball courts with high-quality flooring and equipment.</p>
+          <button class="mt-2 text-primary text-xs font-medium flex items-center cursor-pointer">
+            Learn More <i class="ri-arrow-right-line ri-sm ml-1"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="facility-card bg-white !rounded-lg shadow-sm overflow-hidden cursor-pointer" data-category="sports">
+        <div class="h-32 overflow-hidden">
+          <img src="https://readdy.ai/api/search-image?query=modern%2520school%2520cricket%2520ground%2520with%2520students%2520playing%252C%2520well-maintained%2520field%252C%2520bright%2520environment%252C%2520educational%2520setting%252C%2520high%2520quality%2520professional%2520photography%252C%2520clear%2520lighting&width=180&height=128&seq=109&orientation=landscape" alt="Cricket Ground" class="w-full h-full object-cover">
+        </div>
+        <div class="p-3">
+          <span class="inline-block px-2 py-1 bg-green-100 text-green-700 text-xs !rounded-full mb-2">Sports</span>
+          <h3 class="text-gray-800 font-medium text-sm">Cricket Ground</h3>
+          <p class="text-gray-600 text-xs mt-1 line-clamp-2">Well-maintained cricket ground with practice nets and equipment.</p>
+          <button class="mt-2 text-primary text-xs font-medium flex items-center cursor-pointer">
+            Learn More <i class="ri-arrow-right-line ri-sm ml-1"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="facility-card bg-white !rounded-lg shadow-sm overflow-hidden cursor-pointer" data-category="sports">
+        <div class="h-32 overflow-hidden">
+          <img src="https://readdy.ai/api/search-image?query=modern%2520school%2520tennis%2520court%2520with%2520students%2520playing%252C%2520well-maintained%2520court%252C%2520bright%2520environment%252C%2520educational%2520setting%252C%2520high%2520quality%2520professional%2520photography%252C%2520clear%2520lighting&width=180&height=128&seq=110&orientation=landscape" alt="Tennis Court" class="w-full h-full object-cover">
+        </div>
+        <div class="p-3">
+          <span class="inline-block px-2 py-1 bg-green-100 text-green-700 text-xs !rounded-full mb-2">Sports</span>
+          <h3 class="text-gray-800 font-medium text-sm">Tennis Court</h3>
+          <p class="text-gray-600 text-xs mt-1 line-clamp-2">Professional tennis courts with coaching facilities for students.</p>
+          <button class="mt-2 text-primary text-xs font-medium flex items-center cursor-pointer">
+            Learn More <i class="ri-arrow-right-line ri-sm ml-1"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Arts & Culture Facilities -->
+      <div class="facility-card bg-white !rounded-lg shadow-sm overflow-hidden cursor-pointer" data-category="arts">
+        <div class="h-32 overflow-hidden">
+          <img src="https://readdy.ai/api/search-image?query=modern%2520school%2520auditorium%2520with%2520stage%2520and%2520seating%252C%2520performance%2520venue%252C%2520bright%2520and%2520spacious%2520environment%252C%2520educational%2520setting%252C%2520high%2520quality%2520professional%2520photography%252C%2520clear%2520lighting&width=180&height=128&seq=111&orientation=landscape" alt="Auditorium" class="w-full h-full object-cover">
+        </div>
+        <div class="p-3">
+          <span class="inline-block px-2 py-1 bg-purple-100 text-purple-700 text-xs !rounded-full mb-2">Arts & Culture</span>
+          <h3 class="text-gray-800 font-medium text-sm">Auditorium</h3>
+          <p class="text-gray-600 text-xs mt-1 line-clamp-2">500-seat auditorium with advanced sound and lighting systems for performances.</p>
+          <button class="mt-2 text-primary text-xs font-medium flex items-center cursor-pointer">
+            Learn More <i class="ri-arrow-right-line ri-sm ml-1"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="facility-card bg-white !rounded-lg shadow-sm overflow-hidden cursor-pointer" data-category="arts">
+        <div class="h-32 overflow-hidden">
+          <img src="https://readdy.ai/api/search-image?query=modern%2520school%2520music%2520room%2520with%2520instruments%2520and%2520students%2520practicing%252C%2520bright%2520and%2520creative%2520environment%252C%2520educational%2520setting%252C%2520high%2520quality%2520professional%2520photography%252C%2520clear%2520lighting&width=180&height=128&seq=112&orientation=landscape" alt="Music Room" class="w-full h-full object-cover">
+        </div>
+        <div class="p-3">
+          <span class="inline-block px-2 py-1 bg-purple-100 text-purple-700 text-xs !rounded-full mb-2">Arts & Culture</span>
+          <h3 class="text-gray-800 font-medium text-sm">Music Room</h3>
+          <p class="text-gray-600 text-xs mt-1 line-clamp-2">Soundproof music room with various instruments and recording facilities.</p>
+          <button class="mt-2 text-primary text-xs font-medium flex items-center cursor-pointer">
+            Learn More <i class="ri-arrow-right-line ri-sm ml-1"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="facility-card bg-white !rounded-lg shadow-sm overflow-hidden cursor-pointer" data-category="arts">
+        <div class="h-32 overflow-hidden">
+          <img src="https://readdy.ai/api/search-image?query=modern%2520school%2520dance%2520studio%2520with%2520mirrors%2520and%2520students%2520practicing%252C%2520bright%2520and%2520spacious%2520environment%252C%2520educational%2520setting%252C%2520high%2520quality%2520professional%2520photography%252C%2520clear%2520lighting&width=180&height=128&seq=113&orientation=landscape" alt="Dance Studio" class="w-full h-full object-cover">
+        </div>
+        <div class="p-3">
+          <span class="inline-block px-2 py-1 bg-purple-100 text-purple-700 text-xs !rounded-full mb-2">Arts & Culture</span>
+          <h3 class="text-gray-800 font-medium text-sm">Dance Studio</h3>
+          <p class="text-gray-600 text-xs mt-1 line-clamp-2">Spacious studio with mirrors, barre, and sprung flooring for dance practice.</p>
+          <button class="mt-2 text-primary text-xs font-medium flex items-center cursor-pointer">
+            Learn More <i class="ri-arrow-right-line ri-sm ml-1"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="facility-card bg-white !rounded-lg shadow-sm overflow-hidden cursor-pointer" data-category="arts">
+        <div class="h-32 overflow-hidden">
+          <img src="https://readdy.ai/api/search-image?query=modern%2520school%2520art%2520gallery%2520with%2520student%2520artwork%2520displayed%252C%2520bright%2520and%2520creative%2520environment%252C%2520educational%2520setting%252C%2520high%2520quality%2520professional%2520photography%252C%2520clear%2520lighting&width=180&height=128&seq=114&orientation=landscape" alt="Art Gallery" class="w-full h-full object-cover">
+        </div>
+        <div class="p-3">
+          <span class="inline-block px-2 py-1 bg-purple-100 text-purple-700 text-xs !rounded-full mb-2">Arts & Culture</span>
+          <h3 class="text-gray-800 font-medium text-sm">Art Gallery</h3>
+          <p class="text-gray-600 text-xs mt-1 line-clamp-2">Exhibition space for student artwork and visiting exhibitions.</p>
+          <button class="mt-2 text-primary text-xs font-medium flex items-center cursor-pointer">
+            Learn More <i class="ri-arrow-right-line ri-sm ml-1"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="facility-card bg-white !rounded-lg shadow-sm overflow-hidden cursor-pointer" data-category="arts">
+        <div class="h-32 overflow-hidden">
+          <img src="https://readdy.ai/api/search-image?query=modern%2520school%2520theater%2520with%2520stage%2520and%2520seating%252C%2520drama%2520performance%2520space%252C%2520bright%2520environment%252C%2520educational%2520setting%252C%2520high%2520quality%2520professional%2520photography%252C%2520clear%2520lighting&width=180&height=128&seq=115&orientation=landscape" alt="Theater" class="w-full h-full object-cover">
+        </div>
+        <div class="p-3">
+          <span class="inline-block px-2 py-1 bg-purple-100 text-purple-700 text-xs !rounded-full mb-2">Arts & Culture</span>
+          <h3 class="text-gray-800 font-medium text-sm">Theater</h3>
+          <p class="text-gray-600 text-xs mt-1 line-clamp-2">Intimate theater space for drama classes and small productions.</p>
+          <button class="mt-2 text-primary text-xs font-medium flex items-center cursor-pointer">
+            Learn More <i class="ri-arrow-right-line ri-sm ml-1"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Infrastructure Facilities -->
+      <div class="facility-card bg-white !rounded-lg shadow-sm overflow-hidden cursor-pointer" data-category="infrastructure">
+        <div class="h-32 overflow-hidden">
+          <img src="https://readdy.ai/api/search-image?query=modern%2520school%2520cafeteria%2520with%2520students%2520eating%252C%2520clean%2520and%2520bright%2520environment%252C%2520educational%2520setting%252C%2520high%2520quality%2520professional%2520photography%252C%2520clear%2520lighting&width=180&height=128&seq=116&orientation=landscape" alt="Cafeteria" class="w-full h-full object-cover">
+        </div>
+        <div class="p-3">
+          <span class="inline-block px-2 py-1 bg-yellow-100 text-yellow-700 text-xs !rounded-full mb-2">Infrastructure</span>
+          <h3 class="text-gray-800 font-medium text-sm">Cafeteria</h3>
+          <p class="text-gray-600 text-xs mt-1 line-clamp-2">Modern dining facility serving nutritious meals prepared in hygienic conditions.</p>
+          <button class="mt-2 text-primary text-xs font-medium flex items-center cursor-pointer">
+            Learn More <i class="ri-arrow-right-line ri-sm ml-1"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="facility-card bg-white !rounded-lg shadow-sm overflow-hidden cursor-pointer" data-category="infrastructure">
+        <div class="h-32 overflow-hidden">
+          <img src="https://readdy.ai/api/search-image?query=modern%2520school%2520medical%2520center%2520with%2520nurse%2520and%2520equipment%252C%2520clean%2520and%2520bright%2520environment%252C%2520educational%2520setting%252C%2520high%2520quality%2520professional%2520photography%252C%2520clear%2520lighting&width=180&height=128&seq=117&orientation=landscape" alt="Medical Center" class="w-full h-full object-cover">
+        </div>
+        <div class="p-3">
+          <span class="inline-block px-2 py-1 bg-yellow-100 text-yellow-700 text-xs !rounded-full mb-2">Infrastructure</span>
+          <h3 class="text-gray-800 font-medium text-sm">Medical Center</h3>
+          <p class="text-gray-600 text-xs mt-1 line-clamp-2">Fully equipped medical facility with qualified staff for emergency care.</p>
+          <button class="mt-2 text-primary text-xs font-medium flex items-center cursor-pointer">
+            Learn More <i class="ri-arrow-right-line ri-sm ml-1"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="facility-card bg-white !rounded-lg shadow-sm overflow-hidden cursor-pointer" data-category="infrastructure">
+        <div class="h-32 overflow-hidden">
+          <img src="https://readdy.ai/api/search-image?query=modern%2520school%2520buses%2520parked%2520in%2520a%2520row%252C%2520student%2520transport%252C%2520bright%2520environment%252C%2520educational%2520setting%252C%2520high%2520quality%2520professional%2520photography%252C%2520clear%2520lighting&width=180&height=128&seq=118&orientation=landscape" alt="Transport" class="w-full h-full object-cover">
+        </div>
+        <div class="p-3">
+          <span class="inline-block px-2 py-1 bg-yellow-100 text-yellow-700 text-xs !rounded-full mb-2">Infrastructure</span>
+          <h3 class="text-gray-800 font-medium text-sm">Transport</h3>
+          <p class="text-gray-600 text-xs mt-1 line-clamp-2">Fleet of buses covering various routes with GPS tracking for safety.</p>
+          <button class="mt-2 text-primary text-xs font-medium flex items-center cursor-pointer">
+            Learn More <i class="ri-arrow-right-line ri-sm ml-1"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="facility-card bg-white !rounded-lg shadow-sm overflow-hidden cursor-pointer" data-category="infrastructure">
+        <div class="h-32 overflow-hidden">
+          <img src="https://readdy.ai/api/search-image?query=modern%2520school%2520hostel%2520building%2520with%2520dormitory%2520rooms%252C%2520clean%2520and%2520bright%2520environment%252C%2520educational%2520setting%252C%2520high%2520quality%2520professional%2520photography%252C%2520clear%2520lighting&width=180&height=128&seq=119&orientation=landscape" alt="Hostel" class="w-full h-full object-cover">
+        </div>
+        <div class="p-3">
+          <span class="inline-block px-2 py-1 bg-yellow-100 text-yellow-700 text-xs !rounded-full mb-2">Infrastructure</span>
+          <h3 class="text-gray-800 font-medium text-sm">Hostel</h3>
+          <p class="text-gray-600 text-xs mt-1 line-clamp-2">Comfortable residential facilities for boarding students with 24/7 supervision.</p>
+          <button class="mt-2 text-primary text-xs font-medium flex items-center cursor-pointer">
+            Learn More <i class="ri-arrow-right-line ri-sm ml-1"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="facility-card bg-white !rounded-lg shadow-sm overflow-hidden cursor-pointer" data-category="infrastructure">
+        <div class="h-32 overflow-hidden">
+          <img src="https://readdy.ai/api/search-image?query=modern%2520school%2520security%2520systems%252C%2520CCTV%2520cameras%2520and%2520guards%252C%2520secure%2520environment%252C%2520educational%2520setting%252C%2520high%2520quality%2520professional%2520photography%252C%2520clear%2520lighting&width=180&height=128&seq=120&orientation=landscape" alt="Security Systems" class="w-full h-full object-cover">
+        </div>
+        <div class="p-3">
+          <span class="inline-block px-2 py-1 bg-yellow-100 text-yellow-700 text-xs !rounded-full mb-2">Infrastructure</span>
+          <h3 class="text-gray-800 font-medium text-sm">Security Systems</h3>
+          <p class="text-gray-600 text-xs mt-1 line-clamp-2">Comprehensive security with CCTV, biometric access, and trained personnel.</p>
+          <button class="mt-2 text-primary text-xs font-medium flex items-center cursor-pointer">
+            Learn More <i class="ri-arrow-right-line ri-sm ml-1"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div id="empty-state" class="hidden py-12 text-center">
+      <i class="ri-search-line ri-3x text-gray-300 mb-2"></i>
+      <h3 class="text-gray-700 font-medium mb-2">No facilities found</h3>
+      <p class="text-gray-500 text-sm">Try adjusting your search or filter to find what you're looking for.</p>
+      <button id="reset-filters" class="mt-4 px-4 py-2 bg-primary text-white !rounded-button text-sm font-medium cursor-pointer">Reset Filters</button>
+    </div>
+
+    <!-- Loading Skeleton -->
+    <div id="loading-skeleton" class="hidden grid grid-cols-2 gap-4">
+      <div class="bg-white !rounded-lg shadow-sm overflow-hidden">
+        <div class="h-32 skeleton"></div>
+        <div class="p-3">
+          <div class="w-16 h-5 skeleton !rounded-full mb-2"></div>
+          <div class="w-full h-4 skeleton mb-2"></div>
+          <div class="w-3/4 h-3 skeleton mb-2"></div>
+          <div class="w-1/2 h-3 skeleton mb-2"></div>
+          <div class="w-24 h-4 skeleton mt-2"></div>
+        </div>
+      </div>
+      <div class="bg-white !rounded-lg shadow-sm overflow-hidden">
+        <div class="h-32 skeleton"></div>
+        <div class="p-3">
+          <div class="w-16 h-5 skeleton !rounded-full mb-2"></div>
+          <div class="w-full h-4 skeleton mb-2"></div>
+          <div class="w-3/4 h-3 skeleton mb-2"></div>
+          <div class="w-1/2 h-3 skeleton mb-2"></div>
+          <div class="w-24 h-4 skeleton mt-2"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Facility Detail Modal -->
+<div id="facility-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-end justify-center hidden">
+  <div class="bg-white !rounded-t-xl w-full max-h-[90vh] overflow-y-auto modal modal-enter">
+    <div id="modal-content">
+      <!-- Content will be dynamically populated -->
+    </div>
+  </div>
+</div>
+
+<!-- Tab Bar -->
+<nav class="fixed bottom-0 w-full bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.05)] z-40">
+<div class="grid grid-cols-5 h-16">
+<a href="./index.html#hero" class="flex flex-col items-center justify-center cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center text-primary">
+<i class="ri-home-5-fill ri-lg"></i>
+</div>
+<span class="text-xs text-primary mt-1">Home</span>
+</a>
+<a href="./Academics-Overview-Vishwa-Bharathi.html" class="flex flex-col items-center justify-center cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center text-gray-500">
+<i class="ri-book-open-line ri-lg"></i>
+</div>
+<span class="text-xs text-gray-500 mt-1">Academics</span>
+</a>
+<a href="./Gallery-vishwa bharathi school.html" data-readdy="true" class="flex flex-col items-center justify-center cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center text-gray-500">
+<i class="ri-gallery-line ri-lg"></i>
+</div>
+<span class="text-xs text-gray-500 mt-1">Gallery</span>
+</a>
+<a href="./School-Events-Calendar.html" class="flex flex-col items-center justify-center cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center text-gray-500">
+<i class="ri-calendar-event-line ri-lg"></i>
+</div>
+<span class="text-xs text-gray-500 mt-1">Events</span>
+</a>
+<a href="./index.html#contact-section" class="flex flex-col items-center justify-center cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center text-gray-500">
+<i class="ri-contacts-line ri-lg"></i>
+</div>
+<span class="text-xs text-gray-500 mt-1">Contact</span>
+</a>
+</div>
+</nav>
+
+<!-- Scripts -->
+<script id="search-handler">
+document.addEventListener('DOMContentLoaded', function() {
+  const searchButton = document.getElementById('search-button');
+  const closeSearchButton = document.getElementById('close-search');
+  const searchOverlay = document.getElementById('search-overlay');
+  const searchInput = document.getElementById('search-input');
+  const searchResults = document.getElementById('search-results');
+  const resultsContainer = document.getElementById('results-container');
+  const noResults = document.getElementById('no-results');
+  
+  searchButton.addEventListener('click', function() {
+    searchOverlay.classList.remove('-translate-y-full');
+    setTimeout(() => {
+      searchInput.focus();
+    }, 300);
+  });
+  
+  closeSearchButton.addEventListener('click', function() {
+    searchOverlay.classList.add('-translate-y-full');
+    searchInput.value = '';
+    searchResults.classList.add('hidden');
+    noResults.classList.add('hidden');
+  });
+  
+  searchInput.addEventListener('input', function() {
+    const query = this.value.toLowerCase().trim();
+    
+    if (query.length > 0) {
+      const facilities = document.querySelectorAll('.facility-card');
+      const matchedFacilities = [];
+      
+      facilities.forEach(facility => {
+        const facilityName = facility.querySelector('h3').textContent.toLowerCase();
+        const facilityDescription = facility.querySelector('p').textContent.toLowerCase();
+        
+        if (facilityName.includes(query) || facilityDescription.includes(query)) {
+          matchedFacilities.push({
+            name: facility.querySelector('h3').textContent,
+            category: facility.querySelector('span').textContent,
+            image: facility.querySelector('img').src
+          });
+        }
+      });
+      
+      resultsContainer.innerHTML = '';
+      
+      if (matchedFacilities.length > 0) {
+        matchedFacilities.forEach(facility => {
+          const resultItem = document.createElement('div');
+          resultItem.className = 'flex items-center p-2 !rounded hover:bg-gray-50 cursor-pointer';
+          resultItem.innerHTML = `
+            <div class="w-12 h-12 !rounded overflow-hidden mr-3">
+              <img src="${facility.image}" alt="${facility.name}" class="w-full h-full object-cover">
+            </div>
+            <div>
+              <h4 class="text-gray-800 text-sm font-medium">${facility.name}</h4>
+              <span class="text-gray-500 text-xs">${facility.category}</span>
+            </div>
+          `;
+          resultsContainer.appendChild(resultItem);
+        });
+        
+        searchResults.classList.remove('hidden');
+        noResults.classList.add('hidden');
+      } else {
+        searchResults.classList.add('hidden');
+        noResults.classList.remove('hidden');
+      }
+    } else {
+      searchResults.classList.add('hidden');
+      noResults.classList.add('hidden');
+    }
+  });
+});
+</script>
+<script id="facility-filter-handler">
+document.addEventListener('DOMContentLoaded', function() {
+  const categoryTabs = document.querySelectorAll('.category-tab');
+  const facilityCards = document.querySelectorAll('.facility-card');
+  const facilitiesGrid = document.getElementById('facilities-grid');
+  const emptyState = document.getElementById('empty-state');
+  const resetFiltersButton = document.getElementById('reset-filters');
+  const facilitySearch = document.getElementById('facility-search');
+  const loadingSkeleton = document.getElementById('loading-skeleton');
+  
+  // Function to filter facilities
+  function filterFacilities() {
+    const activeCategory = document.querySelector('.category-tab.active').getAttribute('data-category');
+    const searchQuery = facilitySearch.value.toLowerCase().trim();
+    
+    // Show loading skeleton
+    facilitiesGrid.classList.add('hidden');
+    loadingSkeleton.classList.remove('hidden');
+    
+    // Simulate loading delay
+    setTimeout(() => {
+      let visibleCount = 0;
+      
+      facilityCards.forEach(card => {
+        const cardCategory = card.getAttribute('data-category');
+        const cardTitle = card.querySelector('h3').textContent.toLowerCase();
+        const cardDescription = card.querySelector('p').textContent.toLowerCase();
+        
+        const matchesCategory = activeCategory === 'all' || cardCategory === activeCategory;
+        const matchesSearch = searchQuery === '' || 
+                             cardTitle.includes(searchQuery) || 
+                             cardDescription.includes(searchQuery);
+        
+        if (matchesCategory && matchesSearch) {
+          card.classList.remove('hidden');
+          visibleCount++;
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+      
+      // Toggle empty state
+      if (visibleCount === 0) {
+        facilitiesGrid.classList.add('hidden');
+        emptyState.classList.remove('hidden');
+      } else {
+        facilitiesGrid.classList.remove('hidden');
+        emptyState.classList.add('hidden');
+      }
+      
+      // Hide loading skeleton
+      loadingSkeleton.classList.add('hidden');
+    }, 500);
+  }
+  
+  // Category tab click handler
+  categoryTabs.forEach(tab => {
+    tab.addEventListener('click', function() {
+      categoryTabs.forEach(t => t.classList.remove('active'));
+      categoryTabs.forEach(t => t.classList.add('bg-gray-100', 'text-gray-700'));
+      this.classList.add('active');
+      this.classList.remove('bg-gray-100', 'text-gray-700');
+      filterFacilities();
+    });
+  });
+  
+  // Search input handler
+  facilitySearch.addEventListener('input', function() {
+    filterFacilities();
+  });
+  
+  // Reset filters button handler
+  resetFiltersButton.addEventListener('click', function() {
+    facilitySearch.value = '';
+    categoryTabs.forEach(t => t.classList.remove('active'));
+    categoryTabs.forEach(t => t.classList.add('bg-gray-100', 'text-gray-700'));
+    document.querySelector('[data-category="all"]').classList.add('active');
+    document.querySelector('[data-category="all"]').classList.remove('bg-gray-100', 'text-gray-700');
+    filterFacilities();
+  });
+  
+  // Initial filter
+  filterFacilities();
+});
+</script>
+
+<script id="facility-modal-handler">
+document.addEventListener('DOMContentLoaded', function() {
+  const facilityCards = document.querySelectorAll('.facility-card');
+  const facilityModal = document.getElementById('facility-modal');
+  const modalContent = document.getElementById('modal-content');
+  
+  // Facility data (would normally come from a database)
+  const facilityDetails = {
+    'Science Labs': {
+      description: 'Our state-of-the-art science laboratories are equipped with the latest equipment and technology to support hands-on learning in physics, chemistry, and biology. Each lab is designed to accommodate up to 30 students at a time, with individual workstations and safety equipment.',
+      features: [
+        'Separate labs for Physics, Chemistry, and Biology',
+        'Digital microscopes and projection systems',
+        'Interactive learning tools and models',
+        'Safety equipment including eye wash stations and fume hoods',
+        'Dedicated lab assistants for student support'
+      ],
+      images: [
+        'https://readdy.ai/api/search-image?query=modern%2520school%2520science%2520laboratory%2520with%2520students%2520conducting%2520experiments%252C%2520bright%2520and%2520clean%2520environment%252C%2520educational%2520setting%252C%2520high%2520quality%2520professional%2520photography%252C%2520clear%2520lighting%252C%2520organized%2520workspace&width=375&height=250&seq=121&orientation=landscape',
+        'https://readdy.ai/api/search-image?query=students%2520using%2520microscopes%2520in%2520biology%2520lab%252C%2520educational%2520setting%252C%2520high%2520quality%2520professional%2520photography%252C%2520clear%2520lighting&width=375&height=250&seq=122&orientation=landscape'
+      ]
+    },
+    'Computer Labs': {
+      description: 'Our computer labs feature the latest hardware and software to support digital literacy and computer science education. The labs are used for regular IT classes as well as specialized coding and design courses.',
+      features: [
+        'High-performance computers with dual monitors',
+        'Licensed software for programming, design, and multimedia',
+        'High-speed internet and networking infrastructure',
+        'Interactive teaching system with screen sharing',
+        'Ergonomic furniture for student comfort'
+      ],
+      images: [
+        'https://readdy.ai/api/search-image?query=modern%2520school%2520computer%2520lab%2520with%2520students%2520using%2520computers%252C%2520digital%2520learning%252C%2520bright%2520and%2520clean%2520environment%252C%2520educational%2520setting%252C%2520high%2520quality%2520professional%2520photography%252C%2520clear%2520lighting&width=375&height=250&seq=123&orientation=landscape',
+        'https://readdy.ai/api/search-image?query=students%2520coding%2520in%2520computer%2520lab%252C%2520educational%2520setting%252C%2520high%2520quality%2520professional%2520photography%252C%2520clear%2520lighting&width=375&height=250&seq=124&orientation=landscape'
+      ]
+    }
+  };
+  
+  // Open modal when a facility card is clicked
+  facilityCards.forEach(card => {
+    card.addEventListener('click', function() {
+      const facilityName = this.querySelector('h3').textContent;
+      const facilityCategory = this.querySelector('span').textContent;
+      const facilityImage = this.querySelector('img').src;
+      const facilityDescription = this.querySelector('p').textContent;
+      
+      // Get detailed info if available, otherwise use card info
+      const details = facilityDetails[facilityName] || {
+        description: facilityDescription,
+        features: ['Modern facilities', 'Expert staff', 'Regular maintenance', 'Student-focused design'],
+        images: [facilityImage]
+      };
+      
+      // Populate modal content
+      modalContent.innerHTML = `
+        <div class="relative h-56 overflow-hidden">
+          <img src="${details.images[0]}" alt="${facilityName}" class="w-full h-full object-cover">
+          <button id="close-modal" class="absolute top-4 right-4 w-10 h-10 bg-black bg-opacity-50 !rounded-full flex items-center justify-center text-white cursor-pointer">
+            <i class="ri-close-line ri-lg"></i>
+          </button>
+        </div>
+        <div class="p-4">
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <span class="inline-block px-2 py-1 bg-gray-100 text-gray-700 text-xs !rounded-full">${facilityCategory}</span>
+              <h2 class="text-xl font-semibold text-gray-800 mt-2">${facilityName}</h2>
+            </div>
+          </div>
+          
+          <div class="mb-6">
+            <h3 class="text-lg font-medium text-gray-800 mb-2">Overview</h3>
+            <p class="text-gray-600 text-sm">${details.description}</p>
+          </div>
+          
+          <div class="mb-6">
+            <h3 class="text-lg font-medium text-gray-800 mb-2">Key Features</h3>
+            <ul class="space-y-2">
+              ${details.features.map(feature => `
+                <li class="flex items-start">
+                  <i class="ri-check-line text-primary mt-0.5 mr-2"></i>
+                  <span class="text-gray-600 text-sm">${feature}</span>
+                </li>
+              `).join('')}
+            </ul>
+          </div>
+          
+          <div class="mb-6">
+            <h3 class="text-lg font-medium text-gray-800 mb-2">Gallery</h3>
+            <div class="grid grid-cols-2 gap-2">
+              ${details.images.map(image => `
+                <div class="h-32 !rounded overflow-hidden">
+                  <img src="${image}" alt="${facilityName}" class="w-full h-full object-cover">
+                </div>
+              `).join('')}
+            </div>
+          </div>
+          
+          <button  onclick="window.location.href='./Admissions-Information-&-Application.html#campus-tour'" class="w-full py-3 bg-primary text-white !rounded-button font-medium mb-4 cursor-pointer">
+            Book a Tour
+          </button>
+        </div>
+      `;
+      
+      // Show modal with animation
+      facilityModal.classList.remove('hidden');
+      const modalContainer = facilityModal.querySelector('.modal');
+      modalContainer.classList.remove('modal-enter');
+      modalContainer.classList.remove('modal-exit-active');
+      modalContainer.classList.add('modal-enter-active');
+      
+      // Close modal when close button is clicked
+      document.getElementById('close-modal').addEventListener('click', function() {
+        modalContainer.classList.remove('modal-enter-active');
+        modalContainer.classList.add('modal-exit-active');
+        
+        setTimeout(() => {
+          facilityModal.classList.add('hidden');
+        }, 300);
+      });
+      
+      // Close modal when clicking outside
+      facilityModal.addEventListener('click', function(e) {
+        if (e.target === facilityModal) {
+          modalContainer.classList.remove('modal-enter-active');
+          modalContainer.classList.add('modal-exit-active');
+          
+          setTimeout(() => {
+            facilityModal.classList.add('hidden');
+          }, 300);
+        }
+      });
+    });
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Parent Portal - Vishwa Bharathi School</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#4F46E5',secondary:'#10B981'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Poppins', sans-serif;
+}
+.toggle-password:focus {
+outline: none;
+}
+.toggle-switch input:checked + .toggle-slider {
+background-color: #4F46E5;
+}
+.toggle-switch input:checked + .toggle-slider:before {
+transform: translateX(1.5rem);
+}
+</style>
+</head>
+<body class="bg-gray-50">
+<!-- Navigation Bar -->
+<nav class="bg-white shadow-md fixed w-full top-0 z-50">
+<div class="max-w-full px-4 py-3 flex justify-between items-center">
+<div class="flex items-center">
+<a href="./index.html" data-readdy="true" class="w-8 h-8 flex items-center justify-center text-gray-600 cursor-pointer">
+<i class="ri-arrow-left-line ri-lg"></i>
+</a>
+<div class="w-10 h-10 bg-primary !rounded-full flex items-center justify-center ml-2">
+<span class="text-white text-lg font-['Pacifico']">VB</span>
+</div>
+<span class="text-lg font-semibold text-gray-800 ml-2">Vishwa Bharathi</span>
+</div>
+<div class="flex items-center space-x-3">
+<button class="w-8 h-8 flex items-center justify-center text-gray-600 cursor-pointer">
+<i class="ri-question-line ri-lg"></i>
+</button>
+</div>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="pt-16 pb-20">
+<div class="px-4 py-6">
+<h1 class="text-2xl font-bold text-gray-800 mb-2">School Portal</h1>
+<p class="text-gray-600 text-sm mb-6">Access student information, grades, attendance, and more</p>
+<!-- Portal Type Toggle -->
+<div class="bg-gray-100 !rounded-full p-1 flex mb-8">
+<button id="parent-toggle" class="flex-1 py-2 px-4 !rounded-full text-sm font-medium bg-primary text-white cursor-pointer">Parent Portal</button>
+<button id="teacher-toggle" class="flex-1 py-2 px-4 !rounded-full text-sm font-medium text-gray-700 cursor-pointer">Teacher Portal</button>
+</div>
+<!-- Login Form -->
+<div class="bg-white !rounded-lg shadow-sm p-6 mb-6">
+<h2 class="text-lg font-semibold text-gray-800 mb-4">Login to Parent Portal</h2>
+<form id="login-form">
+<div class="mb-4">
+<label for="username" class="block text-sm font-medium text-gray-700 mb-1">Username or Email</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<i class="ri-user-line text-gray-400"></i>
+</div>
+<input type="text" id="username" name="username" class="w-full pl-10 pr-3 py-2.5 bg-gray-50 !rounded text-sm" placeholder="Enter your username or email" required>
+</div>
+</div>
+<div class="mb-4">
+<label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<i class="ri-lock-line text-gray-400"></i>
+</div>
+<input type="password" id="password" name="password" class="w-full pl-10 pr-10 py-2.5 bg-gray-50 !rounded text-sm" placeholder="Enter your password" required>
+<button type="button" class="toggle-password absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer">
+<i class="ri-eye-off-line text-gray-400"></i>
+</button>
+</div>
+</div>
+<div class="flex items-center mb-6">
+<input type="checkbox" id="remember" name="remember" class="h-4 w-4 text-primary !rounded border-gray-300 focus:ring-primary">
+<label for="remember" class="ml-2 block text-sm text-gray-700">Remember me</label>
+</div>
+<button type="submit" class="w-full bg-primary text-white py-3 !rounded-button font-medium cursor-pointer">
+Login
+</button>
+</form>
+<div class="text-center mt-4">
+<a href="#" id="forgot-password" class="text-primary text-sm font-medium cursor-pointer">Forgot Password?</a>
+</div>
+</div>
+<!-- Info Section -->
+<div class="bg-blue-50 !rounded-lg p-4 mb-8">
+<div class="flex">
+<div class="w-10 h-10 flex items-center justify-center bg-blue-100 !rounded-full mr-3">
+<i class="ri-information-line text-primary"></i>
+</div>
+<div>
+<h3 class="text-gray-800 font-medium">First time logging in?</h3>
+<p class="text-gray-600 text-xs mt-1">
+If this is your first time accessing the portal, please use the credentials provided by the school administration. You'll be prompted to change your password after your first login.
+</p>
+</div>
+</div>
+</div>
+<!-- Features Section -->
+<h2 class="text-lg font-semibold text-gray-800 mb-4">Portal Features</h2>
+<div class="grid grid-cols-2 gap-3 mb-8">
+<div class="bg-white p-4 !rounded shadow-sm">
+<div class="w-12 h-12 flex items-center justify-center bg-primary/10 !rounded-full mb-3">
+<i class="ri-book-read-line text-primary ri-lg"></i>
+</div>
+<h3 class="text-gray-800 font-medium">Academic Records</h3>
+<p class="text-gray-500 text-xs mt-1">View grades, assignments, and progress reports</p>
+</div>
+<div class="bg-white p-4 !rounded shadow-sm">
+<div class="w-12 h-12 flex items-center justify-center bg-primary/10 !rounded-full mb-3">
+<i class="ri-calendar-check-line text-primary ri-lg"></i>
+</div>
+<h3 class="text-gray-800 font-medium">Attendance</h3>
+<p class="text-gray-500 text-xs mt-1">Track daily attendance and absences</p>
+</div>
+<div class="bg-white p-4 !rounded shadow-sm">
+<div class="w-12 h-12 flex items-center justify-center bg-primary/10 !rounded-full mb-3">
+<i class="ri-message-3-line text-primary ri-lg"></i>
+</div>
+<h3 class="text-gray-800 font-medium">Communications</h3>
+<p class="text-gray-500 text-xs mt-1">Messages from teachers and school</p>
+</div>
+<div class="bg-white p-4 !rounded shadow-sm">
+<div class="w-12 h-12 flex items-center justify-center bg-primary/10 !rounded-full mb-3">
+<i class="ri-calendar-event-line text-primary ri-lg"></i>
+</div>
+<h3 class="text-gray-800 font-medium">Events</h3>
+<p class="text-gray-500 text-xs mt-1">School calendar and upcoming events</p>
+</div>
+</div>
+<!-- FAQ Section -->
+<div class="bg-white !rounded-lg shadow-sm p-6 mb-8">
+<h2 class="text-lg font-semibold text-gray-800 mb-4">Frequently Asked Questions</h2>
+<div class="space-y-4">
+<div class="border-b border-gray-100 pb-4">
+<button class="faq-toggle flex justify-between items-center w-full text-left cursor-pointer">
+<span class="text-gray-800 font-medium">How do I reset my password?</span>
+<i class="ri-arrow-down-s-line text-gray-400"></i>
+</button>
+<div class="faq-content hidden mt-2">
+<p class="text-gray-600 text-sm">
+Click on the "Forgot Password" link on the login page. You'll receive password reset instructions on your registered email address.
+</p>
+</div>
+</div>
+<div class="border-b border-gray-100 pb-4">
+<button class="faq-toggle flex justify-between items-center w-full text-left cursor-pointer">
+<span class="text-gray-800 font-medium">Can I access the portal on mobile devices?</span>
+<i class="ri-arrow-down-s-line text-gray-400"></i>
+</button>
+<div class="faq-content hidden mt-2">
+<p class="text-gray-600 text-sm">
+Yes, the parent portal is fully responsive and can be accessed on smartphones and tablets through any modern web browser.
+</p>
+</div>
+</div>
+<div class="border-b border-gray-100 pb-4">
+<button class="faq-toggle flex justify-between items-center w-full text-left cursor-pointer">
+<span class="text-gray-800 font-medium">How often are grades updated?</span>
+<i class="ri-arrow-down-s-line text-gray-400"></i>
+</button>
+<div class="faq-content hidden mt-2">
+<p class="text-gray-600 text-sm">
+Teachers typically update grades within 5 working days after assignments or tests. Major exams may take up to 10 days to be reflected in the portal.
+</p>
+</div>
+</div>
+<div>
+<button class="faq-toggle flex justify-between items-center w-full text-left cursor-pointer">
+<span class="text-gray-800 font-medium">Who can I contact for technical support?</span>
+<i class="ri-arrow-down-s-line text-gray-400"></i>
+</button>
+<div class="faq-content hidden mt-2">
+<p class="text-gray-600 text-sm">
+For technical assistance, please email support@vishwabharathi.edu or call our helpdesk at +91 98765 43212 during school hours.
+</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Contact Support -->
+<div class="bg-gray-100 !rounded-lg p-4 mb-4">
+<div class="flex items-center">
+<div class="w-10 h-10 flex items-center justify-center bg-primary/10 !rounded-full mr-3">
+<i class="ri-customer-service-2-line text-primary"></i>
+</div>
+<div>
+<h3 class="text-gray-800 font-medium">Need Help?</h3>
+<p class="text-gray-600 text-xs mt-1">
+Our support team is available Monday to Friday, 8:00 AM to 4:00 PM
+</p>
+</div>
+</div>
+<button id="contact-support-btn" class="mt-3 w-full py-2 border border-primary text-primary font-medium !rounded-button cursor-pointer">
+Contact Support
+</button>
+</div>
+
+<!-- Contact Support Modal -->
+<div id="contact-support-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+<div class="bg-white !rounded-lg w-full max-w-sm mx-4 p-6 max-h-[90vh] overflow-y-auto">
+<div class="flex justify-between items-center mb-4">
+<h3 class="text-lg font-semibold text-gray-800">Contact Support</h3>
+<button id="close-contact-modal" class="text-gray-500 cursor-pointer">
+<i class="ri-close-line ri-lg"></i>
+</button>
+</div>
+
+<div class="bg-blue-50 !rounded-lg p-4 mb-6">
+<h4 class="font-medium text-gray-800 mb-2">Support Team Contact</h4>
+<div class="space-y-2 text-sm text-gray-600">
+<p class="flex items-center"><i class="ri-phone-line mr-2"></i>+91 98765 43212</p>
+<p class="flex items-center"><i class="ri-mail-line mr-2"></i>support@vishwabharathi.edu</p>
+<p class="flex items-center"><i class="ri-time-line mr-2"></i>Mon-Fri, 8:00 AM - 4:00 PM</p>
+</div>
+</div>
+
+<form id="contact-support-form">
+<div class="mb-4">
+<label for="contact-name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+<input type="text" id="contact-name" name="contact-name" class="w-full px-3 py-2.5 bg-gray-50 !rounded text-sm" required>
+</div>
+
+<div class="mb-4">
+<label for="contact-email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+<input type="email" id="contact-email" name="contact-email" class="w-full px-3 py-2.5 bg-gray-50 !rounded text-sm" required>
+</div>
+
+<div class="mb-4">
+<label for="contact-method" class="block text-sm font-medium text-gray-700 mb-1">Preferred Contact Method</label>
+<div class="flex space-x-4">
+<label class="flex items-center">
+<input type="radio" name="contact-method" value="email" class="mr-2" checked>
+<span class="text-sm text-gray-600">Email</span>
+</label>
+<label class="flex items-center">
+<input type="radio" name="contact-method" value="phone" class="mr-2">
+<span class="text-sm text-gray-600">Phone</span>
+</label>
+</div>
+</div>
+
+<div class="mb-4">
+<label for="contact-subject" class="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+<select id="contact-subject" name="contact-subject" class="w-full px-3 py-2.5 bg-gray-50 !rounded text-sm" required>
+<option value="">Select a subject</option>
+<option value="technical">Technical Issue</option>
+<option value="account">Account Access</option>
+<option value="general">General Inquiry</option>
+</select>
+</div>
+
+<div class="mb-6">
+<label for="contact-message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+<textarea id="contact-message" name="contact-message" rows="4" class="w-full px-3 py-2.5 bg-gray-50 !rounded text-sm" required></textarea>
+<div class="mt-1 text-xs text-gray-500 flex justify-end">
+<span id="message-counter">0</span>/500 characters
+</div>
+</div>
+
+<button type="submit" class="w-full bg-primary text-white py-3 !rounded-button font-medium cursor-pointer">
+Submit Request
+</button>
+</form>
+</div>
+</div>
+
+<!-- Contact Success Modal -->
+<div id="contact-success-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+<div class="bg-white !rounded-lg w-full max-w-sm mx-4 p-6">
+<div class="flex flex-col items-center text-center">
+<div class="w-16 h-16 bg-green-100 !rounded-full flex items-center justify-center mb-4">
+<i class="ri-check-line ri-2x text-green-500"></i>
+</div>
+<h3 class="text-lg font-semibold text-gray-800 mb-2">Request Submitted</h3>
+<p class="text-gray-600 text-sm mb-4">
+Thank you for contacting us. We'll get back to you within 24 hours through your preferred contact method.
+</p>
+<button id="close-contact-success" class="w-full bg-primary text-white py-3 !rounded-button font-medium cursor-pointer">
+Close
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Tab Bar -->
+<nav class="fixed bottom-0 w-full bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.05)] z-40">
+<div class="grid grid-cols-5 h-16">
+<a href="./index.html#hero" class="flex flex-col items-center justify-center cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center text-primary">
+<i class="ri-home-5-fill ri-lg"></i>
+</div>
+<span class="text-xs text-primary mt-1">Home</span>
+</a>
+<a href="./Academics-Overview-Vishwa-Bharathi.html" class="flex flex-col items-center justify-center cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center text-gray-500">
+<i class="ri-book-open-line ri-lg"></i>
+</div>
+<span class="text-xs text-gray-500 mt-1">Academics</span>
+</a>
+<a href="./Gallery-vishwa bharathi school.html" data-readdy="true" class="flex flex-col items-center justify-center cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center text-gray-500">
+<i class="ri-gallery-line ri-lg"></i>
+</div>
+<span class="text-xs text-gray-500 mt-1">Gallery</span>
+</a>
+<a href="./School-Events-Calendar.html" class="flex flex-col items-center justify-center cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center text-gray-500">
+<i class="ri-calendar-event-line ri-lg"></i>
+</div>
+<span class="text-xs text-gray-500 mt-1">Events</span>
+</a>
+<a href="./index.html#contact-section" class="flex flex-col items-center justify-center cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center text-gray-500">
+<i class="ri-contacts-line ri-lg"></i>
+</div>
+<span class="text-xs text-gray-500 mt-1">Contact</span>
+</a>
+</div>
+</nav>
+<!-- Forgot Password Modal -->
+<div id="forgot-password-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+<div class="bg-white !rounded-lg w-full max-w-sm mx-4 p-6">
+<div class="flex justify-between items-center mb-4">
+<h3 class="text-lg font-semibold text-gray-800">Reset Password</h3>
+<button id="close-modal" class="text-gray-500 cursor-pointer">
+<i class="ri-close-line ri-lg"></i>
+</button>
+</div>
+<p class="text-gray-600 text-sm mb-4">
+Enter your registered email address. We'll send you instructions to reset your password.
+</p>
+<form id="reset-form">
+<div class="mb-4">
+<label for="reset-email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<i class="ri-mail-line text-gray-400"></i>
+</div>
+<input type="email" id="reset-email" name="reset-email" class="w-full pl-10 pr-3 py-2.5 bg-gray-50 !rounded text-sm" placeholder="Enter your email address" required>
+</div>
+</div>
+<button type="submit" class="w-full bg-primary text-white py-3 !rounded-button font-medium cursor-pointer">
+Send Reset Link
+</button>
+</form>
+</div>
+</div>
+<!-- Success Modal -->
+<div id="success-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+<div class="bg-white !rounded-lg w-full max-w-sm mx-4 p-6">
+<div class="flex flex-col items-center text-center">
+<div class="w-16 h-16 bg-green-100 !rounded-full flex items-center justify-center mb-4">
+<i class="ri-check-line ri-2x text-green-500"></i>
+</div>
+<h3 class="text-lg font-semibold text-gray-800 mb-2">Reset Link Sent</h3>
+<p class="text-gray-600 text-sm mb-4">
+Password reset instructions have been sent to your email address. Please check your inbox.
+</p>
+<button id="close-success" class="w-full bg-primary text-white py-3 !rounded-button font-medium cursor-pointer">
+Close
+</button>
+</div>
+</div>
+</div>
+<!-- Login Success Modal -->
+<div id="login-success-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+<div class="bg-white !rounded-lg w-full max-w-sm mx-4 p-6">
+<div class="flex flex-col items-center text-center">
+<div class="w-16 h-16 bg-primary/10 !rounded-full flex items-center justify-center mb-4">
+<i class="ri-user-smile-line ri-2x text-primary"></i>
+</div>
+<h3 class="text-lg font-semibold text-gray-800 mb-2">Login Successful</h3>
+<p class="text-gray-600 text-sm mb-4">
+Welcome back to Vishwa Bharathi School Parent Portal. You are being redirected to your dashboard.
+</p>
+<div class="w-full bg-gray-200 h-2 !rounded-full mb-4">
+<div id="progress-bar" class="bg-primary h-full !rounded-full" style="width: 0%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Scripts -->
+<script id="toggle-handler">
+document.addEventListener('DOMContentLoaded', function() {
+const parentToggle = document.getElementById('parent-toggle');
+const teacherToggle = document.getElementById('teacher-toggle');
+parentToggle.addEventListener('click', function() {
+parentToggle.classList.add('bg-primary', 'text-white');
+parentToggle.classList.remove('text-gray-700');
+teacherToggle.classList.remove('bg-primary', 'text-white');
+teacherToggle.classList.add('text-gray-700');
+document.querySelector('h2').textContent = 'Login to Parent Portal';
+});
+teacherToggle.addEventListener('click', function() {
+teacherToggle.classList.add('bg-primary', 'text-white');
+teacherToggle.classList.remove('text-gray-700');
+parentToggle.classList.remove('bg-primary', 'text-white');
+parentToggle.classList.add('text-gray-700');
+document.querySelector('h2').textContent = 'Login to Teacher Portal';
+});
+});
+</script>
+<script id="password-toggle">
+document.addEventListener('DOMContentLoaded', function() {
+const togglePassword = document.querySelector('.toggle-password');
+const passwordInput = document.getElementById('password');
+togglePassword.addEventListener('click', function() {
+const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+passwordInput.setAttribute('type', type);
+// Toggle icon
+const icon = this.querySelector('i');
+if (type === 'password') {
+icon.classList.remove('ri-eye-line');
+icon.classList.add('ri-eye-off-line');
+} else {
+icon.classList.remove('ri-eye-off-line');
+icon.classList.add('ri-eye-line');
+}
+});
+});
+</script>
+<script id="faq-handler">
+document.addEventListener('DOMContentLoaded', function() {
+const faqToggles = document.querySelectorAll('.faq-toggle');
+faqToggles.forEach(toggle => {
+toggle.addEventListener('click', function() {
+const content = this.nextElementSibling;
+const icon = this.querySelector('i');
+// Toggle content
+content.classList.toggle('hidden');
+// Toggle icon
+if (content.classList.contains('hidden')) {
+icon.classList.remove('ri-arrow-up-s-line');
+icon.classList.add('ri-arrow-down-s-line');
+} else {
+icon.classList.remove('ri-arrow-down-s-line');
+icon.classList.add('ri-arrow-up-s-line');
+}
+});
+});
+});
+</script>
+<script id="modal-handler">
+document.addEventListener('DOMContentLoaded', function() {
+const forgotPasswordLink = document.getElementById('forgot-password');
+const forgotPasswordModal = document.getElementById('forgot-password-modal');
+const closeModalBtn = document.getElementById('close-modal');
+const successModal = document.getElementById('success-modal');
+const closeSuccessBtn = document.getElementById('close-success');
+const resetForm = document.getElementById('reset-form');
+
+const contactSupportBtn = document.getElementById('contact-support-btn');
+const contactSupportModal = document.getElementById('contact-support-modal');
+const closeContactModalBtn = document.getElementById('close-contact-modal');
+const contactSuccessModal = document.getElementById('contact-success-modal');
+const closeContactSuccessBtn = document.getElementById('close-contact-success');
+const contactForm = document.getElementById('contact-support-form');
+const messageTextarea = document.getElementById('contact-message');
+const messageCounter = document.getElementById('message-counter');
+
+contactSupportBtn.addEventListener('click', function() {
+contactSupportModal.classList.remove('hidden');
+});
+
+closeContactModalBtn.addEventListener('click', function() {
+contactSupportModal.classList.add('hidden');
+});
+
+closeContactSuccessBtn.addEventListener('click', function() {
+contactSuccessModal.classList.add('hidden');
+});
+
+messageTextarea.addEventListener('input', function() {
+const length = this.value.length;
+messageCounter.textContent = length;
+if (length > 500) {
+this.value = this.value.substring(0, 500);
+messageCounter.textContent = 500;
+}
+});
+
+contactForm.addEventListener('submit', function(e) {
+e.preventDefault();
+contactSupportModal.classList.add('hidden');
+contactSuccessModal.classList.remove('hidden');
+this.reset();
+messageCounter.textContent = '0';
+});
+forgotPasswordLink.addEventListener('click', function(e) {
+e.preventDefault();
+forgotPasswordModal.classList.remove('hidden');
+});
+closeModalBtn.addEventListener('click', function() {
+forgotPasswordModal.classList.add('hidden');
+});
+closeSuccessBtn.addEventListener('click', function() {
+successModal.classList.add('hidden');
+});
+resetForm.addEventListener('submit', function(e) {
+e.preventDefault();
+forgotPasswordModal.classList.add('hidden');
+successModal.classList.remove('hidden');
+});
+// Close modals when clicking outside
+window.addEventListener('click', function(e) {
+if (e.target === forgotPasswordModal) {
+forgotPasswordModal.classList.add('hidden');
+}
+if (e.target === successModal) {
+successModal.classList.add('hidden');
+}
+if (e.target === contactSupportModal) {
+contactSupportModal.classList.add('hidden');
+}
+if (e.target === contactSuccessModal) {
+contactSuccessModal.classList.add('hidden');
+}
+});
+});
+</script>
+<script id="login-handler">
+document.addEventListener('DOMContentLoaded', function() {
+const loginForm = document.getElementById('login-form');
+const loginSuccessModal = document.getElementById('login-success-modal');
+const progressBar = document.getElementById('progress-bar');
+loginForm.addEventListener('submit', function(e) {
+e.preventDefault();
+// Show success modal
+loginSuccessModal.classList.remove('hidden');
+// Animate progress bar
+let width = 0;
+const interval = setInterval(function() {
+if (width >= 100) {
+clearInterval(interval);
+// Redirect to dashboard (in a real app)
+// window.location.href = 'dashboard.html';
+} else {
+width += 2;
+progressBar.style.width = width + '%';
+}
+}, 50);
+});
+});
+</script>
+</body>
+</html>

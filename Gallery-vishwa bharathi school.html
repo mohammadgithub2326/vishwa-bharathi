@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gallery - Vishwa Bharathi School</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#4F46E5',secondary:'#10B981'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+  font-family: 'Poppins', sans-serif;
+}
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.category-scroll {
+  scrollbar-width: none;
+}
+.category-scroll::-webkit-scrollbar {
+  display: none;
+}
+.image-modal {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #f8f8f8 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+</style>
+</head>
+<body class="bg-gray-50">
+<!-- Navigation Bar -->
+<nav class="bg-white shadow-md fixed w-full top-0 z-50">
+  <div class="max-w-full px-4 py-3 flex justify-between items-center">
+    <div class="flex items-center">
+      <a href="./index.html">
+
+        <i class="ri-arrow-left-line ri-lg"></i>
+      </a>
+      <a href="./index.html" data-readdy="true" class="w-10 h-10 bg-primary !rounded-full flex items-center justify-center mr-2 cursor-pointer">
+        
+        <span class="text-white text-lg font-['Pacifico']">VB</span>
+      </a>
+      <span class="text-lg font-semibold text-gray-800 ">Vishwa Bharathi</span>
+    </div>
+    <!-- <div class="flex items-center space-x-3">
+      <button class="w-8 h-8 flex items-center justify-center text-gray-600 cursor-pointer">
+        <i class="ri-search-line ri-lg"></i>
+      </button>
+      <button class="w-8 h-8 flex items-center justify-center text-gray-600 cursor-pointer">
+        <i class="ri-user-line ri-lg"></i>
+      </button>
+      <button class="w-8 h-8 flex items-center justify-center text-gray-600 cursor-pointer" id="menu-button">
+        <i class="ri-menu-line ri-lg"></i>
+      </button>
+    </div> -->
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="fixed inset-0 bg-white z-40 transform translate-x-full transition-transform duration-300 ease-in-out" id="mobile-menu">
+  <div class="pt-16 pb-20 px-4 h-full overflow-y-auto">
+    <div class="flex justify-end mb-6">
+      <button class="w-8 h-8 flex items-center justify-center text-gray-600 cursor-pointer" id="close-menu">
+        <i class="ri-close-line ri-lg"></i>
+      </button>
+    </div>
+    <div class="space-y-4">
+      <a href="#" class="block py-3 px-4 text-gray-800 font-medium border-b border-gray-100">Home</a>
+      <a href="#" class="block py-3 px-4 text-gray-800 font-medium border-b border-gray-100">About Us</a>
+      <a href="#" class="block py-3 px-4 text-gray-800 font-medium border-b border-gray-100">Academics</a>
+      <a href="#" class="block py-3 px-4 text-gray-800 font-medium border-b border-gray-100">Admissions</a>
+      <a href="#" class="block py-3 px-4 text-gray-800 font-medium border-b border-gray-100">Facilities</a>
+      <a href="#" class="block py-3 px-4 text-gray-800 font-medium border-b border-gray-100">Events & News</a>
+      <a href="#" class="block py-3 px-4 text-gray-800 font-medium border-b border-gray-100">Gallery</a>
+      <a href="#" class="block py-3 px-4 text-gray-800 font-medium border-b border-gray-100">Contact</a>
+    </div>
+    <div class="mt-8">
+      <button class="w-full bg-primary text-white py-3 !rounded-button font-medium cursor-pointer">Parent Portal Login</button>
+    </div>
+    <div class="mt-8 flex justify-center space-x-4">
+      <a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-100 !rounded-full cursor-pointer">
+        <i class="ri-facebook-fill ri-lg text-gray-600"></i>
+      </a>
+      <a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-100 !rounded-full cursor-pointer">
+        <i class="ri-instagram-line ri-lg text-gray-600"></i>
+      </a>
+      <a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-100 !rounded-full cursor-pointer">
+        <i class="ri-youtube-line ri-lg text-gray-600"></i>
+      </a>
+      <a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-100 !rounded-full cursor-pointer">
+        <i class="ri-twitter-x-line ri-lg text-gray-600"></i>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Main Content -->
+<main class="pt-16 pb-20">
+  <!-- Header Section -->
+  <section class="px-4 py-5">
+    <div class="flex justify-between items-center mb-5">
+      <h1 class="text-2xl font-bold text-gray-800">Gallery</h1>
+      <button id="filter-button" class="w-8 h-8 flex items-center justify-center bg-gray-100 !rounded-full cursor-pointer">
+        <i class="ri-filter-3-line ri-lg text-gray-700"></i>
+      </button>
+    </div>
+    
+    <!-- Categories -->
+    <div class="category-scroll flex space-x-3 overflow-x-auto pb-3">
+      <button class="category-btn active whitespace-nowrap px-4 py-2 bg-primary text-white !rounded-full text-sm font-medium cursor-pointer" data-category="all">
+        All
+      </button>
+      <button class="category-btn whitespace-nowrap px-4 py-2 bg-gray-100 text-gray-700 !rounded-full text-sm font-medium cursor-pointer" data-category="campus">
+        Campus Tour
+      </button>
+      <button class="category-btn whitespace-nowrap px-4 py-2 bg-gray-100 text-gray-700 !rounded-full text-sm font-medium cursor-pointer" data-category="events">
+        Events
+      </button>
+      <button class="category-btn whitespace-nowrap px-4 py-2 bg-gray-100 text-gray-700 !rounded-full text-sm font-medium cursor-pointer" data-category="activities">
+        Student Activities
+      </button>
+      <button class="category-btn whitespace-nowrap px-4 py-2 bg-gray-100 text-gray-700 !rounded-full text-sm font-medium cursor-pointer" data-category="achievements">
+        Achievements
+      </button>
+    </div>
+  </section>
+
+  <!-- Gallery Grid -->
+  <section class="px-4 pb-6" id="gallery-container">
+    <div class="image-grid" id="image-grid">
+      <!-- Loading Skeletons -->
+      <div class="skeleton !rounded-lg aspect-square"></div>
+      <div class="skeleton !rounded-lg aspect-square"></div>
+      <div class="skeleton !rounded-lg aspect-square"></div>
+      <div class="skeleton !rounded-lg aspect-square"></div>
+      <div class="skeleton !rounded-lg aspect-square"></div>
+      <div class="skeleton !rounded-lg aspect-square"></div>
+    </div>
+  </section>
+
+  <!-- No Results Message (Hidden by default) -->
+  <section id="no-results" class="px-4 py-12 text-center hidden">
+    <div class="w-20 h-20 mx-auto mb-4 flex items-center justify-center bg-gray-100 !rounded-full">
+      <i class="ri-image-line ri-2x text-gray-400"></i>
+    </div>
+    <h3 class="text-lg font-medium text-gray-800">No images found</h3>
+    <p class="text-gray-500 text-sm mt-2">Try changing your filter settings</p>
+  </section>
+</main>
+
+<!-- Image Modal (Hidden by default) -->
+<div id="image-modal" class="image-modal fixed inset-0 bg-black z-50 flex items-center justify-center opacity-0 pointer-events-none">
+  <div class="relative w-full h-full flex flex-col">
+    <!-- Modal Header -->
+    <div class="absolute top-0 left-0 right-0 p-4 flex justify-between items-center z-10">
+      <button id="close-modal" class="w-10 h-10 flex items-center justify-center bg-black/30 !rounded-full cursor-pointer">
+        <i class="ri-close-line ri-lg text-white"></i>
+      </button>
+      <div class="flex space-x-2">
+        <button id="download-image" class="w-10 h-10 flex items-center justify-center bg-black/30 !rounded-full cursor-pointer">
+          <i class="ri-download-line ri-lg text-white"></i>
+        </button>
+        <button id="share-image" class="w-10 h-10 flex items-center justify-center bg-black/30 !rounded-full cursor-pointer">
+          <i class="ri-share-line ri-lg text-white"></i>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Image Container -->
+    <div class="flex-1 flex items-center justify-center">
+      <img id="modal-image" src="" alt="Gallery image" class="max-w-full max-h-full object-contain">
+    </div>
+    
+    <!-- Caption -->
+    <div class="absolute bottom-0 left-0 right-0 bg-black/50 p-4">
+      <h3 id="modal-title" class="text-white font-medium"></h3>
+      <div class="flex justify-between items-center mt-2">
+        <span id="modal-date" class="text-white/80 text-sm"></span>
+        <span id="modal-category" class="text-xs bg-primary/80 text-white px-2 py-1 !rounded-full"></span>
+      </div>
+    </div>
+    
+    <!-- Navigation Arrows -->
+    <button id="prev-image" class="absolute left-2 top-1/2 transform -translate-y-1/2 w-10 h-10 flex items-center justify-center bg-black/30 !rounded-full cursor-pointer">
+      <i class="ri-arrow-left-s-line ri-lg text-white"></i>
+    </button>
+    <button id="next-image" class="absolute right-2 top-1/2 transform -translate-y-1/2 w-10 h-10 flex items-center justify-center bg-black/30 !rounded-full cursor-pointer">
+      <i class="ri-arrow-right-s-line ri-lg text-white"></i>
+    </button>
+  </div>
+</div>
+
+<!-- Filter Modal (Hidden by default) -->
+<div id="filter-modal" class="fixed inset-0 bg-black/50 z-50 flex items-end justify-center opacity-0 pointer-events-none transition-opacity duration-300">
+  <div class="bg-white !rounded-t-xl w-full max-h-[70vh] overflow-y-auto transform translate-y-full transition-transform duration-300" id="filter-sheet">
+    <div class="p-4 border-b border-gray-100">
+      <div class="flex justify-between items-center">
+        <h3 class="text-lg font-semibold text-gray-800">Filter Images</h3>
+        <button id="close-filter" class="w-8 h-8 flex items-center justify-center text-gray-500 cursor-pointer">
+          <i class="ri-close-line ri-lg"></i>
+        </button>
+      </div>
+    </div>
+    
+    <div class="p-4">
+      <!-- Categories -->
+      <div class="mb-6">
+        <h4 class="text-sm font-medium text-gray-700 mb-3">Categories</h4>
+        <div class="grid grid-cols-2 gap-2">
+          <label class="flex items-center space-x-2 p-3 border border-gray-200 !rounded cursor-pointer">
+            <input type="checkbox" name="filter-category" value="campus" class="hidden">
+            <div class="w-5 h-5 border border-gray-300 !rounded flex items-center justify-center filter-checkbox">
+              <i class="ri-check-line ri-sm text-white hidden"></i>
+            </div>
+            <span class="text-sm text-gray-700">Campus Tour</span>
+          </label>
+          <label class="flex items-center space-x-2 p-3 border border-gray-200 !rounded cursor-pointer">
+            <input type="checkbox" name="filter-category" value="events" class="hidden">
+            <div class="w-5 h-5 border border-gray-300 !rounded flex items-center justify-center filter-checkbox">
+              <i class="ri-check-line ri-sm text-white hidden"></i>
+            </div>
+            <span class="text-sm text-gray-700">Events</span>
+          </label>
+          <label class="flex items-center space-x-2 p-3 border border-gray-200 !rounded cursor-pointer">
+            <input type="checkbox" name="filter-category" value="activities" class="hidden">
+            <div class="w-5 h-5 border border-gray-300 !rounded flex items-center justify-center filter-checkbox">
+              <i class="ri-check-line ri-sm text-white hidden"></i>
+            </div>
+            <span class="text-sm text-gray-700">Student Activities</span>
+          </label>
+          <label class="flex items-center space-x-2 p-3 border border-gray-200 !rounded cursor-pointer">
+            <input type="checkbox" name="filter-category" value="achievements" class="hidden">
+            <div class="w-5 h-5 border border-gray-300 !rounded flex items-center justify-center filter-checkbox">
+              <i class="ri-check-line ri-sm text-white hidden"></i>
+            </div>
+            <span class="text-sm text-gray-700">Achievements</span>
+          </label>
+        </div>
+      </div>
+      
+      <!-- Date Range -->
+      <div class="mb-6">
+        <h4 class="text-sm font-medium text-gray-700 mb-3">Date Range</h4>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="text-xs text-gray-500 mb-1 block">From</label>
+            <input type="date" id="date-from" class="w-full border border-gray-200 !rounded p-2 text-sm">
+          </div>
+          <div>
+            <label class="text-xs text-gray-500 mb-1 block">To</label>
+            <input type="date" id="date-to" class="w-full border border-gray-200 !rounded p-2 text-sm">
+          </div>
+        </div>
+      </div>
+      
+      <!-- Sort By -->
+      <div class="mb-6">
+        <h4 class="text-sm font-medium text-gray-700 mb-3">Sort By</h4>
+        <div class="flex space-x-3">
+          <label class="flex items-center space-x-2 p-3 border border-gray-200 !rounded flex-1 cursor-pointer">
+            <input type="radio" name="sort" value="newest" checked class="hidden">
+            <div class="w-4 h-4 border border-gray-300 !rounded-full flex items-center justify-center sort-radio">
+              <div class="w-2 h-2 bg-primary !rounded-full hidden"></div>
+            </div>
+            <span class="text-sm text-gray-700">Newest First</span>
+          </label>
+          <label class="flex items-center space-x-2 p-3 border border-gray-200 !rounded flex-1 cursor-pointer">
+            <input type="radio" name="sort" value="oldest" class="hidden">
+            <div class="w-4 h-4 border border-gray-300 !rounded-full flex items-center justify-center sort-radio">
+              <div class="w-2 h-2 bg-primary !rounded-full hidden"></div>
+            </div>
+            <span class="text-sm text-gray-700">Oldest First</span>
+          </label>
+        </div>
+      </div>
+    </div>
+    
+    <div class="p-4 flex space-x-3 border-t border-gray-100">
+      <button id="reset-filter" class="flex-1 py-3 border border-gray-300 text-gray-700 !rounded-button font-medium cursor-pointer">Reset</button>
+      <button id="apply-filter" class="flex-1 py-3 bg-primary text-white !rounded-button font-medium cursor-pointer">Apply Filters</button>
+    </div>
+  </div>
+</div>
+
+<!-- Share Options Modal (Hidden by default) -->
+<div id="share-modal" class="fixed inset-0 bg-black/50 z-50 flex items-end justify-center opacity-0 pointer-events-none transition-opacity duration-300">
+  <div class="bg-white !rounded-t-xl w-full transform translate-y-full transition-transform duration-300" id="share-sheet">
+    <div class="p-4 border-b border-gray-100">
+      <div class="flex justify-between items-center">
+        <h3 class="text-lg font-semibold text-gray-800">Share Image</h3>
+        <button id="close-share" class="w-8 h-8 flex items-center justify-center text-gray-500 cursor-pointer">
+          <i class="ri-close-line ri-lg"></i>
+        </button>
+      </div>
+    </div>
+    
+    <div class="p-4">
+      <div class="grid grid-cols-4 gap-4">
+        <button class="flex flex-col items-center cursor-pointer">
+          <div class="w-12 h-12 bg-blue-500 !rounded-full flex items-center justify-center mb-1">
+            <i class="ri-facebook-fill ri-lg text-white"></i>
+          </div>
+          <span class="text-xs text-gray-700">Facebook</span>
+        </button>
+        <button class="flex flex-col items-center cursor-pointer">
+          <div class="w-12 h-12 bg-pink-600 !rounded-full flex items-center justify-center mb-1">
+            <i class="ri-instagram-line ri-lg text-white"></i>
+          </div>
+          <span class="text-xs text-gray-700">Instagram</span>
+        </button>
+        <button class="flex flex-col items-center cursor-pointer">
+          <div class="w-12 h-12 bg-green-500 !rounded-full flex items-center justify-center mb-1">
+            <i class="ri-whatsapp-line ri-lg text-white"></i>
+          </div>
+          <span class="text-xs text-gray-700">WhatsApp</span>
+        </button>
+        <button class="flex flex-col items-center cursor-pointer">
+          <div class="w-12 h-12 bg-blue-400 !rounded-full flex items-center justify-center mb-1">
+            <i class="ri-twitter-x-line ri-lg text-white"></i>
+          </div>
+          <span class="text-xs text-gray-700">Twitter</span>
+        </button>
+        <button class="flex flex-col items-center cursor-pointer">
+          <div class="w-12 h-12 bg-red-500 !rounded-full flex items-center justify-center mb-1">
+            <i class="ri-mail-line ri-lg text-white"></i>
+          </div>
+          <span class="text-xs text-gray-700">Email</span>
+        </button>
+        <button class="flex flex-col items-center cursor-pointer">
+          <div class="w-12 h-12 bg-gray-800 !rounded-full flex items-center justify-center mb-1">
+            <i class="ri-link ri-lg text-white"></i>
+          </div>
+          <span class="text-xs text-gray-700">Copy Link</span>
+        </button>
+        <button class="flex flex-col items-center cursor-pointer">
+          <div class="w-12 h-12 bg-gray-200 !rounded-full flex items-center justify-center mb-1">
+            <i class="ri-download-line ri-lg text-gray-700"></i>
+          </div>
+          <span class="text-xs text-gray-700">Save</span>
+        </button>
+        <button class="flex flex-col items-center cursor-pointer">
+          <div class="w-12 h-12 bg-gray-200 !rounded-full flex items-center justify-center mb-1">
+            <i class="ri-more-line ri-lg text-gray-700"></i>
+          </div>
+          <span class="text-xs text-gray-700">More</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Tab Bar -->
+<nav class="fixed bottom-0 w-full bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.05)] z-40">
+<div class="grid grid-cols-5 h-16">
+<a href="./index.html#hero" class="flex flex-col items-center justify-center cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center text-gray-500">
+<i class="ri-home-5-line ri-lg"></i>
+</div>
+<span class="text-xs text-gray-500 mt-1">Home</span>
+</a>
+<a href="./Academics-Overview-Vishwa-Bharathi.html" class="flex flex-col items-center justify-center cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center text-gray-500">
+<i class="ri-book-open-line ri-lg"></i>
+</div>
+<span class="text-xs text-gray-500 mt-1">Academics</span>
+</a>
+<a href="./Gallery-vishwa bharathi school.html" data-readdy="true" class="flex flex-col items-center justify-center cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center text-primary">
+<i class="ri-gallery-fill ri-lg"></i>
+</div>
+<span class="text-xs text-primary mt-1">Gallery</span>
+</a>
+<a href="./School-Events-Calendar.html" class="flex flex-col items-center justify-center cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center text-gray-500">
+<i class="ri-calendar-event-line ri-lg"></i>
+</div>
+<span class="text-xs text-gray-500 mt-1">Events</span>
+</a>
+<a href="./index.html#contact-section" class="flex flex-col items-center justify-center cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center text-gray-500">
+<i class="ri-contacts-line ri-lg"></i>
+</div>
+<span class="text-xs text-gray-500 mt-1">Contact</span>
+</a>
+</div>
+</nav>
+
+<!-- Scripts -->
+<script id="mobile-menu-handler">
+document.addEventListener('DOMContentLoaded', function() {
+  const menuButton = document.getElementById('menu-button');
+  const closeMenuButton = document.getElementById('close-menu');
+  const mobileMenu = document.getElementById('mobile-menu');
+  
+  menuButton.addEventListener('click', function() {
+    mobileMenu.classList.remove('translate-x-full');
+  });
+  
+  closeMenuButton.addEventListener('click', function() {
+    mobileMenu.classList.add('translate-x-full');
+  });
+});
+</script>
+
+<script id="gallery-data-handler">
+document.addEventListener('DOMContentLoaded', function() {
+  // Gallery data
+  const galleryImages = [
+    {
+      id: 1,
+      src: "public/Main Academic Block.jpg",
+      title: "Main Academic Block",
+      category: "campus",
+      date: "2025-05-15",
+      thumbnail: "https://readdy.ai/api/search-image?query=modern%2520school%2520building%2520exterior%2520with%2520beautiful%2520architecture%252C%2520green%2520campus%252C%2520well-maintained%2520gardens%252C%2520bright%2520daylight%252C%2520educational%2520institution%252C%2520professional%2520photography%252C%2520high%2520resolution&width=300&height=300&seq=101&orientation=squarish"
+    },
+    {
+      id: 2,
+      src: "public/Science Laboratory.jpg",
+      title: "Science Laboratory",
+      category: "campus",
+      date: "2025-05-10",
+      thumbnail: "https://readdy.ai/api/search-image?query=school%2520science%2520laboratory%2520with%2520modern%2520equipment%252C%2520students%2520conducting%2520experiments%252C%2520educational%2520setting%252C%2520bright%2520lighting%252C%2520professional%2520photography%252C%2520high%2520resolution&width=300&height=300&seq=102&orientation=squarish"
+    },
+    {
+      id: 3,
+      src: "public/Annual Day Celebration.jpg",
+      title: "Annual Day Celebration",
+      category: "events",
+      date: "2025-04-20",
+      thumbnail: "https://readdy.ai/api/search-image?query=school%2520annual%2520day%2520celebration%2520with%2520students%2520performing%2520on%2520stage%252C%2520colorful%2520decorations%252C%2520audience%2520watching%252C%2520professional%2520event%2520photography%252C%2520high%2520resolution&width=300&height=300&seq=103&orientation=squarish"
+    },
+    {
+      id: 4,
+      src: "public/Sports Day Competition.jpg",
+      title: "Sports Day Competition",
+      category: "activities",
+      date: "2025-03-15",
+      thumbnail: "https://readdy.ai/api/search-image?query=students%2520playing%2520sports%2520in%2520school%2520playground%252C%2520outdoor%2520activities%252C%2520sunny%2520day%252C%2520team%2520games%252C%2520professional%2520photography%252C%2520high%2520resolution&width=300&height=300&seq=104&orientation=squarish"
+    },
+    {
+      id: 5,
+      src: "public/National Science Olympiad Winners.jpg",
+      title: "National Science Olympiad Winners",
+      category: "achievements",
+      date: "2025-02-28",
+      thumbnail: "https://readdy.ai/api/search-image?query=students%2520receiving%2520awards%2520and%2520trophies%2520on%2520stage%252C%2520achievement%2520ceremony%252C%2520formal%2520event%252C%2520proud%2520moment%252C%2520professional%2520photography%252C%2520high%2520resolution&width=300&height=300&seq=105&orientation=squarish"
+    },
+    {
+      id: 6,
+      src: "public/Central Library.jpg",
+      title: "Central Library",
+      category: "campus",
+      date: "2025-05-05",
+      thumbnail: "https://readdy.ai/api/search-image?query=school%2520library%2520with%2520students%2520reading%2520books%252C%2520bookshelves%252C%2520study%2520area%252C%2520educational%2520environment%252C%2520bright%2520lighting%252C%2520professional%2520photography%252C%2520high%2520resolution&width=300&height=300&seq=106&orientation=squarish"
+    },
+    {
+      id: 7,
+      src: "public/Art & Craft Workshop.jpg",
+      title: "Art & Craft Workshop",
+      category: "activities",
+      date: "2025-04-10",
+      thumbnail: "https://readdy.ai/api/search-image?query=students%2520participating%2520in%2520art%2520and%2520craft%2520activities%2520in%2520classroom%252C%2520creative%2520work%252C%2520colorful%2520materials%252C%2520educational%2520setting%252C%2520professional%2520photography%252C%2520high%2520resolution&width=300&height=300&seq=107&orientation=squarish"
+    },
+    {
+      id: 8,
+      src: "public/Cultural Festival.jpg",
+      title: "Cultural Festival",
+      category: "events",
+      date: "2025-03-25",
+      thumbnail: "https://readdy.ai/api/search-image?query=school%2520cultural%2520festival%2520with%2520traditional%2520dance%2520performance%252C%2520colorful%2520costumes%252C%2520stage%2520event%252C%2520audience%2520watching%252C%2520professional%2520photography%252C%2520high%2520resolution&width=300&height=300&seq=108&orientation=squarish"
+    },
+    {
+      id: 9,
+      src: "public/Robotics Competition Winners.jpg",
+      title: "Robotics Competition Winners",
+      category: "achievements",
+      date: "2025-02-15",
+      thumbnail: "https://readdy.ai/api/search-image?query=students%2520with%2520robotics%2520project%2520winning%2520competition%252C%2520technology%2520achievement%252C%2520proud%2520moment%252C%2520educational%2520setting%252C%2520professional%2520photography%252C%2520high%2520resolution&width=300&height=300&seq=109&orientation=squarish"
+    },
+    {
+      id: 10,
+      src: "public/Main Auditorium.jpg",
+      title: "Main Auditorium",
+      category: "campus",
+      date: "2025-05-01",
+      thumbnail: "https://readdy.ai/api/search-image?query=school%2520auditorium%2520with%2520modern%2520facilities%252C%2520stage%2520setup%252C%2520seating%2520arrangement%252C%2520educational%2520institution%252C%2520professional%2520photography%252C%2520high%2520resolution&width=300&height=300&seq=110&orientation=squarish"
+    },
+    {
+      id: 11,
+      src: "public/Green Campus Initiative.jpg",
+      title: "Green Campus Initiative",
+      category: "activities",
+      date: "2025-04-05",
+      thumbnail: "https://readdy.ai/api/search-image?query=students%2520planting%2520trees%2520in%2520school%2520garden%252C%2520environmental%2520activity%252C%2520outdoor%2520event%252C%2520green%2520initiative%252C%2520professional%2520photography%252C%2520high%2520resolution&width=300&height=300&seq=111&orientation=squarish"
+    },
+    {
+      id: 12,
+      src: "public/Inter-School Basketball Champions.jpg",
+      title: "Inter-School Basketball Champions",
+      category: "achievements",
+      date: "2025-03-10",
+      thumbnail: "https://readdy.ai/api/search-image?query=school%2520sports%2520team%2520with%2520trophy%252C%2520championship%2520winners%252C%2520team%2520photo%252C%2520proud%2520moment%252C%2520professional%2520photography%252C%2520high%2520resolution&width=300&height=300&seq=112&orientation=squarish"
+    }
+  ];
+
+  let currentImages = [...galleryImages];
+  let currentImageIndex = 0;
+  
+  // DOM elements
+  const imageGrid = document.getElementById('image-grid');
+  const noResults = document.getElementById('no-results');
+  const categoryButtons = document.querySelectorAll('.category-btn');
+  
+  // Load gallery with delay to simulate loading
+  setTimeout(() => {
+    renderGallery(currentImages);
+  }, 1500);
+  
+  // Render gallery images
+  function renderGallery(images) {
+    imageGrid.innerHTML = '';
+    
+    if (images.length === 0) {
+      noResults.classList.remove('hidden');
+    } else {
+      noResults.classList.add('hidden');
+      
+      images.forEach(image => {
+        const formattedDate = formatDate(image.date);
+        
+        const imageCard = document.createElement('div');
+        imageCard.className = 'relative aspect-square overflow-hidden !rounded-lg';
+        imageCard.innerHTML = `
+          <img src="${image.thumbnail}" alt="${image.title}" class="w-full h-full object-cover">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent/0 flex flex-col justify-end p-3">
+            <div class="flex justify-between items-end">
+              <span class="text-white text-xs px-2 py-1 bg-black/30 !rounded-full">${getCategoryName(image.category)}</span>
+              <span class="text-white text-xs">${formattedDate}</span>
+            </div>
+          </div>
+        `;
+        
+        imageCard.addEventListener('click', () => {
+          openImageModal(image, images.indexOf(image));
+        });
+        
+        imageGrid.appendChild(imageCard);
+      });
+    }
+  }
+  
+  // Format date
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', { day: 'numeric', month: 'short' });
+  }
+  
+  // Get category display name
+  function getCategoryName(category) {
+    const categories = {
+      'campus': 'Campus',
+      'events': 'Events',
+      'activities': 'Activities',
+      'achievements': 'Achievements'
+    };
+    return categories[category] || category;
+  }
+  
+  // Category filter
+  categoryButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      // Update active state
+      categoryButtons.forEach(btn => {
+        btn.classList.remove('active', 'bg-primary', 'text-white');
+        btn.classList.add('bg-gray-100', 'text-gray-700');
+      });
+      button.classList.add('active', 'bg-primary', 'text-white');
+      button.classList.remove('bg-gray-100', 'text-gray-700');
+      
+      const category = button.dataset.category;
+      
+      if (category === 'all') {
+        currentImages = [...galleryImages];
+      } else {
+        currentImages = galleryImages.filter(image => image.category === category);
+      }
+      
+      renderGallery(currentImages);
+    });
+  });
+  
+  // Image Modal
+  const imageModal = document.getElementById('image-modal');
+  const modalImage = document.getElementById('modal-image');
+  const modalTitle = document.getElementById('modal-title');
+  const modalDate = document.getElementById('modal-date');
+  const modalCategory = document.getElementById('modal-category');
+  const closeModal = document.getElementById('close-modal');
+  const prevImage = document.getElementById('prev-image');
+  const nextImage = document.getElementById('next-image');
+  const shareImage = document.getElementById('share-image');
+  
+  function openImageModal(image, index) {
+    currentImageIndex = index;
+    
+    modalImage.src = image.src;
+    modalTitle.textContent = image.title;
+    modalDate.textContent = formatDate(image.date);
+    modalCategory.textContent = getCategoryName(image.category);
+    
+    imageModal.classList.add('opacity-100');
+    imageModal.classList.remove('pointer-events-none');
+    document.body.style.overflow = 'hidden';
+  }
+  
+  function closeImageModal() {
+    imageModal.classList.remove('opacity-100');
+    imageModal.classList.add('pointer-events-none');
+    document.body.style.overflow = '';
+  }
+  
+  closeModal.addEventListener('click', closeImageModal);
+  
+  prevImage.addEventListener('click', () => {
+    currentImageIndex = (currentImageIndex - 1 + currentImages.length) % currentImages.length;
+    const prevImg = currentImages[currentImageIndex];
+    modalImage.src = prevImg.src;
+    modalTitle.textContent = prevImg.title;
+    modalDate.textContent = formatDate(prevImg.date);
+    modalCategory.textContent = getCategoryName(prevImg.category);
+  });
+  
+  nextImage.addEventListener('click', () => {
+    currentImageIndex = (currentImageIndex + 1) % currentImages.length;
+    const nextImg = currentImages[currentImageIndex];
+    modalImage.src = nextImg.src;
+    modalTitle.textContent = nextImg.title;
+    modalDate.textContent = formatDate(nextImg.date);
+    modalCategory.textContent = getCategoryName(nextImg.category);
+  });
+  
+  // Swipe functionality for image modal
+  let touchStartX = 0;
+  let touchEndX = 0;
+  
+  imageModal.addEventListener('touchstart', e => {
+    touchStartX = e.changedTouches[0].screenX;
+  });
+  
+  imageModal.addEventListener('touchend', e => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+  });
+  
+  function handleSwipe() {
+    if (touchEndX < touchStartX - 50) {
+      // Swipe left
+      nextImage.click();
+    }
+    if (touchEndX > touchStartX + 50) {
+      // Swipe right
+      prevImage.click();
+    }
+  }
+  
+  // Filter Modal
+  const filterButton = document.getElementById('filter-button');
+  const filterModal = document.getElementById('filter-modal');
+  const filterSheet = document.getElementById('filter-sheet');
+  const closeFilter = document.getElementById('close-filter');
+  const applyFilter = document.getElementById('apply-filter');
+  const resetFilter = document.getElementById('reset-filter');
+  const filterCheckboxes = document.querySelectorAll('.filter-checkbox');
+  const sortRadios = document.querySelectorAll('.sort-radio');
+  
+  filterButton.addEventListener('click', () => {
+    filterModal.classList.add('opacity-100');
+    filterModal.classList.remove('pointer-events-none');
+    filterSheet.classList.remove('translate-y-full');
+    document.body.style.overflow = 'hidden';
+  });
+  
+  function closeFilterModal() {
+    filterModal.classList.remove('opacity-100');
+    filterModal.classList.add('pointer-events-none');
+    filterSheet.classList.add('translate-y-full');
+    document.body.style.overflow = '';
+  }
+  
+  closeFilter.addEventListener('click', closeFilterModal);
+  
+  // Custom checkbox styling
+  document.querySelectorAll('input[type="checkbox"][name="filter-category"]').forEach((checkbox, index) => {
+    checkbox.addEventListener('change', () => {
+      if (checkbox.checked) {
+        filterCheckboxes[index].classList.add('bg-primary', 'border-primary');
+        filterCheckboxes[index].querySelector('i').classList.remove('hidden');
+      } else {
+        filterCheckboxes[index].classList.remove('bg-primary', 'border-primary');
+        filterCheckboxes[index].querySelector('i').classList.add('hidden');
+      }
+    });
+  });
+  
+  // Custom radio styling
+  document.querySelectorAll('input[type="radio"][name="sort"]').forEach((radio, index) => {
+    radio.addEventListener('change', () => {
+      sortRadios.forEach(r => {
+        r.querySelector('div').classList.add('hidden');
+      });
+      if (radio.checked) {
+        sortRadios[index].querySelector('div').classList.remove('hidden');
+      }
+    });
+  });
+  
+  // Apply filter
+  applyFilter.addEventListener('click', () => {
+    // Get selected categories
+    const selectedCategories = [];
+    document.querySelectorAll('input[name="filter-category"]:checked').forEach(checkbox => {
+      selectedCategories.push(checkbox.value);
+    });
+    
+    // Get date range
+    const dateFrom = document.getElementById('date-from').value;
+    const dateTo = document.getElementById('date-to').value;
+    
+    // Get sort order
+    const sortOrder = document.querySelector('input[name="sort"]:checked').value;
+    
+    // Filter images
+    let filteredImages = [...galleryImages];
+    
+    if (selectedCategories.length > 0) {
+      filteredImages = filteredImages.filter(image => selectedCategories.includes(image.category));
+    }
+    
+    if (dateFrom) {
+      filteredImages = filteredImages.filter(image => new Date(image.date) >= new Date(dateFrom));
+    }
+    
+    if (dateTo) {
+      filteredImages = filteredImages.filter(image => new Date(image.date) <= new Date(dateTo));
+    }
+    
+    // Sort images
+    if (sortOrder === 'newest') {
+      filteredImages.sort((a, b) => new Date(b.date) - new Date(a.date));
+    } else {
+      filteredImages.sort((a, b) => new Date(a.date) - new Date(b.date));
+    }
+    
+    currentImages = filteredImages;
+    renderGallery(currentImages);
+    closeFilterModal();
+    
+    // Reset category buttons to show "All" is active
+    categoryButtons.forEach(btn => {
+      btn.classList.remove('active', 'bg-primary', 'text-white');
+      btn.classList.add('bg-gray-100', 'text-gray-700');
+    });
+    document.querySelector('.category-btn[data-category="all"]').classList.add('active', 'bg-primary', 'text-white');
+    document.querySelector('.category-btn[data-category="all"]').classList.remove('bg-gray-100', 'text-gray-700');
+  });
+  
+  // Reset filter
+  resetFilter.addEventListener('click', () => {
+    document.querySelectorAll('input[name="filter-category"]').forEach((checkbox, index) => {
+      checkbox.checked = false;
+      filterCheckboxes[index].classList.remove('bg-primary', 'border-primary');
+      filterCheckboxes[index].querySelector('i').classList.add('hidden');
+    });
+    
+    document.getElementById('date-from').value = '';
+    document.getElementById('date-to').value = '';
+    
+    document.querySelector('input[name="sort"][value="newest"]').checked = true;
+    sortRadios.forEach((radio, index) => {
+      if (index === 0) {
+        radio.querySelector('div').classList.remove('hidden');
+      } else {
+        radio.querySelector('div').classList.add('hidden');
+      }
+    });
+  });
+  
+  // Share Modal
+  const shareModal = document.getElementById('share-modal');
+  const shareSheet = document.getElementById('share-sheet');
+  const closeShare = document.getElementById('close-share');
+  
+  shareImage.addEventListener('click', () => {
+    shareModal.classList.add('opacity-100');
+    shareModal.classList.remove('pointer-events-none');
+    shareSheet.classList.remove('translate-y-full');
+  });
+  
+  function closeShareModal() {
+    shareModal.classList.remove('opacity-100');
+    shareModal.classList.add('pointer-events-none');
+    shareSheet.classList.add('translate-y-full');
+  }
+  
+  closeShare.addEventListener('click', closeShareModal);
+});
+</script>
+
+</body>
+</html>

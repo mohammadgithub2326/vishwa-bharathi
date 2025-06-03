@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>School Events - Vishwa Bharathi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#4F46E5',secondary:'#10B981'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+  font-family: 'Poppins', sans-serif;
+}
+.calendar-grid .date-cell.has-event::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: #4F46E5;
+}
+.calendar-grid .date-cell.has-academic-event::after {
+  background-color: #3B82F6;
+}
+.calendar-grid .date-cell.has-cultural-event::after {
+  background-color: #EC4899;
+}
+.calendar-grid .date-cell.has-sports-event::after {
+  background-color: #10B981;
+}
+.calendar-grid .date-cell.today {
+  background-color: #4F46E5;
+  color: white;
+}
+.calendar-grid .date-cell.different-month {
+  color: #D1D5DB;
+}
+.tab-content {
+  display: none;
+}
+.tab-content.active {
+  display: block;
+}
+.event-modal {
+  transform: translateY(100%);
+  transition: transform 0.3s ease-out;
+}
+.event-modal.show {
+  transform: translateY(0);
+}
+</style>
+</head>
+<body class="bg-gray-50">
+<!-- Navigation Bar -->
+<nav class="bg-white shadow-md fixed w-full top-0 z-50">
+  <div class="max-w-full px-4 py-3 flex justify-between items-center">
+    <div class="flex items-center">
+      <a href="./index.html" data-readdy="true" class="w-8 h-8 flex items-center justify-center text-gray-600 mr-2 cursor-pointer">
+        <i class="ri-arrow-left-line ri-lg"></i>
+      </a>
+      <div class="w-10 h-10 bg-primary !rounded-full flex items-center justify-center">
+        <span class="text-white text-lg font-['Pacifico']">VB</span>
+      </div>
+      <span class="ml-2 text-lg font-semibold text-gray-800">vishwa bharathi</span>
+    </div>
+    <!-- <div class="flex items-center space-x-3">
+      <button class="w-8 h-8 flex items-center justify-center text-gray-600 cursor-pointer">
+        <i class="ri-search-line ri-lg"></i>
+      </button>
+      <button class="w-8 h-8 flex items-center justify-center text-gray-600 cursor-pointer">
+        <i class="ri-user-line ri-lg"></i>
+      </button>
+      <button class="w-8 h-8 flex items-center justify-center text-gray-600 cursor-pointer" id="menu-button">
+        <i class="ri-menu-line ri-lg"></i>
+      </button>
+    </div> -->
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="fixed inset-0 bg-white z-40 transform translate-x-full transition-transform duration-300 ease-in-out" id="mobile-menu">
+  <div class="pt-16 pb-20 px-4 h-full overflow-y-auto">
+    <div class="flex justify-end mb-6">
+      <button class="w-8 h-8 flex items-center justify-center text-gray-600 cursor-pointer" id="close-menu">
+        <i class="ri-close-line ri-lg"></i>
+      </button>
+    </div>
+    <div class="space-y-4">
+      <a href="https://readdy.ai/home/5cf10ffc-5f32-4818-b78d-7b9128f844a3/ec62445a-a69c-4815-a07e-a4dfe408bc59" data-readdy="true" class="block py-3 px-4 text-gray-800 font-medium border-b border-gray-100 cursor-pointer">Home</a>
+      <a href="#" class="block py-3 px-4 text-gray-800 font-medium border-b border-gray-100 cursor-pointer">About Us</a>
+      <a href="#" class="block py-3 px-4 text-gray-800 font-medium border-b border-gray-100 cursor-pointer">Academics</a>
+      <a href="#" class="block py-3 px-4 text-gray-800 font-medium border-b border-gray-100 cursor-pointer">Admissions</a>
+      <a href="#" class="block py-3 px-4 text-gray-800 font-medium border-b border-gray-100 cursor-pointer">Facilities</a>
+      <a href="#" class="block py-3 px-4 text-primary font-medium border-b border-gray-100 cursor-pointer">Events & News</a>
+      <a href="#" class="block py-3 px-4 text-gray-800 font-medium border-b border-gray-100 cursor-pointer">Gallery</a>
+      <a href="#" class="block py-3 px-4 text-gray-800 font-medium border-b border-gray-100 cursor-pointer">Contact</a>
+    </div>
+    <div class="mt-8">
+      <button class="w-full bg-primary text-white py-3 !rounded-button font-medium cursor-pointer">Parent Portal Login</button>
+    </div>
+    <div class="mt-8 flex justify-center space-x-4">
+      <a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-100 !rounded-full cursor-pointer">
+        <i class="ri-facebook-fill ri-lg text-gray-600"></i>
+      </a>
+      <a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-100 !rounded-full cursor-pointer">
+        <i class="ri-instagram-line ri-lg text-gray-600"></i>
+      </a>
+      <a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-100 !rounded-full cursor-pointer">
+        <i class="ri-youtube-line ri-lg text-gray-600"></i>
+      </a>
+      <a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-100 !rounded-full cursor-pointer">
+        <i class="ri-twitter-x-line ri-lg text-gray-600"></i>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Main Content -->
+<main class="pt-16 pb-20">
+  <!-- Event Filter Section -->
+  <section class="px-4 py-3 bg-white shadow-sm">
+    <div class="overflow-x-auto -mx-4 px-4 category-scroll">
+      <div class="flex space-x-2 min-w-max pb-2">
+        <button class="category-filter active px-4 py-2 !rounded-full bg-primary text-white text-sm font-medium cursor-pointer">
+          All Events
+        </button>
+        <button class="category-filter px-4 py-2 !rounded-full bg-gray-100 text-gray-700 text-sm font-medium cursor-pointer" data-category="academic">
+          Academic
+        </button>
+        <button class="category-filter px-4 py-2 !rounded-full bg-gray-100 text-gray-700 text-sm font-medium cursor-pointer" data-category="cultural">
+          Cultural
+        </button>
+        <button class="category-filter px-4 py-2 !rounded-full bg-gray-100 text-gray-700 text-sm font-medium cursor-pointer" data-category="sports">
+          Sports
+        </button>
+      </div>
+    </div>
+    
+    <div class="flex items-center justify-between mt-4">
+      <div class="relative w-3/4">
+        <input type="text" placeholder="Search events..." class="w-full pl-10 pr-4 py-2 bg-gray-100 !rounded-button text-sm">
+        <div class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 flex items-center justify-center text-gray-500">
+          <i class="ri-search-line"></i>
+        </div>
+      </div>
+      <div class="relative w-1/4 ml-2">
+        <select id="grade-filter" class="w-full appearance-none pl-3 pr-8 py-2 bg-gray-100 !rounded-button text-sm text-gray-700 border-none">
+          <option value="">All Grades</option>
+          <option value="1-5">Grades 1-5</option>
+          <option value="6-8">Grades 6-8</option>
+          <option value="9-12">Grades 9-12</option>
+        </select>
+        <div class="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 flex items-center justify-center text-gray-500 pointer-events-none">
+          <i class="ri-arrow-down-s-line"></i>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Calendar Section -->
+  <section class="px-4 py-4 bg-white mt-2 shadow-sm">
+    <div class="flex items-center justify-between mb-4">
+      <button id="prev-month" class="w-8 h-8 flex items-center justify-center text-gray-600 cursor-pointer">
+        <i class="ri-arrow-left-s-line ri-lg"></i>
+      </button>
+      <h2 id="current-month" class="text-lg font-semibold text-gray-800">June 2025</h2>
+      <button id="next-month" class="w-8 h-8 flex items-center justify-center text-gray-600 cursor-pointer">
+        <i class="ri-arrow-right-s-line ri-lg"></i>
+      </button>
+    </div>
+    
+    <div class="grid grid-cols-7 text-center mb-2">
+      <div class="text-xs font-medium text-gray-500">Sun</div>
+      <div class="text-xs font-medium text-gray-500">Mon</div>
+      <div class="text-xs font-medium text-gray-500">Tue</div>
+      <div class="text-xs font-medium text-gray-500">Wed</div>
+      <div class="text-xs font-medium text-gray-500">Thu</div>
+      <div class="text-xs font-medium text-gray-500">Fri</div>
+      <div class="text-xs font-medium text-gray-500">Sat</div>
+    </div>
+    
+    <div id="calendar-grid" class="calendar-grid grid grid-cols-7 gap-1">
+      <!-- Calendar cells will be generated by JavaScript -->
+    </div>
+    
+    <div class="flex justify-center mt-4">
+      <button id="today-button" class="px-4 py-1.5 bg-gray-100 text-gray-700 text-sm font-medium !rounded-button cursor-pointer">
+        Today
+      </button>
+    </div>
+  </section>
+
+  <!-- Event List Section -->
+  <section class="px-4 py-4 mt-2">
+    <div class="bg-white !rounded-lg p-1 flex mb-4">
+      <button class="event-tab active flex-1 py-2 text-center text-sm font-medium !rounded-full cursor-pointer" data-tab="upcoming">
+        Upcoming Events
+      </button>
+      <button class="event-tab flex-1 py-2 text-center text-sm font-medium !rounded-full cursor-pointer" data-tab="past">
+        Past Events
+      </button>
+      <button class="event-tab flex-1 py-2 text-center text-sm font-medium !rounded-full cursor-pointer" data-tab="featured">
+        Featured Events
+      </button>
+    </div>
+    
+    <div id="upcoming-events" class="tab-content active space-y-4">
+      <div class="bg-white !rounded-lg overflow-hidden shadow-sm cursor-pointer event-card" data-id="1" data-category="academic">
+        <img src="https://readdy.ai/api/search-image?query=school%2520STEM%2520lab%2520inauguration%2520ceremony%2520with%2520modern%2520equipment%252C%2520students%2520and%2520teachers%2520gathered%252C%2520ribbon%2520cutting%252C%2520educational%2520environment%252C%2520bright%2520and%2520clean%2520setting%252C%2520professional%2520photography&width=375&height=150&seq=101&orientation=landscape" alt="STEM Lab Inauguration" class="w-full h-36 object-cover">
+        <div class="p-4">
+          <div class="flex justify-between items-start">
+            <div>
+              <span class="inline-block px-2 py-1 bg-blue-100 text-blue-800 text-xs !rounded-full mb-2">Academic</span>
+              <h3 class="text-gray-800 font-medium">STEM Lab Inauguration</h3>
+              <p class="text-gray-500 text-xs mt-1 flex items-center">
+                <i class="ri-calendar-line ri-sm mr-1"></i> June 15, 2025 • 10:00 AM
+              </p>
+              <p class="text-gray-500 text-xs mt-1 flex items-center">
+                <i class="ri-map-pin-line ri-sm mr-1"></i> Main Campus
+              </p>
+            </div>
+            <button class="add-calendar-btn w-8 h-8 flex items-center justify-center bg-gray-100 !rounded-full cursor-pointer" data-event-id="1">
+              <i class="ri-calendar-add-line text-gray-600"></i>
+            </button>
+          </div>
+          <p class="text-gray-600 text-sm mt-3 line-clamp-2">
+            Join us for the grand inauguration of our state-of-the-art STEM laboratory. The new facility features cutting-edge equipment for science, technology, engineering, and mathematics education.
+          </p>
+        </div>
+      </div>
+      
+      <div class="bg-white !rounded-lg overflow-hidden shadow-sm cursor-pointer event-card" data-id="2" data-category="cultural">
+        <img src="https://readdy.ai/api/search-image?query=school%2520cultural%2520festival%2520with%2520students%2520performing%2520on%2520stage%252C%2520colorful%2520decorations%252C%2520audience%2520watching%252C%2520celebration%2520atmosphere%252C%2520professional%2520photography&width=375&height=150&seq=102&orientation=landscape" alt="Annual Cultural Fest" class="w-full h-36 object-cover">
+        <div class="p-4">
+          <div class="flex justify-between items-start">
+            <div>
+              <span class="inline-block px-2 py-1 bg-pink-100 text-pink-800 text-xs !rounded-full mb-2">Cultural</span>
+              <h3 class="text-gray-800 font-medium">Annual Cultural Fest</h3>
+              <p class="text-gray-500 text-xs mt-1 flex items-center">
+                <i class="ri-calendar-line ri-sm mr-1"></i> June 20, 2025 • 5:00 PM
+              </p>
+              <p class="text-gray-500 text-xs mt-1 flex items-center">
+                <i class="ri-map-pin-line ri-sm mr-1"></i> School Auditorium
+              </p>
+            </div>
+            <button class="add-calendar-btn w-8 h-8 flex items-center justify-center bg-gray-100 !rounded-full cursor-pointer" data-event-id="2">
+              <i class="ri-calendar-add-line text-gray-600"></i>
+            </button>
+          </div>
+          <p class="text-gray-600 text-sm mt-3 line-clamp-2">
+            Experience the vibrant cultural diversity at our Annual Cultural Fest. Students will showcase their talents through music, dance, drama, and art exhibitions representing various cultural traditions.
+          </p>
+        </div>
+      </div>
+      
+      <div class="bg-white !rounded-lg overflow-hidden shadow-sm cursor-pointer event-card" data-id="3" data-category="academic">
+        <img src="https://readdy.ai/api/search-image?query=parent%2520teacher%2520meeting%2520in%2520school%2520classroom%252C%2520teachers%2520discussing%2520with%2520parents%252C%2520educational%2520environment%252C%2520professional%2520photography&width=375&height=150&seq=103&orientation=landscape" alt="Parent-Teacher Meeting" class="w-full h-36 object-cover">
+        <div class="p-4">
+          <div class="flex justify-between items-start">
+            <div>
+              <span class="inline-block px-2 py-1 bg-blue-100 text-blue-800 text-xs !rounded-full mb-2">Academic</span>
+              <h3 class="text-gray-800 font-medium">Parent-Teacher Meeting</h3>
+              <p class="text-gray-500 text-xs mt-1 flex items-center">
+                <i class="ri-calendar-line ri-sm mr-1"></i> June 25, 2025 • 9:00 AM
+              </p>
+              <p class="text-gray-500 text-xs mt-1 flex items-center">
+                <i class="ri-map-pin-line ri-sm mr-1"></i> All Classrooms
+              </p>
+            </div>
+            <button class="add-calendar-btn w-8 h-8 flex items-center justify-center bg-gray-100 !rounded-full cursor-pointer" data-event-id="3">
+              <i class="ri-calendar-add-line text-gray-600"></i>
+            </button>
+          </div>
+          <p class="text-gray-600 text-sm mt-3 line-clamp-2">
+            An opportunity for parents to meet with teachers and discuss their child's academic progress, behavior, and areas for improvement. Please arrive on time for your scheduled appointment.
+          </p>
+        </div>
+      </div>
+      
+      <div class="bg-white !rounded-lg overflow-hidden shadow-sm cursor-pointer event-card" data-id="4" data-category="sports">
+        <img src="https://readdy.ai/api/search-image?query=school%2520sports%2520day%2520with%2520students%2520participating%2520in%2520track%2520events%252C%2520outdoor%2520stadium%252C%2520audience%2520cheering%252C%2520sunny%2520day%252C%2520professional%2520photography&width=375&height=150&seq=104&orientation=landscape" alt="Annual Sports Day" class="w-full h-36 object-cover">
+        <div class="p-4">
+          <div class="flex justify-between items-start">
+            <div>
+              <span class="inline-block px-2 py-1 bg-green-100 text-green-800 text-xs !rounded-full mb-2">Sports</span>
+              <h3 class="text-gray-800 font-medium">Annual Sports Day</h3>
+              <p class="text-gray-500 text-xs mt-1 flex items-center">
+                <i class="ri-calendar-line ri-sm mr-1"></i> July 5, 2025 • 8:00 AM
+              </p>
+              <p class="text-gray-500 text-xs mt-1 flex items-center">
+                <i class="ri-map-pin-line ri-sm mr-1"></i> School Sports Ground
+              </p>
+            </div>
+            <button class="add-calendar-btn w-8 h-8 flex items-center justify-center bg-gray-100 !rounded-full cursor-pointer" data-event-id="4">
+              <i class="ri-calendar-add-line text-gray-600"></i>
+            </button>
+          </div>
+          <p class="text-gray-600 text-sm mt-3 line-clamp-2">
+            A day of athletic competitions and team sports. Students will participate in track and field events, team games, and demonstrate their physical fitness and sportsmanship.
+          </p>
+        </div>
+      </div>
+    </div>
+    
+    <div id="past-events" class="tab-content space-y-4">
+      <div class="bg-white !rounded-lg overflow-hidden shadow-sm cursor-pointer event-card" data-id="5" data-category="cultural">
+        <img src="https://readdy.ai/api/search-image?query=school%2520art%2520exhibition%2520with%2520student%2520artwork%2520displayed%252C%2520visitors%2520viewing%2520paintings%2520and%2520sculptures%252C%2520indoor%2520gallery%2520setting%252C%2520professional%2520photography&width=375&height=150&seq=105&orientation=landscape" alt="Student Art Exhibition" class="w-full h-36 object-cover">
+        <div class="p-4">
+          <div class="flex justify-between items-start">
+            <div>
+              <span class="inline-block px-2 py-1 bg-pink-100 text-pink-800 text-xs !rounded-full mb-2">Cultural</span>
+              <h3 class="text-gray-800 font-medium">Student Art Exhibition</h3>
+              <p class="text-gray-500 text-xs mt-1 flex items-center">
+                <i class="ri-calendar-line ri-sm mr-1"></i> May 15, 2025 • 3:00 PM
+              </p>
+              <p class="text-gray-500 text-xs mt-1 flex items-center">
+                <i class="ri-map-pin-line ri-sm mr-1"></i> School Art Gallery
+              </p>
+            </div>
+            <div class="px-2 py-1 bg-gray-100 text-gray-600 text-xs !rounded-full">
+              Completed
+            </div>
+          </div>
+          <p class="text-gray-600 text-sm mt-3 line-clamp-2">
+            A showcase of creative works by our talented students. The exhibition featured paintings, sculptures, digital art, and photography created throughout the academic year.
+          </p>
+        </div>
+      </div>
+      
+      <div class="bg-white !rounded-lg overflow-hidden shadow-sm cursor-pointer event-card" data-id="6" data-category="academic">
+        <img src="https://readdy.ai/api/search-image?query=school%2520science%2520fair%2520with%2520students%2520presenting%2520projects%252C%2520science%2520experiments%2520display%252C%2520judges%2520evaluating%252C%2520educational%2520environment%252C%2520professional%2520photography&width=375&height=150&seq=106&orientation=landscape" alt="Science Fair" class="w-full h-36 object-cover">
+        <div class="p-4">
+          <div class="flex justify-between items-start">
+            <div>
+              <span class="inline-block px-2 py-1 bg-blue-100 text-blue-800 text-xs !rounded-full mb-2">Academic</span>
+              <h3 class="text-gray-800 font-medium">Annual Science Fair</h3>
+              <p class="text-gray-500 text-xs mt-1 flex items-center">
+                <i class="ri-calendar-line ri-sm mr-1"></i> May 5, 2025 • 10:00 AM
+              </p>
+              <p class="text-gray-500 text-xs mt-1 flex items-center">
+                <i class="ri-map-pin-line ri-sm mr-1"></i> School Multipurpose Hall
+              </p>
+            </div>
+            <div class="px-2 py-1 bg-gray-100 text-gray-600 text-xs !rounded-full">
+              Completed
+            </div>
+          </div>
+          <p class="text-gray-600 text-sm mt-3 line-clamp-2">
+            Students showcased their scientific knowledge through innovative projects and experiments. The event encouraged critical thinking and application of scientific principles.
+          </p>
+        </div>
+      </div>
+      
+      <div class="bg-white !rounded-lg overflow-hidden shadow-sm cursor-pointer event-card" data-id="7" data-category="sports">
+        <img src="https://readdy.ai/api/search-image?query=school%2520basketball%2520tournament%2520with%2520students%2520playing%2520in%2520indoor%2520court%252C%2520audience%2520cheering%252C%2520competitive%2520atmosphere%252C%2520professional%2520photography&width=375&height=150&seq=107&orientation=landscape" alt="Inter-School Basketball Tournament" class="w-full h-36 object-cover">
+        <div class="p-4">
+          <div class="flex justify-between items-start">
+            <div>
+              <span class="inline-block px-2 py-1 bg-green-100 text-green-800 text-xs !rounded-full mb-2">Sports</span>
+              <h3 class="text-gray-800 font-medium">Inter-School Basketball Tournament</h3>
+              <p class="text-gray-500 text-xs mt-1 flex items-center">
+                <i class="ri-calendar-line ri-sm mr-1"></i> April 20, 2025 • 9:00 AM
+              </p>
+              <p class="text-gray-500 text-xs mt-1 flex items-center">
+                <i class="ri-map-pin-line ri-sm mr-1"></i> School Indoor Stadium
+              </p>
+            </div>
+            <div class="px-2 py-1 bg-gray-100 text-gray-600 text-xs !rounded-full">
+              Completed
+            </div>
+          </div>
+          <p class="text-gray-600 text-sm mt-3 line-clamp-2">
+            Our school hosted the annual inter-school basketball tournament with participation from 12 schools across the region. Our team secured the runner-up position.
+          </p>
+        </div>
+      </div>
+    </div>
+    
+    <div id="featured-events" class="tab-content space-y-4">
+      <div class="bg-white !rounded-lg overflow-hidden shadow-sm cursor-pointer event-card" data-id="8" data-category="academic">
+        <img src="https://readdy.ai/api/search-image?query=school%2520graduation%2520ceremony%2520with%2520students%2520in%2520caps%2520and%2520gowns%252C%2520receiving%2520diplomas%252C%2520celebration%2520atmosphere%252C%2520professional%2520photography&width=375&height=150&seq=108&orientation=landscape" alt="Annual Graduation Ceremony" class="w-full h-36 object-cover">
+        <div class="p-4">
+          <div class="flex justify-between items-start">
+            <div>
+              <span class="inline-block px-2 py-1 bg-blue-100 text-blue-800 text-xs !rounded-full mb-2">Academic</span>
+              <span class="inline-block px-2 py-1 bg-yellow-100 text-yellow-800 text-xs !rounded-full mb-2 ml-1">Featured</span>
+              <h3 class="text-gray-800 font-medium">Annual Graduation Ceremony</h3>
+              <p class="text-gray-500 text-xs mt-1 flex items-center">
+                <i class="ri-calendar-line ri-sm mr-1"></i> July 30, 2025 • 4:00 PM
+              </p>
+              <p class="text-gray-500 text-xs mt-1 flex items-center">
+                <i class="ri-map-pin-line ri-sm mr-1"></i> School Auditorium
+              </p>
+            </div>
+            <button class="add-calendar-btn w-8 h-8 flex items-center justify-center bg-gray-100 !rounded-full cursor-pointer" data-event-id="8">
+              <i class="ri-calendar-add-line text-gray-600"></i>
+            </button>
+          </div>
+          <p class="text-gray-600 text-sm mt-3 line-clamp-2">
+            Join us for the graduation ceremony of the Class of 2025. The event will feature keynote speeches, award presentations, and the conferring of diplomas to our graduating students.
+          </p>
+        </div>
+      </div>
+      
+      <div class="bg-white !rounded-lg overflow-hidden shadow-sm cursor-pointer event-card" data-id="9" data-category="cultural">
+        <img src="https://readdy.ai/api/search-image?query=school%2520alumni%2520meet%2520with%2520former%2520students%2520gathering%252C%2520networking%252C%2520celebration%2520atmosphere%252C%2520professional%2520photography&width=375&height=150&seq=109&orientation=landscape" alt="Annual Alumni Meet" class="w-full h-36 object-cover">
+        <div class="p-4">
+          <div class="flex justify-between items-start">
+            <div>
+              <span class="inline-block px-2 py-1 bg-pink-100 text-pink-800 text-xs !rounded-full mb-2">Cultural</span>
+              <span class="inline-block px-2 py-1 bg-yellow-100 text-yellow-800 text-xs !rounded-full mb-2 ml-1">Featured</span>
+              <h3 class="text-gray-800 font-medium">Annual Alumni Meet</h3>
+              <p class="text-gray-500 text-xs mt-1 flex items-center">
+                <i class="ri-calendar-line ri-sm mr-1"></i> August 15, 2025 • 6:00 PM
+              </p>
+              <p class="text-gray-500 text-xs mt-1 flex items-center">
+                <i class="ri-map-pin-line ri-sm mr-1"></i> School Campus
+              </p>
+            </div>
+            <button class="add-calendar-btn w-8 h-8 flex items-center justify-center bg-gray-100 !rounded-full cursor-pointer" data-event-id="9">
+              <i class="ri-calendar-add-line text-gray-600"></i>
+            </button>
+          </div>
+          <p class="text-gray-600 text-sm mt-3 line-clamp-2">
+            A special gathering for all alumni to reconnect with their alma mater and fellow graduates. The event will include networking sessions, cultural performances, and recognition of distinguished alumni.
+          </p>
+        </div>
+      </div>
+      
+      <div class="bg-white !rounded-lg overflow-hidden shadow-sm cursor-pointer event-card" data-id="10" data-category="academic">
+        <img src="https://readdy.ai/api/search-image?query=school%2520career%2520fair%2520with%2520company%2520booths%252C%2520students%2520interacting%2520with%2520professionals%252C%2520educational%2520environment%252C%2520professional%2520photography&width=375&height=150&seq=110&orientation=landscape" alt="Career Fair" class="w-full h-36 object-cover">
+        <div class="p-4">
+          <div class="flex justify-between items-start">
+            <div>
+              <span class="inline-block px-2 py-1 bg-blue-100 text-blue-800 text-xs !rounded-full mb-2">Academic</span>
+              <span class="inline-block px-2 py-1 bg-yellow-100 text-yellow-800 text-xs !rounded-full mb-2 ml-1">Featured</span>
+              <h3 class="text-gray-800 font-medium">Annual Career Fair</h3>
+              <p class="text-gray-500 text-xs mt-1 flex items-center">
+                <i class="ri-calendar-line ri-sm mr-1"></i> September 10, 2025 • 10:00 AM
+              </p>
+              <p class="text-gray-500 text-xs mt-1 flex items-center">
+                <i class="ri-map-pin-line ri-sm mr-1"></i> School Multipurpose Hall
+              </p>
+            </div>
+            <button class="add-calendar-btn w-8 h-8 flex items-center justify-center bg-gray-100 !rounded-full cursor-pointer" data-event-id="10">
+              <i class="ri-calendar-add-line text-gray-600"></i>
+            </button>
+          </div>
+          <p class="text-gray-600 text-sm mt-3 line-clamp-2">
+            An opportunity for high school students to explore various career options. Representatives from universities, colleges, and industries will provide guidance on educational and career pathways.
+          </p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Empty State (Hidden by default) -->
+    <div id="empty-state" class="hidden text-center py-10">
+      <div class="w-20 h-20 mx-auto mb-4 flex items-center justify-center bg-gray-100 !rounded-full">
+        <i class="ri-calendar-event-line ri-2x text-gray-400"></i>
+      </div>
+      <h3 class="text-gray-800 font-medium">No Events Found</h3>
+      <p class="text-gray-500 text-sm mt-2">
+        There are no events matching your current filters.
+      </p>
+      <button id="reset-filters" class="mt-4 px-4 py-2 bg-primary text-white text-sm font-medium !rounded-button cursor-pointer">
+        Reset Filters
+      </button>
+    </div>
+  </section>
+  
+  <!-- Event Stats Section -->
+  <section class="px-4 py-4 bg-white mt-2 shadow-sm">
+    <h2 class="text-lg font-semibold text-gray-800 mb-4">Event Statistics</h2>
+    <div id="event-stats-chart" class="w-full h-64"></div>
+  </section>
+  
+  <!-- Event Participation Section -->
+  <section class="px-4 py-6 mt-2">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-lg font-semibold text-gray-800">Event Participation</h2>
+      <!-- <a href="#" class="text-primary text-sm font-medium flex items-center cursor-pointer">
+        View All <i class="ri-arrow-right-line ri-sm ml-1"></i>
+      </a> -->
+    </div>
+    <div class="bg-white !rounded-lg p-4 shadow-sm">
+      <div id="participation-chart" class="w-full h-48"></div>
+      <div class="grid grid-cols-3 gap-4 mt-4">
+        <div class="text-center">
+          <div class="text-2xl font-bold text-primary">28</div>
+          <p class="text-xs text-gray-500">Events This Year</p>
+        </div>
+        <div class="text-center">
+          <div class="text-2xl font-bold text-primary">92%</div>
+          <p class="text-xs text-gray-500">Student Participation</p>
+        </div>
+        <div class="text-center">
+          <div class="text-2xl font-bold text-primary">12</div>
+          <p class="text-xs text-gray-500">Upcoming Events</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Event Detail Modal -->
+<div id="event-modal" class="event-modal fixed bottom-0 left-0 w-full h-5/6 bg-white !rounded-t-2xl z-50 shadow-lg overflow-y-auto">
+  <div class="p-4">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-xl font-semibold text-gray-800">Event Details</h2>
+      <button id="close-modal" class="w-8 h-8 flex items-center justify-center text-gray-600 cursor-pointer">
+        <i class="ri-close-line ri-lg"></i>
+      </button>
+    </div>
+    
+    <div id="event-detail-content">
+      <!-- Content will be populated by JavaScript -->
+    </div>
+  </div>
+</div>
+
+<!-- Modal Backdrop -->
+<div id="modal-backdrop" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+
+<!-- Add to Calendar Success Toast -->
+<div id="calendar-toast" class="fixed bottom-20 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-4 py-2 !rounded-lg shadow-lg z-50 hidden">
+  Event added to your calendar!
+</div>
+
+<!-- Tab Bar -->
+<nav class="fixed bottom-0 w-full bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.05)] z-40">
+<div class="grid grid-cols-5 h-16">
+<a href="./index.html#hero" class="flex flex-col items-center justify-center cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center text-gray-500">
+<i class="ri-home-5-line ri-lg"></i>
+</div>
+<span class="text-xs text-gray-500 mt-1">Home</span>
+</a>
+<a href="./Academics-Overview-Vishwa-Bharathi.html" class="flex flex-col items-center justify-center cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center text-gray-500">
+<i class="ri-book-open-line ri-lg"></i>
+</div>
+<span class="text-xs text-gray-500 mt-1">Academics</span>
+</a>
+<a href="./Gallery-vishwa bharathi school.html" data-readdy="true" class="flex flex-col items-center justify-center cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center text-gray-500">
+<i class="ri-gallery-line ri-lg"></i>
+</div>
+<span class="text-xs text-gray-500 mt-1">Gallery</span>
+</a>
+<a href="./School-Events-Calendar.html" class="flex flex-col items-center justify-center cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center text-primary">
+<i class="ri-calendar-event-fill ri-lg"></i>
+</div>
+<span class="text-xs text-primary mt-1">Events</span>
+</a>
+<a href="./index.html#contact-section" class="flex flex-col items-center justify-center cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center text-gray-500">
+<i class="ri-contacts-line ri-lg"></i>
+</div>
+<span class="text-xs text-gray-500 mt-1">Contact</span>
+</a>
+</div>
+</nav>
+
+<!-- Scripts -->
+<!-- <script id="mobile-menu-handler">
+document.addEventListener('DOMContentLoaded', function() {
+  const menuButton = document.getElementById('menu-button');
+  const closeMenuButton = document.getElementById('close-menu');
+  const mobileMenu = document.getElementById('mobile-menu');
+  
+  menuButton.addEventListener('click', function() {
+    mobileMenu.classList.remove('translate-x-full');
+  });
+  
+  closeMenuButton.addEventListener('click', function() {
+    mobileMenu.classList.add('translate-x-full');
+  });
+});
+</script> -->
+
+<script id="calendar-handler">
+document.addEventListener('DOMContentLoaded', function() {
+  const calendarGrid = document.getElementById('calendar-grid');
+  const currentMonthElement = document.getElementById('current-month');
+  const prevMonthButton = document.getElementById('prev-month');
+  const nextMonthButton = document.getElementById('next-month');
+  const todayButton = document.getElementById('today-button');
+  
+  let currentDate = new Date();
+  let currentMonth = currentDate.getMonth();
+  let currentYear = currentDate.getFullYear();
+  
+  // Sample event data
+  const events = [
+    { id: 1, title: "STEM Lab Inauguration", date: new Date(2025, 5, 15), category: "academic" },
+    { id: 2, title: "Annual Cultural Fest", date: new Date(2025, 5, 20), category: "cultural" },
+    { id: 3, title: "Parent-Teacher Meeting", date: new Date(2025, 5, 25), category: "academic" },
+    { id: 4, title: "Annual Sports Day", date: new Date(2025, 6, 5), category: "sports" },
+    { id: 5, title: "Student Art Exhibition", date: new Date(2025, 4, 15), category: "cultural" },
+    { id: 6, title: "Annual Science Fair", date: new Date(2025, 4, 5), category: "academic" },
+    { id: 7, title: "Basketball Tournament", date: new Date(2025, 3, 20), category: "sports" },
+    { id: 8, title: "Graduation Ceremony", date: new Date(2025, 6, 30), category: "academic" },
+    { id: 9, title: "Alumni Meet", date: new Date(2025, 7, 15), category: "cultural" },
+    { id: 10, title: "Career Fair", date: new Date(2025, 8, 10), category: "academic" }
+  ];
+  
+  function renderCalendar() {
+    const firstDay = new Date(currentYear, currentMonth, 1);
+    const lastDay = new Date(currentYear, currentMonth + 1, 0);
+    const daysInMonth = lastDay.getDate();
+    const startDay = firstDay.getDay(); // 0 = Sunday, 1 = Monday, etc.
+    
+    currentMonthElement.textContent = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' }).format(firstDay);
+    
+    calendarGrid.innerHTML = '';
+    
+    // Previous month's days
+    const prevMonthLastDay = new Date(currentYear, currentMonth, 0).getDate();
+    for (let i = startDay - 1; i >= 0; i--) {
+      const dayCell = document.createElement('div');
+      dayCell.className = 'date-cell different-month h-10 flex items-center justify-center text-sm relative';
+      dayCell.textContent = prevMonthLastDay - i;
+      calendarGrid.appendChild(dayCell);
+    }
+    
+    // Current month's days
+    const today = new Date();
+    for (let i = 1; i <= daysInMonth; i++) {
+      const dayCell = document.createElement('div');
+      dayCell.className = 'date-cell h-10 flex items-center justify-center text-sm relative cursor-pointer';
+      dayCell.textContent = i;
+      
+      // Check if this day has events
+      const currentDateCheck = new Date(currentYear, currentMonth, i);
+      const hasEvents = events.filter(event => {
+        return event.date.getDate() === currentDateCheck.getDate() && 
+               event.date.getMonth() === currentDateCheck.getMonth() && 
+               event.date.getFullYear() === currentDateCheck.getFullYear();
+      });
+      
+      if (hasEvents.length > 0) {
+        dayCell.classList.add('has-event');
+        
+        // Add category-specific classes
+        const categories = [...new Set(hasEvents.map(event => event.category))];
+        categories.forEach(category => {
+          dayCell.classList.add(`has-${category}-event`);
+        });
+        
+        // Add click event to show events for this day
+        dayCell.addEventListener('click', function() {
+          // Implementation for showing events on this day
+          alert(`Events on ${currentDateCheck.toDateString()}: ${hasEvents.map(e => e.title).join(', ')}`);
+        });
+      }
+      
+      // Check if this is today
+      if (today.getDate() === i && 
+          today.getMonth() === currentMonth && 
+          today.getFullYear() === currentYear) {
+        dayCell.classList.add('today');
+      }
+      
+      calendarGrid.appendChild(dayCell);
+    }
+    
+    // Next month's days
+    const totalCells = 42; // 6 rows of 7 days
+    const remainingCells = totalCells - (startDay + daysInMonth);
+    for (let i = 1; i <= remainingCells; i++) {
+      const dayCell = document.createElement('div');
+      dayCell.className = 'date-cell different-month h-10 flex items-center justify-center text-sm relative';
+      dayCell.textContent = i;
+      calendarGrid.appendChild(dayCell);
+    }
+  }
+  
+  prevMonthButton.addEventListener('click', function() {
+    currentMonth--;
+    if (currentMonth < 0) {
+      currentMonth = 11;
+      currentYear--;
+    }
+    renderCalendar();
+  });
+  
+  nextMonthButton.addEventListener('click', function() {
+    currentMonth++;
+    if (currentMonth > 11) {
+      currentMonth = 0;
+      currentYear++;
+    }
+    renderCalendar();
+  });
+  
+  todayButton.addEventListener('click', function() {
+    const today = new Date();
+    currentMonth = today.getMonth();
+    currentYear = today.getFullYear();
+    renderCalendar();
+  });
+  
+  // Initial render
+  renderCalendar();
+});
+</script>
+
+<script id="event-tab-handler">
+document.addEventListener('DOMContentLoaded', function() {
+  const eventTabs = document.querySelectorAll('.event-tab');
+  const tabContents = document.querySelectorAll('.tab-content');
+  
+  eventTabs.forEach(tab => {
+    tab.addEventListener('click', function() {
+      // Remove active class from all tabs
+      eventTabs.forEach(t => t.classList.remove('active', 'bg-primary', 'text-white'));
+      
+      // Add active class to clicked tab
+      tab.classList.add('active', 'bg-primary', 'text-white');
+      
+      // Hide all tab contents
+      tabContents.forEach(content => content.classList.remove('active'));
+      
+      // Show the corresponding tab content
+      const tabId = tab.getAttribute('data-tab');
+      document.getElementById(`${tabId}-events`).classList.add('active');
+    });
+  });
+});
+</script>
+
+<script id="category-filter-handler">
+document.addEventListener('DOMContentLoaded', function() {
+  const categoryFilters = document.querySelectorAll('.category-filter');
+  const eventCards = document.querySelectorAll('.event-card');
+  const emptyState = document.getElementById('empty-state');
+  const resetFiltersButton = document.getElementById('reset-filters');
+  const gradeFilter = document.getElementById('grade-filter');
+  
+  function updateEventVisibility() {
+    const activeCategory = document.querySelector('.category-filter.active').getAttribute('data-category') || 'all';
+    const selectedGrade = gradeFilter.value;
+    
+    let visibleCount = 0;
+    
+    eventCards.forEach(card => {
+      const cardCategory = card.getAttribute('data-category');
+      const cardGrade = card.getAttribute('data-grade') || 'all';
+      
+      const categoryMatch = activeCategory === 'all' || cardCategory === activeCategory;
+      const gradeMatch = selectedGrade === '' || cardGrade === 'all' || cardGrade === selectedGrade;
+      
+      if (categoryMatch && gradeMatch) {
+        card.classList.remove('hidden');
+        visibleCount++;
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+    
+    // Show/hide empty state
+    if (visibleCount === 0) {
+      emptyState.classList.remove('hidden');
+    } else {
+      emptyState.classList.add('hidden');
+    }
+  }
+  
+  categoryFilters.forEach(filter => {
+    filter.addEventListener('click', function() {
+      // Remove active class from all filters
+      categoryFilters.forEach(f => f.classList.remove('active', 'bg-primary', 'text-white'));
+      categoryFilters.forEach(f => f.classList.add('bg-gray-100', 'text-gray-700'));
+      
+      // Add active class to clicked filter
+      filter.classList.add('active', 'bg-primary', 'text-white');
+      filter.classList.remove('bg-gray-100', 'text-gray-700');
+      
+      updateEventVisibility();
+    });
+  });
+  
+  gradeFilter.addEventListener('change', updateEventVisibility);
+  
+  resetFiltersButton.addEventListener('click', function() {
+    // Reset category filter
+    categoryFilters.forEach(f => f.classList.remove('active', 'bg-primary', 'text-white'));
+    categoryFilters.forEach(f => f.classList.add('bg-gray-100', 'text-gray-700'));
+    categoryFilters[0].classList.add('active', 'bg-primary', 'text-white');
+    categoryFilters[0].classList.remove('bg-gray-100', 'text-gray-700');
+    
+    // Reset grade filter
+    gradeFilter.value = '';
+    
+    updateEventVisibility();
+  });
+  
+  // Assign random grades to events for demo
+  const grades = ['1-5', '6-8', '9-12'];
+  eventCards.forEach(card => {
+    const randomGrade = grades[Math.floor(Math.random() * grades.length)];
+    card.setAttribute('data-grade', randomGrade);
+  });
+});
+</script>
+
+<script id="event-modal-handler">
+document.addEventListener('DOMContentLoaded', function() {
+  const eventCards = document.querySelectorAll('.event-card');
+  const eventModal = document.getElementById('event-modal');
+  const eventDetailContent = document.getElementById('event-detail-content');
+  const closeModalButton = document.getElementById('close-modal');
+  const modalBackdrop = document.getElementById('modal-backdrop');
+  
+  // Event details data (would normally come from a database)
+  const eventDetails = {
+    1: {
+      title: "STEM Lab Inauguration",
+      date: "June 15, 2025",
+      time: "10:00 AM - 12:00 PM",
+      location: "Main Campus",
+      category: "Academic",
+      description: "Join us for the grand inauguration of our state-of-the-art STEM laboratory. The new facility features cutting-edge equipment for science, technology, engineering, and mathematics education. The lab will provide students with hands-on learning experiences and opportunities to develop critical thinking and problem-solving skills.",
+      organizer: "Dr. Rajesh Kumar, Head of Science Department",
+      registration: "No registration required. Open to all students and parents.",
+      image: "stem lab.jpg"
+    },
+    2: {
+      title: "Annual Cultural Fest",
+      date: "June 20, 2025",
+      time: "5:00 PM - 9:00 PM",
+      location: "School Auditorium",
+      category: "Cultural",
+      description: "Experience the vibrant cultural diversity at our Annual Cultural Fest. Students will showcase their talents through music, dance, drama, and art exhibitions representing various cultural traditions. The event will feature performances by students from all grade levels, highlighting both traditional and contemporary art forms.",
+      organizer: "Ms. Priya Sharma, Cultural Coordinator",
+      registration: "Entry by invitation. Parents will receive invitations through students.",
+      image: "annual cultural fest.jpg"
+    },
+    3: {
+      title: "Parent-Teacher Meeting",
+      date: "June 25, 2025",
+      time: "9:00 AM - 3:00 PM",
+      location: "All Classrooms",
+      category: "Academic",
+      description: "An opportunity for parents to meet with teachers and discuss their child's academic progress, behavior, and areas for improvement. Please arrive on time for your scheduled appointment. Each parent will be allotted 15 minutes with each subject teacher. Time slots will be communicated through the school app one week before the meeting.",
+      organizer: "School Administration",
+      registration: "Mandatory for all parents. Schedule your appointments through the school portal.",
+      image: "parent-teacher-meeting.jpg"
+    },
+    4: {
+      title: "Annual Sports Day",
+      date: "July 5, 2025",
+      time: "8:00 AM - 4:00 PM",
+      location: "School Sports Ground",
+      category: "Sports",
+      description: "A day of athletic competitions and team sports. Students will participate in track and field events, team games, and demonstrate their physical fitness and sportsmanship. The event will include march past, oath-taking ceremony, and various individual and team competitions. Parents are invited to cheer for their children.",
+      organizer: "Mr. Sunil Verma, Physical Education Department",
+      registration: "Students must register for events through their PE teachers by June 20.",
+      image: "Annual Sports Day.jpg"
+    },
+    5: {
+      title: "Student Art Exhibition",
+      date: "May 15, 2025",
+      time: "3:00 PM - 7:00 PM",
+      location: "School Art Gallery",
+      category: "Cultural",
+      description: "A showcase of creative works by our talented students. The exhibition featured paintings, sculptures, digital art, and photography created throughout the academic year. Visitors had the opportunity to interact with student artists and learn about their creative processes and inspirations.",
+      organizer: "Ms. Anita Desai, Art Department",
+      registration: "This event has concluded.",
+      image: "Student Art Exhibition.jpg"
+    },
+    6: {
+      title: "Annual Science Fair",
+      date: "May 5, 2025",
+      time: "10:00 AM - 4:00 PM",
+      location: "School Multipurpose Hall",
+      category: "Academic",
+      description: "Students showcased their scientific knowledge through innovative projects and experiments. The event encouraged critical thinking and application of scientific principles. Projects covered various fields including physics, chemistry, biology, environmental science, and technology. External judges evaluated projects based on creativity, scientific accuracy, and presentation.",
+      organizer: "Dr. Rajesh Kumar, Head of Science Department",
+      registration: "This event has concluded.",
+      image: "Annual Science Fair.jpg"
+    },
+    7: {
+      title: "Inter-School Basketball Tournament",
+      date: "April 20, 2025",
+      time: "9:00 AM - 5:00 PM",
+      location: "School Indoor Stadium",
+      category: "Sports",
+      description: "Our school hosted the annual inter-school basketball tournament with participation from 12 schools across the region. Our team secured the runner-up position. The tournament featured both boys' and girls' teams competing in separate categories. The event promoted sportsmanship, teamwork, and healthy competition among students.",
+      organizer: "Mr. Sunil Verma, Physical Education Department",
+      registration: "This event has concluded.",
+      image: "Inter-School Basketball Tournament.jpg"
+    },
+    8: {
+      title: "Annual Graduation Ceremony",
+      date: "July 30, 2025",
+      time: "4:00 PM - 7:00 PM",
+      location: "School Auditorium",
+      category: "Academic",
+      description: "Join us for the graduation ceremony of the Class of 2025. The event will feature keynote speeches, award presentations, and the conferring of diplomas to our graduating students. This formal ceremony celebrates the academic achievements of our students and marks their transition to the next phase of their educational journey.",
+      organizer: "School Administration",
+      registration: "By invitation only. Each graduating student will receive 3 guest passes.",
+      image: "Annual Graduation Ceremony.jpg"
+    },
+    9: {
+      title: "Annual Alumni Meet",
+      date: "August 15, 2025",
+      time: "6:00 PM - 10:00 PM",
+      location: "School Campus",
+      category: "Cultural",
+      description: "A special gathering for all alumni to reconnect with their alma mater and fellow graduates. The event will include networking sessions, cultural performances, and recognition of distinguished alumni. This year's meet will celebrate the achievements of our alumni across various fields and their contributions to society.",
+      organizer: "Alumni Association & School Administration",
+      registration: "Registration required. Alumni can register through the school website by July 30.",
+      image: "Annual Alumni Meet.jpg"
+    },
+    10: {
+      title: "Annual Career Fair",
+      date: "September 10, 2025",
+      time: "10:00 AM - 4:00 PM",
+      location: "School Multipurpose Hall",
+      category: "Academic",
+      description: "An opportunity for high school students to explore various career options. Representatives from universities, colleges, and industries will provide guidance on educational and career pathways. The fair will feature information booths, interactive sessions, and one-on-one counseling opportunities to help students make informed decisions about their future.",
+      organizer: "Career Counseling Department",
+      registration: "Mandatory for students in Grades 9-12. Parents are welcome to attend.",
+      image: "Annual Career Fair.jpg"
+    }
+  };
+  
+  function openModal(eventId) {
+    const event = eventDetails[eventId];
+    if (!event) return;
+    
+    // Populate modal content
+    eventDetailContent.innerHTML = `
+      <img src="${event.image}" alt="${event.title}" class="w-full h-48 object-cover !rounded-lg mb-4">
+      
+      <div class="mb-4">
+        <span class="inline-block px-2 py-1 bg-${event.category === 'Academic' ? 'blue' : event.category === 'Cultural' ? 'pink' : 'green'}-100 text-${event.category === 'Academic' ? 'blue' : event.category === 'Cultural' ? 'pink' : 'green'}-800 text-xs !rounded-full mb-2">${event.category}</span>
+        <h3 class="text-xl font-semibold text-gray-800">${event.title}</h3>
+      </div>
+      
+      <div class="space-y-4">
+        <div class="flex items-start">
+          <div class="w-10 h-10 flex items-center justify-center bg-gray-100 !rounded-full mr-3">
+            <i class="ri-calendar-line text-gray-600"></i>
+          </div>
+          <div>
+            <h4 class="text-gray-800 font-medium">Date & Time</h4>
+            <p class="text-gray-600 text-sm">${event.date} • ${event.time}</p>
+          </div>
+        </div>
+        
+        <div class="flex items-start">
+          <div class="w-10 h-10 flex items-center justify-center bg-gray-100 !rounded-full mr-3">
+            <i class="ri-map-pin-line text-gray-600"></i>
+          </div>
+          <div>
+            <h4 class="text-gray-800 font-medium">Location</h4>
+            <p class="text-gray-600 text-sm">${event.location}</p>
+          </div>
+        </div>
+        
+        <div class="flex items-start">
+          <div class="w-10 h-10 flex items-center justify-center bg-gray-100 !rounded-full mr-3">
+            <i class="ri-user-line text-gray-600"></i>
+          </div>
+          <div>
+            <h4 class="text-gray-800 font-medium">Organizer</h4>
+            <p class="text-gray-600 text-sm">${event.organizer}</p>
+          </div>
+        </div>
+        
+        <div class="flex items-start">
+          <div class="w-10 h-10 flex items-center justify-center bg-gray-100 !rounded-full mr-3">
+            <i class="ri-information-line text-gray-600"></i>
+          </div>
+          <div>
+            <h4 class="text-gray-800 font-medium">Description</h4>
+            <p class="text-gray-600 text-sm">${event.description}</p>
+          </div>
+        </div>
+        
+        <div class="flex items-start">
+          <div class="w-10 h-10 flex items-center justify-center bg-gray-100 !rounded-full mr-3">
+            <i class="ri-file-list-line text-gray-600"></i>
+          </div>
+          <div>
+            <h4 class="text-gray-800 font-medium">Registration</h4>
+            <p class="text-gray-600 text-sm">${event.registration}</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mt-6 flex space-x-3">
+        <button class="flex-1 bg-primary text-white py-3 !rounded-button font-medium cursor-pointer add-calendar-btn" data-event-id="${eventId}">
+          Add to Calendar
+        </button>
+        <button class="w-12 h-12 flex items-center justify-center bg-gray-100 !rounded-full cursor-pointer">
+          <i class="ri-share-line text-gray-600"></i>
+        </button>
+      </div>
+      
+      <div class="mt-6">
+        <h4 class="text-gray-800 font-medium mb-3">Related Events</h4>
+        <div class="grid grid-cols-2 gap-3">
+          <div class="bg-gray-50 !rounded-lg p-3 cursor-pointer">
+            <span class="text-xs text-gray-500">${event.category}</span>
+            <h5 class="text-sm font-medium text-gray-800 mt-1">Science Olympiad Preparation</h5>
+          </div>
+          <div class="bg-gray-50 !rounded-lg p-3 cursor-pointer">
+            <span class="text-xs text-gray-500">${event.category}</span>
+            <h5 class="text-sm font-medium text-gray-800 mt-1">Workshop on Critical Thinking</h5>
+          </div>
+        </div>
+      </div>
+    `;
+    
+    // Show modal and backdrop
+    eventModal.classList.add('show');
+    modalBackdrop.classList.remove('hidden');
+    
+    // Add event listeners to the new Add to Calendar button in the modal
+    const addCalendarBtn = eventDetailContent.querySelector('.add-calendar-btn');
+    if (addCalendarBtn) {
+      addCalendarBtn.addEventListener('click', function() {
+        showCalendarToast();
+      });
+    }
+  }
+  
+  function closeModal() {
+    eventModal.classList.remove('show');
+    modalBackdrop.classList.add('hidden');
+  }
+  
+  eventCards.forEach(card => {
+    card.addEventListener('click', function() {
+      const eventId = card.getAttribute('data-id');
+      openModal(eventId);
+    });
+  });
+  
+  closeModalButton.addEventListener('click', closeModal);
+  modalBackdrop.addEventListener('click', closeModal);
+});
+</script>
+
+<script id="add-to-calendar-handler">
+document.addEventListener('DOMContentLoaded', function() {
+  const addCalendarButtons = document.querySelectorAll('.add-calendar-btn');
+  const calendarToast = document.getElementById('calendar-toast');
+  
+  function showCalendarToast() {
+    calendarToast.classList.remove('hidden');
+    setTimeout(() => {
+      calendarToast.classList.add('hidden');
+    }, 3000);
+  }
+  
+  addCalendarButtons.forEach(button => {
+    button.addEventListener('click', function(e) {
+      e.stopPropagation(); // Prevent event from bubbling up to card click
+      showCalendarToast();
+    });
+  });
+  
+  // Make the function available globally
+  window.showCalendarToast = showCalendarToast;
+});
+</script>
+
+<script id="charts-handler">
+document.addEventListener('DOMContentLoaded', function() {
+  // Event Stats Chart
+  const eventStatsChart = echarts.init(document.getElementById('event-stats-chart'));
+  
+  const eventStatsOption = {
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: {
+        type: 'shadow'
+      }
+    },
+    legend: {
+      data: ['Academic', 'Cultural', 'Sports'],
+      bottom: 0
+    },
+    grid: {
+      left: '3%',
+      right: '4%',
+      bottom: '15%',
+      top: '3%',
+      containLabel: true
+    },
+    xAxis: {
+      type: 'category',
+      data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    },
+    yAxis: {
+      type: 'value'
+    },
+    series: [
+      {
+        name: 'Academic',
+        type: 'bar',
+        stack: 'total',
+        emphasis: {
+          focus: 'series'
+        },
+        data: [2, 1, 3, 2, 3, 4, 2, 1, 3, 2, 1, 2],
+        color: '#3B82F6'
+      },
+      {
+        name: 'Cultural',
+        type: 'bar',
+        stack: 'total',
+        emphasis: {
+          focus: 'series'
+        },
+        data: [1, 2, 1, 1, 2, 2, 1, 2, 1, 1, 2, 3],
+        color: '#EC4899'
+      },
+      {
+        name: 'Sports',
+        type: 'bar',
+        stack: 'total',
+        emphasis: {
+          focus: 'series'
+        },
+        data: [1, 1, 0, 2, 1, 1, 2, 1, 1, 2, 1, 1],
+        color: '#10B981'
+      }
+    ]
+  };
+  
+  eventStatsChart.setOption(eventStatsOption);
+  
+  // Participation Chart
+  const participationChart = echarts.init(document.getElementById('participation-chart'));
+  
+  const participationOption = {
+    tooltip: {
+      trigger: 'item'
+    },
+    legend: {
+      orient: 'horizontal',
+      bottom: 0
+    },
+    series: [
+      {
+        name: 'Participation',
+        type: 'pie',
+        radius: ['40%', '70%'],
+        avoidLabelOverlap: false,
+        itemStyle: {
+          borderRadius: 10,
+          borderColor: '#fff',
+          borderWidth: 2
+        },
+        label: {
+          show: false,
+          position: 'center'
+        },
+        emphasis: {
+          label: {
+            show: true,
+            fontSize: '14',
+            fontWeight: 'bold'
+          }
+        },
+        labelLine: {
+          show: false
+        },
+        data: [
+          { value: 48, name: 'Academic', itemStyle: { color: '#3B82F6' } },
+          { value: 32, name: 'Cultural', itemStyle: { color: '#EC4899' } },
+          { value: 20, name: 'Sports', itemStyle: { color: '#10B981' } }
+        ]
+      }
+    ]
+  };
+  
+  participationChart.setOption(participationOption);
+  
+  // Handle window resize
+  window.addEventListener('resize', function() {
+    eventStatsChart.resize();
+    participationChart.resize();
+  });
+});
+</script>
+</body>
+</html>
